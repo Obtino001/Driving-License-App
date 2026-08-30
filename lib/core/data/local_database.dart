@@ -12,6 +12,7 @@ final localDatabaseProvider = Provider<LocalDatabase>((ref) {
 /// Core service for managing the SQLite database instance and schema.
 class LocalDatabase {
   LocalDatabase._();
+  LocalDatabase.internal(); // For testing
   static final LocalDatabase instance = LocalDatabase._();
 
   Database? _database;
@@ -28,7 +29,7 @@ class LocalDatabase {
 
     return await openDatabase(
       path,
-      version: 5,
+      version: 6,
       onCreate: _createDB,
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
@@ -107,6 +108,12 @@ class LocalDatabase {
         if (oldVersion < 5) {
           await db.execute('ALTER TABLE questions ADD COLUMN question_type TEXT');
         }
+        if (oldVersion < 6) {
+          await db.execute('ALTER TABLE questions ADD COLUMN review_notes TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN reviewed_at INTEGER');
+          await db.execute('ALTER TABLE questions ADD COLUMN reviewer_type TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN content_version TEXT');
+        }
       },
     );
   }
@@ -175,6 +182,10 @@ class LocalDatabase {
         last_verified INTEGER,
         verification_status TEXT,
         question_type TEXT,
+        review_notes TEXT,
+        reviewed_at INTEGER,
+        reviewer_type TEXT,
+        content_version TEXT,
         FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE
       )
     ''');

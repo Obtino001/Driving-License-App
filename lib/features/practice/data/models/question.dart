@@ -24,6 +24,10 @@ class Question {
     this.lastVerified,
     this.verificationStatus,
     this.questionType = 'standard_mcq',
+    this.reviewNotes,
+    this.reviewedAt,
+    this.reviewerType,
+    this.contentVersion,
   });
 
   /// Unique identifier.
@@ -80,6 +84,18 @@ class Question {
   /// Format of the question, e.g., 'standard_mcq', 'scenario', 'sign_question'.
   final String? questionType;
 
+  /// Reviewer's notes regarding the question.
+  final String? reviewNotes;
+
+  /// Unix timestamp of when the content was reviewed.
+  final int? reviewedAt;
+
+  /// Type of reviewer (e.g., 'human', 'automated', 'system').
+  final String? reviewerType;
+
+  /// Version of the content bundle this question belongs to.
+  final String? contentVersion;
+
   /// The correct answer text.
   String get correctAnswer => options[correctIndex];
 
@@ -104,6 +120,10 @@ class Question {
       lastVerified: json['lastVerified'] as int?,
       verificationStatus: json['verificationStatus'] as String?,
       questionType: json['questionType'] as String? ?? 'standard_mcq',
+      reviewNotes: json['reviewNotes'] as String?,
+      reviewedAt: json['reviewedAt'] as int?,
+      reviewerType: json['reviewerType'] as String?,
+      contentVersion: json['contentVersion'] as String?,
     );
   }
 
@@ -128,6 +148,10 @@ class Question {
       'lastVerified': lastVerified,
       'verificationStatus': verificationStatus,
       'questionType': questionType,
+      'reviewNotes': reviewNotes,
+      'reviewedAt': reviewedAt,
+      'reviewerType': reviewerType,
+      'contentVersion': contentVersion,
     };
   }
 
@@ -152,6 +176,10 @@ class Question {
       'last_verified': lastVerified,
       'verification_status': verificationStatus,
       'question_type': questionType,
+      'review_notes': reviewNotes,
+      'reviewed_at': reviewedAt,
+      'reviewer_type': reviewerType,
+      'content_version': contentVersion,
     };
   }
 
@@ -176,6 +204,10 @@ class Question {
       lastVerified: map['last_verified'] as int?,
       verificationStatus: map['verification_status'] as String?,
       questionType: map['question_type'] as String? ?? 'standard_mcq',
+      reviewNotes: map['review_notes'] as String?,
+      reviewedAt: map['reviewed_at'] as int?,
+      reviewerType: map['reviewer_type'] as String?,
+      contentVersion: map['content_version'] as String?,
     );
   }
 }
