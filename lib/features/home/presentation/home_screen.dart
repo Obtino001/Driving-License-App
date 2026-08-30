@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
             // ─── Top Bar: greeting + avatar ───
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg, AppSpacing.md, AppSpacing.lg, 0,
+                AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, 0,
               ),
               sliver: SliverToBoxAdapter(
                 child: _TopBar(),
@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
             // ─── Today's Challenge ───
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg, AppSpacing.ms, AppSpacing.lg, 0,
+                AppSpacing.lg, AppSpacing.md, AppSpacing.lg, 0,
               ),
               sliver: SliverToBoxAdapter(
                 child: ChallengeCard(

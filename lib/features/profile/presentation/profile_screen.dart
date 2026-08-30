@@ -211,21 +211,21 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const Divider(indent: 56),
+                const Divider(indent: 56, height: 1),
                 _SettingsTile(
                   icon: Icons.language_rounded,
                   title: 'Language',
                   subtitle: settings.language,
                   onTap: () => _showLanguageDialog(context, ref, settings.language),
                 ),
-                const Divider(indent: 56),
+                const Divider(indent: 56, height: 1),
                 _SettingsTile(
                   icon: Icons.location_on_rounded,
                   title: 'State/Region',
                   subtitle: settings.region,
                   onTap: () => _showRegionDialog(context, ref, settings.region),
                 ),
-                const Divider(indent: 56),
+                const Divider(indent: 56, height: 1),
                 _SettingsTile(
                   icon: Icons.flag_rounded,
                   title: 'Daily Goal',
@@ -250,7 +250,7 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                 ),
                 if (settings.notificationsEnabled) ...[
-                  const Divider(indent: 56),
+                  const Divider(indent: 56, height: 1),
                   _SettingsTile(
                     icon: Icons.access_time_rounded,
                     title: 'Reminder Time',
@@ -258,7 +258,7 @@ class ProfileScreen extends ConsumerWidget {
                     onTap: () => _showTimePicker(context, ref, settings.reminderTime),
                   ),
                 ],
-                const Divider(indent: 56),
+                const Divider(indent: 56, height: 1),
                 _SettingsTile(
                   icon: Icons.volume_up_rounded,
                   title: 'Sound Effects',
@@ -267,7 +267,7 @@ class ProfileScreen extends ConsumerWidget {
                     onChanged: (val) => ref.read(settingsProvider.notifier).toggleSound(val),
                   ),
                 ),
-                const Divider(indent: 56),
+                const Divider(indent: 56, height: 1),
                 _SettingsTile(
                   icon: Icons.vibration_rounded,
                   title: 'Haptic Feedback',
@@ -290,13 +290,13 @@ class ProfileScreen extends ConsumerWidget {
                   title: 'Privacy Policy',
                   onTap: () {},
                 ),
-                const Divider(indent: 56),
+                const Divider(indent: 56, height: 1),
                 _SettingsTile(
                   icon: Icons.description_rounded,
                   title: 'Terms of Service',
                   onTap: () {},
                 ),
-                const Divider(indent: 56),
+                const Divider(indent: 56, height: 1),
                 _SettingsTile(
                   icon: Icons.info_outline_rounded,
                   title: 'App Version',

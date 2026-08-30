@@ -186,14 +186,14 @@ class _QuizCompleteScreenState extends ConsumerState<QuizCompleteScreen>
                 if (s.incorrectCount > 0) ...[
                   SizedBox(
                     width: double.infinity,
-                    height: 52,
-                    child: OutlinedButton.icon(
+                    height: 56,
+                    child: FilledButton.tonalIcon(
                       onPressed: widget.onReviewWrong,
                       icon: const Icon(Icons.replay_rounded, size: 20),
-                      label: const Text('Review Wrong Answers'),
-                      style: OutlinedButton.styleFrom(
+                      label: const Text('Review Wrong Answers', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                      style: FilledButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: AppRadius.borderRadiusMd,
+                          borderRadius: AppRadius.borderRadiusLg,
                         ),
                       ),
                     ),
@@ -213,13 +213,11 @@ class _QuizCompleteScreenState extends ConsumerState<QuizCompleteScreen>
                       if (widget.onExit != null) widget.onExit!();
                     },
                     style: FilledButton.styleFrom(
-                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                      foregroundColor: theme.colorScheme.onSurface,
                       shape: RoundedRectangleBorder(
-                        borderRadius: AppRadius.borderRadiusMd,
+                        borderRadius: AppRadius.borderRadiusLg,
                       ),
                     ),
-                    child: const Text('Back to Dashboard', style: TextStyle(fontSize: 16)),
+                    child: const Text('Back to Dashboard', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
                   ),
                 ),
                 const SizedBox(height: AppSpacing.md),

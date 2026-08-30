@@ -156,51 +156,48 @@ class _MockTestResultsScreenState extends ConsumerState<MockTestResultsScreen>
                 const Spacer(flex: 1),
 
                 // Breakdown Grid
-                Container(
-                  padding: const EdgeInsets.all(AppSpacing.md),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerLow,
-                    borderRadius: AppRadius.borderRadiusLg,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _BreakdownItem(
-                            icon: Icons.check_circle_rounded,
-                            color: colors.success,
-                            value: '${state.correctCount}',
-                            label: 'Correct',
-                          ),
-                          _BreakdownItem(
-                            icon: Icons.cancel_rounded,
-                            color: theme.colorScheme.error,
-                            value: '${state.incorrectCount}',
-                            label: 'Incorrect',
-                          ),
-                        ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: _StatCard(
+                        icon: Icons.check_circle_rounded,
+                        color: colors.success,
+                        value: '${state.correctCount}',
+                        label: 'Correct',
                       ),
-                      const Divider(height: AppSpacing.xl),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _BreakdownItem(
-                            icon: Icons.help_outline_rounded,
-                            color: theme.colorScheme.onSurfaceVariant,
-                            value: '${state.unansweredCount}',
-                            label: 'Unanswered',
-                          ),
-                          _BreakdownItem(
-                            icon: Icons.timer_outlined,
-                            color: theme.colorScheme.primary,
-                            value: _formatTime(state.timeUsedSeconds),
-                            label: 'Time Used',
-                          ),
-                        ],
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: _StatCard(
+                        icon: Icons.cancel_rounded,
+                        color: theme.colorScheme.error,
+                        value: '${state.incorrectCount}',
+                        label: 'Incorrect',
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _StatCard(
+                        icon: Icons.help_outline_rounded,
+                        color: theme.colorScheme.onSurfaceVariant,
+                        value: '${state.unansweredCount}',
+                        label: 'Skipped',
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: _StatCard(
+                        icon: Icons.timer_outlined,
+                        color: theme.colorScheme.primary,
+                        value: _formatTime(state.timeUsedSeconds),
+                        label: 'Time Used',
+                      ),
+                    ),
+                  ],
                 ),
 
                 const Spacer(flex: 2),
@@ -208,16 +205,16 @@ class _MockTestResultsScreenState extends ConsumerState<MockTestResultsScreen>
                 // Action Buttons
                 SizedBox(
                   width: double.infinity,
-                  height: 52,
-                  child: OutlinedButton.icon(
+                  height: 56,
+                  child: FilledButton.tonalIcon(
                     onPressed: () {
                       // TODO: Implement Review Mode
                     },
                     icon: const Icon(Icons.fact_check_outlined, size: 20),
                     label: const Text('Review Questions'),
-                    style: OutlinedButton.styleFrom(
+                    style: FilledButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        borderRadius: AppRadius.borderRadiusMd,
+                        borderRadius: AppRadius.borderRadiusLg,
                       ),
                     ),
                   ),
@@ -236,7 +233,7 @@ class _MockTestResultsScreenState extends ConsumerState<MockTestResultsScreen>
                     },
                     style: FilledButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        borderRadius: AppRadius.borderRadiusMd,
+                        borderRadius: AppRadius.borderRadiusLg,
                       ),
                     ),
                     child: const Text('Done'),
@@ -253,8 +250,8 @@ class _MockTestResultsScreenState extends ConsumerState<MockTestResultsScreen>
   }
 }
 
-class _BreakdownItem extends StatelessWidget {
-  const _BreakdownItem({
+class _StatCard extends StatelessWidget {
+  const _StatCard({
     required this.icon,
     required this.color,
     required this.value,
@@ -270,30 +267,32 @@ class _BreakdownItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     
-    return Column(
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, color: color, size: 18),
-            const SizedBox(width: 6),
-            Text(
-              value,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: theme.colorScheme.onSurface,
-              ),
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerLow,
+        borderRadius: AppRadius.borderRadiusMd,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 28),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            value,
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w700,
             ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
           ),
-        ),
-      ],
+          Text(
+            label,
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -243,7 +243,7 @@ class _QuizQuestionViewState extends ConsumerState<_QuizQuestionView>
                               builder: (context, value, _) {
                                 return LinearProgressIndicator(
                                   value: value,
-                                  minHeight: 6,
+                                  minHeight: 4,
                                   backgroundColor: theme
                                       .colorScheme.surfaceContainerHighest,
                                   valueColor: AlwaysStoppedAnimation<Color>(
@@ -306,8 +306,11 @@ class _QuizQuestionViewState extends ConsumerState<_QuizQuestionView>
                                 ),
                                 decoration: BoxDecoration(
                                   color: theme
-                                      .colorScheme.surfaceContainerHighest,
+                                      .colorScheme.surfaceContainerLow,
                                   borderRadius: AppRadius.borderRadiusFull,
+                                  border: Border.all(
+                                    color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                                  ),
                                 ),
                                 child: Text(
                                   question.category,
@@ -326,7 +329,7 @@ class _QuizQuestionViewState extends ConsumerState<_QuizQuestionView>
                           question.text,
                           style: theme.textTheme.titleLarge?.copyWith(
                             color: theme.colorScheme.onSurface,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w700,
                             height: 1.4,
                           ),
                         ),

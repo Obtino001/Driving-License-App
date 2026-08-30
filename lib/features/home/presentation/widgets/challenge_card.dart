@@ -102,30 +102,30 @@ class _ChallengeCardState extends State<ChallengeCard>
                     Container(
                       padding: const EdgeInsets.all(AppSpacing.sm),
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.2),
+                        color: theme.colorScheme.onTertiaryContainer.withValues(alpha: 0.1),
                         borderRadius: AppRadius.borderRadiusSm,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.bolt_rounded,
                         size: 18,
-                        color: Colors.white,
+                        color: theme.colorScheme.onTertiaryContainer,
                       ),
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     Text(
                       'Today\'s Challenge',
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: theme.colorScheme.onTertiaryContainer,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: AppSpacing.ms),
+                const SizedBox(height: AppSpacing.sm),
                 Text(
                   '${widget.questionCount} questions · ~${widget.estimatedMinutes} min',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.85),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onTertiaryContainer.withValues(alpha: 0.8),
                   ),
                 ),
               ],
@@ -141,14 +141,14 @@ class _ChallengeCardState extends State<ChallengeCard>
                 vertical: AppSpacing.ms,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.colorScheme.onTertiaryContainer,
                 borderRadius: AppRadius.borderRadiusFull,
               ),
               child: Text(
                 'Start',
                 style: theme.textTheme.labelLarge?.copyWith(
-                  color: theme.colorScheme.tertiary,
-                  fontWeight: FontWeight.w700,
+                  color: theme.colorScheme.tertiaryContainer,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),

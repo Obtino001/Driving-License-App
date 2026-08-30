@@ -94,37 +94,35 @@ class MockTestIntroScreen extends StatelessWidget {
               ),
               
               const Spacer(flex: 2),
-              
-              // Start Button
-              SizedBox(
-                height: 56,
-                child: FilledButton(
-                  onPressed: () {
-                    final questions = getQuickPracticeQuestions(count: config.questionCount);
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (_) => MockTestSessionScreen(
-                          config: config,
-                          questions: questions,
+                            // Start Button
+                SizedBox(
+                  height: 56,
+                  child: FilledButton(
+                    onPressed: () {
+                      final questions = getQuickPracticeQuestions(count: config.questionCount);
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (_) => MockTestSessionScreen(
+                            config: config,
+                            questions: questions,
+                          ),
                         ),
+                      );
+                    },
+                    style: FilledButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: AppRadius.borderRadiusLg,
                       ),
-                    );
-                  },
-                  style: FilledButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: AppRadius.borderRadiusMd,
                     ),
-                  ),
-                  child: Text(
-                    'Start Test',
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 18,
+                    child: Text(
+                      'Start Test',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
