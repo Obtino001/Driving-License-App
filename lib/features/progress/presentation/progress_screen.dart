@@ -1,262 +1,136 @@
-/// Progress screen placeholder.
 library;
 
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_colors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_spacing.dart';
-import '../../../core/widgets/circular_progress_indicator.dart';
+import '../../../core/widgets/app_shimmer.dart';
+import '../../practice/data/mock_questions.dart';
+import '../../practice/presentation/quiz_session_screen.dart';
+import '../providers/progress_provider.dart';
+import 'widgets/achievements_strip.dart';
+import 'widgets/category_performance_list.dart';
+import 'widgets/level_progress_card.dart';
+import 'widgets/recommended_practice_card.dart';
+import 'widgets/stat_metric_grid.dart';
 
-/// The Progress tab showing overall stats and category breakdown.
-class ProgressScreen extends StatelessWidget {
+class ProgressScreen extends ConsumerWidget {
   const ProgressScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = context.appColors;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final progressAsync = ref.watch(progressProvider);
 
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, 0,
-              ),
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Progress',
-                      style: theme.textTheme.displaySmall,
-                    ),
-                    const SizedBox(height: AppSpacing.xs),
-                    Text(
-                      'Track your learning journey',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Overall progress ring
-            SliverPadding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              sliver: SliverToBoxAdapter(
-                child: Container(
-                  padding: const EdgeInsets.all(AppSpacing.xl),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerLow,
-                    borderRadius: AppRadius.borderRadiusLg,
-                  ),
-                  child: Column(
-                    children: [
-                      AppCircularProgress(
-                        progress: 0.35,
-                        size: 120,
-                        strokeWidth: 10,
-                        activeColor: colors.success,
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      Text(
-                        'Overall Progress',
-                        style: theme.textTheme.titleSmall,
-                      ),
-                      const SizedBox(height: AppSpacing.xs),
-                      Text(
-                        '72 of 203 questions completed',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
-            // Stats grid
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-              sliver: SliverToBoxAdapter(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: _StatBox(
-                        label: 'Study Time',
-                        value: '4h 23m',
-                        icon: Icons.schedule_rounded,
-                        color: theme.colorScheme.primary,
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.ms),
-                    Expanded(
-                      child: _StatBox(
-                        label: 'Accuracy',
-                        value: '78%',
-                        icon: Icons.gps_fixed_rounded,
-                        color: colors.success,
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.ms),
-                    Expanded(
-                      child: _StatBox(
-                        label: 'Mock Tests',
-                        value: '3',
-                        icon: Icons.assignment_rounded,
-                        color: colors.info,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // Weak areas section
-            SliverPadding(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Areas to Improve',
-                      style: theme.textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: AppSpacing.ms),
-                    _WeakAreaTile(
-                      name: 'Right of Way',
-                      accuracy: 45,
-                      color: theme.colorScheme.error,
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    _WeakAreaTile(
-                      name: 'Safety & Emergencies',
-                      accuracy: 58,
-                      color: colors.warning,
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    _WeakAreaTile(
-                      name: 'Traffic Rules',
-                      accuracy: 65,
-                      color: colors.warning,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SliverPadding(
-              padding: EdgeInsets.only(bottom: AppSpacing.xxl),
-            ),
-          ],
+      appBar: AppBar(
+        title: const Text('Progress'),
+        centerTitle: true,
+      ),
+      body: progressAsync.when(
+        data: (state) => _ProgressDashboard(state: state),
+        loading: () => const _ProgressSkeleton(),
+        error: (error, stack) => Center(
+          child: Text('Error loading progress: $error'),
         ),
       ),
     );
   }
 }
 
-class _StatBox extends StatelessWidget {
-  const _StatBox({
-    required this.label,
-    required this.value,
-    required this.icon,
-    required this.color,
-  });
+class _ProgressDashboard extends StatelessWidget {
+  const _ProgressDashboard({required this.state});
 
-  final String label;
-  final String value;
-  final IconData icon;
-  final Color color;
+  final ProgressState state;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final weakestCat = state.weakestCategory;
 
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerLow,
-        borderRadius: AppRadius.borderRadiusMd,
-      ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(bottom: AppSpacing.xxl),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Icon(icon, size: 22, color: color),
-          const SizedBox(height: AppSpacing.sm),
-          Text(
-            value,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+          // ─── Level Header ───
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: LevelProgressCard(stats: state.userStats),
           ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
-            textAlign: TextAlign.center,
+          const SizedBox(height: AppSpacing.xl),
+
+          // ─── Quick Stats ───
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: StatMetricGrid(stats: state.userStats),
           ),
+          const SizedBox(height: AppSpacing.xl),
+
+          // ─── Recommended Practice ───
+          if (weakestCat != null) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+              child: RecommendedPracticeCard(
+                weakCategory: weakestCat,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => QuizSessionScreen(
+                        title: '${weakestCat.categoryName} Practice',
+                        questions: getQuestionsByCategory(weakestCat.categoryName),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xl),
+          ],
+
+          // ─── Category Breakdown ───
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            child: CategoryPerformanceList(categories: state.weakCategories),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+
+          // ─── Achievements ───
+          AchievementsStrip(achievements: state.achievements),
+          const SizedBox(height: AppSpacing.xl),
         ],
       ),
     );
   }
 }
 
-class _WeakAreaTile extends StatelessWidget {
-  const _WeakAreaTile({
-    required this.name,
-    required this.accuracy,
-    required this.color,
-  });
-
-  final String name;
-  final int accuracy;
-  final Color color;
+/// A loading skeleton that matches the dashboard layout.
+class _ProgressSkeleton extends StatelessWidget {
+  const _ProgressSkeleton();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerLow,
-        borderRadius: AppRadius.borderRadiusMd,
-      ),
-      child: Row(
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name, style: theme.textTheme.titleSmall),
-                const SizedBox(height: AppSpacing.sm),
-                ClipRRect(
-                  borderRadius: AppRadius.borderRadiusFull,
-                  child: LinearProgressIndicator(
-                    value: accuracy / 100,
-                    minHeight: 6,
-                    backgroundColor: color.withValues(alpha: 0.15),
-                    valueColor: AlwaysStoppedAnimation<Color>(color),
-                  ),
-                ),
-              ],
-            ),
+          const AppShimmer(height: 160, borderRadius: AppRadius.xl),
+          const SizedBox(height: AppSpacing.xl),
+          Row(
+            children: const [
+              Expanded(child: AppShimmer(height: 80, borderRadius: AppRadius.lg)),
+              SizedBox(width: AppSpacing.md),
+              Expanded(child: AppShimmer(height: 80, borderRadius: AppRadius.lg)),
+            ],
           ),
-          const SizedBox(width: AppSpacing.md),
-          Text(
-            '$accuracy%',
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w700,
-            ),
+          const SizedBox(height: AppSpacing.md),
+          Row(
+            children: const [
+              Expanded(child: AppShimmer(height: 80, borderRadius: AppRadius.lg)),
+              SizedBox(width: AppSpacing.md),
+              Expanded(child: AppShimmer(height: 80, borderRadius: AppRadius.lg)),
+            ],
           ),
+          const SizedBox(height: AppSpacing.xl),
+          const AppShimmer(height: 100, borderRadius: AppRadius.lg),
         ],
       ),
     );
