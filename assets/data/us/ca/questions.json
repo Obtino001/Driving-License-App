@@ -3762,5 +3762,855 @@
     "lastVerified": 1725015000,
     "verificationStatus": "REVIEW",
     "questionType": "numerical"
+  },
+  {
+    "id": "ca_q_179",
+    "stateId": "ca",
+    "ruleId": "ca_rule_child_restraint_age_8",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "Where must a child who is under 8 years old be seated in a vehicle?",
+    "options": [
+      "In the rear seat, secured in a child passenger restraint system.",
+      "In the front seat with an adult seatbelt.",
+      "In any seat, as long as they wear a lap belt.",
+      "In the rear seat using only a shoulder belt."
+    ],
+    "correctIndex": 0,
+    "explanation": "California law requires that children under 8 years old must be secured in a car seat or booster seat in the back seat of the vehicle.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_180",
+    "stateId": "ca",
+    "ruleId": "ca_rule_child_restraint_age_8",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "At what height may a child who is under 8 years old use a properly fitted safety belt instead of a child passenger restraint system?",
+    "options": [
+      "4 feet 0 inches",
+      "4 feet 2 inches",
+      "4 feet 5 inches",
+      "4 feet 9 inches or taller"
+    ],
+    "correctIndex": 3,
+    "explanation": "Children under 8 years old who are 4 feet 9 inches or taller may be secured by a properly fitted safety belt rather than a child restraint system.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_181",
+    "stateId": "ca",
+    "ruleId": "ca_rule_child_restraint_age_2",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "How must a child under 2 years of age be secured in a vehicle?",
+    "options": [
+      "In a rear-facing child passenger restraint system.",
+      "In a front-facing booster seat.",
+      "Using a standard lap belt in the rear seat.",
+      "In a car seat facing forward if they can sit up unassisted."
+    ],
+    "correctIndex": 0,
+    "explanation": "California law requires children under 2 years old to ride in a rear-facing car seat unless they meet specific weight or height exceptions.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_182",
+    "stateId": "ca",
+    "ruleId": "ca_rule_child_restraint_age_2",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "A child under 2 years old is exempt from the rear-facing car seat requirement if they weigh at least:",
+    "options": [
+      "20 pounds",
+      "25 pounds",
+      "30 pounds",
+      "40 pounds or are 40 inches tall"
+    ],
+    "correctIndex": 3,
+    "explanation": "A child under 2 years old is not required to ride rear-facing if they weigh 40 or more pounds, or are 40 or more inches tall.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_183",
+    "stateId": "ca",
+    "ruleId": "ca_rule_leaving_child_in_car",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "It is illegal to leave a child unattended in a motor vehicle if they are:",
+    "options": [
+      "6 years old or younger.",
+      "8 years old or younger.",
+      "10 years old or younger.",
+      "12 years old or younger."
+    ],
+    "correctIndex": 0,
+    "explanation": "California law prohibits leaving a child 6 years old or younger unattended in a motor vehicle, especially if there are conditions that present a significant risk.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_184",
+    "stateId": "ca",
+    "ruleId": "ca_rule_leaving_child_in_car",
+    "questionType": "exception",
+    "difficulty": "hard",
+    "text": "Under what condition is it legally permissible to leave a 5-year-old child inside a motor vehicle?",
+    "options": [
+      "If the windows are rolled down at least two inches.",
+      "If the engine is turned off and the keys are removed.",
+      "If you are only stepping away for less than five minutes.",
+      "If the child is supervised by a person who is at least 12 years old."
+    ],
+    "correctIndex": 3,
+    "explanation": "A child 6 years old or younger may be left in a motor vehicle if they are supervised by a person who is 12 years of age or older.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_185",
+    "stateId": "ca",
+    "ruleId": "ca_rule_leaving_child_in_car",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "To legally supervise a 4-year-old child left inside a motor vehicle, the supervising person must be at least:",
+    "options": [
+      "10 years old.",
+      "12 years old.",
+      "14 years old.",
+      "16 years old."
+    ],
+    "correctIndex": 1,
+    "explanation": "The law requires that any child 6 or younger left in a vehicle must be supervised by someone who is at least 12 years old.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_186",
+    "stateId": "ca",
+    "ruleId": "ca_rule_collision_reporting",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "You must submit a written report to the DMV after a collision if:",
+    "options": [
+      "There is property damage of more than $1,000, or anyone is injured or killed.",
+      "Both vehicles require a tow truck.",
+      "You do not have active auto insurance.",
+      "The collision occurred on a freeway."
+    ],
+    "correctIndex": 0,
+    "explanation": "A traffic accident must be reported to the DMV within 10 days if there is more than $1,000 in damage to the property of any person, or if anyone is injured or killed.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_187",
+    "stateId": "ca",
+    "ruleId": "ca_rule_collision_reporting",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "If you are involved in a collision that results in over $1,000 in property damage, how many days do you have to report it to the DMV?",
+    "options": [
+      "2 days",
+      "3 days",
+      "5 days",
+      "10 days"
+    ],
+    "correctIndex": 3,
+    "explanation": "You must report the collision to the DMV on an SR-1 form within 10 days.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_188",
+    "stateId": "ca",
+    "ruleId": "ca_rule_hit_and_run",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "If you collide with a parked vehicle and cannot find the owner, what must you do?",
+    "options": [
+      "Leave a securely placed note with your name and address, and report the collision to police.",
+      "Wait for at least one hour, then leave if they do not return.",
+      "Leave the scene if the damage appears to be less than $500.",
+      "Have the vehicle towed to a safe location."
+    ],
+    "correctIndex": 0,
+    "explanation": "If you hit a parked vehicle and cannot locate the owner, you must leave a note with your name and address securely attached to the vehicle and report the collision to the police or CHP.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_189",
+    "stateId": "ca",
+    "ruleId": "ca_rule_insurance_requirements",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When are you required to carry proof of financial responsibility (insurance) in your vehicle?",
+    "options": [
+      "Only when driving on freeways.",
+      "Only if you have a prior collision on your record.",
+      "Only during the first year of being licensed.",
+      "At all times when driving."
+    ],
+    "correctIndex": 3,
+    "explanation": "You must carry written evidence of financial responsibility at all times and present it when requested by law enforcement.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_190",
+    "stateId": "ca",
+    "ruleId": "ca_rule_minimum_insurance",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "What is the minimum liability insurance coverage required for a single person's injury or death in California?",
+    "options": [
+      "$15,000",
+      "$20,000",
+      "$30,000",
+      "$50,000"
+    ],
+    "correctIndex": 0,
+    "explanation": "The minimum liability insurance requirements are $15,000 for a single injury or death, $30,000 for multiple injuries/deaths, and $5,000 for property damage.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_191",
+    "stateId": "ca",
+    "ruleId": "ca_rule_smoking_with_minor",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When is it legal to smoke in a vehicle with a minor present?",
+    "options": [
+      "When all the windows are fully rolled down.",
+      "When the vehicle is stopped in a private driveway.",
+      "When the minor is sitting in the rear seat.",
+      "It is never legal to smoke when a minor is in the vehicle."
+    ],
+    "correctIndex": 3,
+    "explanation": "It is a punishable offense to smoke in a motor vehicle any time a minor is present.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_192",
+    "stateId": "ca",
+    "ruleId": "ca_rule_smoking_with_minor",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "You can be fined for smoking in a vehicle if a passenger is under the age of:",
+    "options": [
+      "12 years old.",
+      "16 years old.",
+      "18 years old.",
+      "21 years old."
+    ],
+    "correctIndex": 2,
+    "explanation": "The law prohibits smoking in a vehicle when a minor (anyone under 18 years of age) is present.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_193",
+    "stateId": "ca",
+    "ruleId": "ca_rule_dumping_animals",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "What is the penalty for abandoning or dumping an animal on a highway?",
+    "options": [
+      "A fine of up to $1,000 and up to six months in jail.",
+      "A verbal warning for the first offense.",
+      "A mandatory suspension of your driver's license for 30 days.",
+      "No penalty, as it is handled by animal control rather than traffic court."
+    ],
+    "correctIndex": 0,
+    "explanation": "Dumping or abandoning an animal on a highway is a crime punishable by a fine of up to $1,000, up to six months in jail, or both.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_194",
+    "stateId": "ca",
+    "ruleId": "ca_rule_carrying_loads",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When carrying a load on your passenger vehicle, the load must not extend:",
+    "options": [
+      "Beyond the front bumper.",
+      "Beyond the roofline.",
+      "More than 3 inches beyond the left fenders.",
+      "More than 6 inches beyond the right fenders."
+    ],
+    "correctIndex": 3,
+    "explanation": "A load must not extend beyond the fenders on the left side, or more than six inches beyond the fenders on the right side of the vehicle.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_195",
+    "stateId": "ca",
+    "ruleId": "ca_rule_carrying_loads",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "A passenger vehicle may not carry a load that extends beyond the line of the fenders on:",
+    "options": [
+      "The left side of the vehicle.",
+      "The right side of the vehicle.",
+      "Both the left and right sides of the vehicle.",
+      "The rear bumper."
+    ],
+    "correctIndex": 0,
+    "explanation": "The load may not extend beyond the line of the fenders on the left side, and no more than six inches on the right side.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_196",
+    "stateId": "ca",
+    "ruleId": "ca_rule_red_flag_load",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When are you required to attach a red flag to the back of a load on your vehicle?",
+    "options": [
+      "Any time the load extends past the rear bumper.",
+      "If the load extends more than 2 feet from the back.",
+      "If the load is wider than the vehicle.",
+      "If the load extends 4 or more feet from the back of the vehicle."
+    ],
+    "correctIndex": 3,
+    "explanation": "If a load extends 4 or more feet past the rear of your vehicle, you must tie a red or fluorescent orange flag to the end of the load during the day.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_197",
+    "stateId": "ca",
+    "ruleId": "ca_rule_red_flag_load",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "How large must the red or fluorescent orange flag be when attached to a load extending from the back of a vehicle?",
+    "options": [
+      "At least 12 inches square.",
+      "At least 16 inches square.",
+      "At least 18 inches square.",
+      "At least 24 inches square."
+    ],
+    "correctIndex": 0,
+    "explanation": "The required warning flag tied to a load extending 4 or more feet from the back of a vehicle must be at least 12 inches square.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_198",
+    "stateId": "ca",
+    "ruleId": "ca_rule_littering",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "What is a potential penalty for littering from your vehicle?",
+    "options": [
+      "A verbal warning and a small fine.",
+      "Automatic suspension of your driver's license for a year.",
+      "Community service at an animal shelter.",
+      "A fine of up to $1,000 and you may be forced to pick up litter."
+    ],
+    "correctIndex": 3,
+    "explanation": "Littering is illegal and is punishable by a fine of up to $1,000. A conviction may also require you to pick up litter.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_199",
+    "stateId": "ca",
+    "ruleId": "ca_rule_honking_horn",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When is it appropriate to sound your vehicle's horn?",
+    "options": [
+      "To avoid collisions.",
+      "To encourage a slow driver to move faster.",
+      "To let another driver know they made a mistake.",
+      "To greet a friend walking on the sidewalk."
+    ],
+    "correctIndex": 0,
+    "explanation": "You should only use your horn when necessary to avoid collisions. Using it out of anger or to rush other drivers is unsafe and illegal.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_200",
+    "stateId": "ca",
+    "ruleId": "ca_rule_honking_horn",
+    "questionType": "exception",
+    "difficulty": "hard",
+    "text": "Aside from avoiding collisions, under what specific circumstance must you sound your horn?",
+    "options": [
+      "When passing a bicyclist in a shared lane.",
+      "When approaching any blind intersection in a residential area.",
+      "When merging onto a busy freeway to signal your presence.",
+      "On narrow mountain roads where you cannot see at least 200 feet ahead."
+    ],
+    "correctIndex": 3,
+    "explanation": "You must use your horn on narrow mountain roads if you cannot see at least 200 feet ahead to warn oncoming drivers of your approach.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_201",
+    "stateId": "ca",
+    "ruleId": "ca_rule_provisional_permit_driving",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When driving with a provisional instruction permit, you must be accompanied by a licensed driver who is:",
+    "options": [
+      "At least 18 years old.",
+      "At least 21 years old.",
+      "At least 25 years old.",
+      "Any age, as long as they have a valid license."
+    ],
+    "correctIndex": 2,
+    "explanation": "A provisional permit requires the driver to be accompanied by a parent, guardian, spouse, or a licensed adult who is at least 25 years old.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_202",
+    "stateId": "ca",
+    "ruleId": "ca_rule_provisional_permit_driving",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "What is the minimum age for a non-parent adult to legally accompany a driver who holds a provisional instruction permit?",
+    "options": [
+      "25 years old",
+      "21 years old",
+      "18 years old",
+      "30 years old"
+    ],
+    "correctIndex": 0,
+    "explanation": "The supervising driver must be at least 25 years old, hold a valid driver's license, and be seated close enough to take control of the vehicle.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_203",
+    "stateId": "ca",
+    "ruleId": "ca_rule_provisional_permit_solo",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When are you allowed to drive alone while holding a provisional instruction permit?",
+    "options": [
+      "Only during daylight hours.",
+      "Only when driving to and from school.",
+      "Only if you have held the permit for more than six months.",
+      "Under no circumstances."
+    ],
+    "correctIndex": 3,
+    "explanation": "A provisional instruction permit does not allow you to drive alone at any time. You must always have an eligible accompanying driver.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_204",
+    "stateId": "ca",
+    "ruleId": "ca_rule_provisional_license_passengers",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "During the first 12 months after receiving a provisional driver's license, you may not transport passengers who are:",
+    "options": [
+      "Under 16 years old.",
+      "Under 18 years old.",
+      "Under 20 years old.",
+      "Under 25 years old."
+    ],
+    "correctIndex": 2,
+    "explanation": "For the first 12 months, provisional license holders cannot transport passengers under 20 years old unless accompanied by a parent/guardian or licensed driver 25+.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_205",
+    "stateId": "ca",
+    "ruleId": "ca_rule_provisional_license_passengers",
+    "questionType": "exception",
+    "difficulty": "hard",
+    "text": "Under what condition may a minor with a provisional license legally transport a 16-year-old passenger during the first 12 months without an adult present?",
+    "options": [
+      "If the passenger is a classmate and they are carpooling.",
+      "If the drive is strictly within 5 miles of their home.",
+      "If the driver has completed an advanced driving course.",
+      "For a medical necessity, carrying a signed note from a physician."
+    ],
+    "correctIndex": 3,
+    "explanation": "Exceptions to the passenger restriction exist for medical necessity, school activities, and family needs, provided the driver carries a signed note explaining the necessity.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_206",
+    "stateId": "ca",
+    "ruleId": "ca_rule_provisional_license_time",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "During the first 12 months of holding a provisional driver's license, you are generally prohibited from driving between:",
+    "options": [
+      "9:00 p.m. and 6:00 a.m.",
+      "10:00 p.m. and 5:00 a.m.",
+      "11:00 p.m. and 5:00 a.m.",
+      "12:00 a.m. and 6:00 a.m."
+    ],
+    "correctIndex": 2,
+    "explanation": "A provisional driver's license restricts minors from driving between 11:00 p.m. and 5:00 a.m. during the first 12 months.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_207",
+    "stateId": "ca",
+    "ruleId": "ca_rule_provisional_license_time",
+    "questionType": "exception",
+    "difficulty": "hard",
+    "text": "A provisional license holder in their first year may drive at 11:30 p.m. without an accompanying adult if:",
+    "options": [
+      "They are driving a parent's vehicle.",
+      "They have had zero traffic citations.",
+      "They are returning from a friend's house in a quiet neighborhood.",
+      "They are driving for employment and have a signed note from their employer."
+    ],
+    "correctIndex": 3,
+    "explanation": "An exception to the nighttime driving restriction is employment necessity, provided the minor carries a signed statement from the employer.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_208",
+    "stateId": "ca",
+    "ruleId": "ca_rule_sharing_motorcycles",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When a motorcycle is riding in the lane next to you, you should remember that a motorcycle:",
+    "options": [
+      "Is entitled to the full width of the lane.",
+      "Must ride on the extreme right edge of the lane.",
+      "Can only use the HOV (carpool) lane.",
+      "Is required to share the lane with a passenger vehicle."
+    ],
+    "correctIndex": 0,
+    "explanation": "Motorcycles are entitled to the full width of their lane. Never try to share a lane with a motorcycle.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_209",
+    "stateId": "ca",
+    "ruleId": "ca_rule_sharing_motorcycles",
+    "questionType": "scenario",
+    "difficulty": "medium",
+    "text": "You are driving on a city street and following a motorcycle. To drive safely, you should:",
+    "options": [
+      "Maintain a 1-second following distance to stay in their draft.",
+      "Allow a greater following distance than you would for a car.",
+      "Move slightly into the oncoming lane so the rider can see you.",
+      "Tap your horn lightly to ensure they know you are behind them."
+    ],
+    "correctIndex": 1,
+    "explanation": "Because motorcycles can stop more quickly than cars, you should increase your following distance to at least a four-second cushion.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_210",
+    "stateId": "ca",
+    "ruleId": "ca_rule_sharing_motorcycles",
+    "questionType": "scenario",
+    "difficulty": "hard",
+    "text": "You are driving on a multi-lane highway and want to pass a motorcycle traveling in the right lane. You should:",
+    "options": [
+      "Change lanes entirely as you would when passing a car.",
+      "Stay in the same lane and squeeze past them on the left.",
+      "Flash your high beams so the rider moves to the shoulder.",
+      "Pass them closely so they know you are completing the maneuver quickly."
+    ],
+    "correctIndex": 0,
+    "explanation": "You must never attempt to share a lane with a motorcycle. To pass safely, you must move completely into the adjacent lane.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_211",
+    "stateId": "ca",
+    "ruleId": "ca_rule_lane_splitting",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "Lane splitting, where a motorcyclist rides between rows of stopped or moving vehicles:",
+    "options": [
+      "Is strictly illegal in California.",
+      "Is legal only during rush hour.",
+      "Requires the motorcyclist to use hazard lights.",
+      "Is legally permitted in California."
+    ],
+    "correctIndex": 3,
+    "explanation": "California law allows motorcyclists to lane split (ride between vehicles). Drivers must share the road safely.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_212",
+    "stateId": "ca",
+    "ruleId": "ca_rule_lane_splitting",
+    "questionType": "scenario",
+    "difficulty": "medium",
+    "text": "You are stuck in heavy highway traffic and notice a motorcycle splitting lanes and approaching from behind. You should:",
+    "options": [
+      "Open your door slightly to warn them to slow down.",
+      "Stay in your lane and avoid sudden movements.",
+      "Swerve quickly to the right to clear a path.",
+      "Honk your horn to warn the vehicles ahead."
+    ],
+    "correctIndex": 1,
+    "explanation": "When a motorcycle is lane splitting, you should maintain your lane position, avoid sudden swerves, and allow them to pass safely.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_213",
+    "stateId": "ca",
+    "ruleId": "ca_rule_implied_consent",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "California's 'Implied Consent' law means that if you are lawfully arrested for driving under the influence (DUI):",
+    "options": [
+      "You consent to submit to a chemical test of your blood, breath, or urine.",
+      "Your vehicle will be permanently confiscated.",
+      "You consent to have your vehicle searched by law enforcement.",
+      "You have the right to refuse a blood alcohol test without penalty."
+    ],
+    "correctIndex": 0,
+    "explanation": "By driving in California, you consent to have your breath, blood, or urine tested if you are arrested for driving under the influence of alcohol or drugs.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_214",
+    "stateId": "ca",
+    "ruleId": "ca_rule_prescription_drugs",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "It is illegal to drive after taking prescription or over-the-counter medications if:",
+    "options": [
+      "They are not prescribed directly to you.",
+      "They cause your blood pressure to decrease.",
+      "You do not carry a signed doctor's note.",
+      "They impair your ability to drive safely."
+    ],
+    "correctIndex": 3,
+    "explanation": "It is illegal to drive under the influence of any drug, including prescription and over-the-counter medications, if they impair your ability to drive safely.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_215",
+    "stateId": "ca",
+    "ruleId": "ca_rule_cell_phone_adult",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "An adult driver (18 or older) may use a cell phone while driving only if:",
+    "options": [
+      "The phone is mounted and requires only a single swipe or tap to operate.",
+      "They are driving on a straight freeway with no traffic.",
+      "They hold the phone close to their face for voice-to-text.",
+      "They are stopped at a red traffic light."
+    ],
+    "correctIndex": 0,
+    "explanation": "Adults may only use a cell phone if it is used in a hands-free manner, such as being securely mounted and operated with a single swipe or tap.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_216",
+    "stateId": "ca",
+    "ruleId": "ca_rule_earplugs",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "While driving a motor vehicle, it is illegal to wear a headset, earplugs, or earphones in:",
+    "options": [
+      "The left ear only.",
+      "The right ear only.",
+      "Either ear during nighttime hours.",
+      "Both ears simultaneously."
+    ],
+    "correctIndex": 3,
+    "explanation": "California law prohibits drivers from wearing a headset, earplugs, or earphones in or covering both ears while driving a motor vehicle.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_217",
+    "stateId": "ca",
+    "ruleId": "ca_rule_earplugs",
+    "questionType": "exception",
+    "difficulty": "hard",
+    "text": "Which of the following is a legal exception to the rule prohibiting earplugs in both ears while driving?",
+    "options": [
+      "Operating authorized emergency vehicles or highway maintenance equipment.",
+      "Driving an electric vehicle that does not produce engine noise.",
+      "Listening to GPS navigation instructions on long trips.",
+      "Having a medical note for severe motion sickness."
+    ],
+    "correctIndex": 0,
+    "explanation": "Exceptions to the earplug rule include persons operating authorized emergency vehicles, construction equipment, or refuse collection equipment who wear safety earplugs.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_218",
+    "stateId": "ca",
+    "ruleId": "ca_rule_seat_belt_law",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When driving a vehicle equipped with seat belts:",
+    "options": [
+      "Only the driver is required to wear a seat belt.",
+      "Passengers in the rear seat are not required to wear seat belts.",
+      "Seat belts are optional for vehicles manufactured before 1990.",
+      "You and all passengers must wear a seat belt."
+    ],
+    "correctIndex": 3,
+    "explanation": "California law requires that the driver and all passengers wear a seat belt when a vehicle is being driven on a highway.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_219",
+    "stateId": "ca",
+    "ruleId": "ca_rule_seat_belt_law",
+    "questionType": "numerical",
+    "difficulty": "medium",
+    "text": "A driver can be ticketed if a passenger is not wearing a seat belt and the passenger is under:",
+    "options": [
+      "12 years of age.",
+      "14 years of age.",
+      "18 years of age.",
+      "16 years of age."
+    ],
+    "correctIndex": 3,
+    "explanation": "If a passenger is under 16 years old and not wearing a seat belt, the driver may be cited. Passengers 16 and older may be cited personally.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_220",
+    "stateId": "ca",
+    "ruleId": "ca_rule_lane_splitting",
+    "questionType": "scenario",
+    "difficulty": "hard",
+    "text": "Traffic is moving slowly and a motorcycle is splitting lanes between you and the vehicle to your left. You need to change into the left lane. What should you do?",
+    "options": [
+      "Activate your turn signal and move over immediately to block the motorcycle.",
+      "Check your mirrors and blind spots carefully, and wait for the motorcycle to pass before merging.",
+      "Honk your horn to warn the motorcycle to stop while you merge.",
+      "Pace the motorcycle and attempt to merge behind it closely."
+    ],
+    "correctIndex": 1,
+    "explanation": "Motorcycles can lane split legally. You must check your mirrors and blind spots to ensure it is safe before changing lanes, allowing any splitting motorcycles to pass.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_221",
+    "stateId": "ca",
+    "ruleId": "ca_rule_truck_blind_spots",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "What is the 'No Zone'?",
+    "options": [
+      "A designated area on the highway where trucks are not allowed.",
+      "The large blind spots around a commercial truck where collisions are more likely.",
+      "A parking zone specifically for emergency vehicles.",
+      "The solid yellow line that prohibits passing."
+    ],
+    "correctIndex": 1,
+    "explanation": "The 'No Zone' refers to the large blind spots around a large truck or bus where the driver cannot see other vehicles.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_222",
+    "stateId": "ca",
+    "ruleId": "ca_rule_truck_blind_spots",
+    "questionType": "scenario",
+    "difficulty": "medium",
+    "text": "You are driving directly behind a large commercial truck. You realize you cannot see the truck's side mirrors. What should you do?",
+    "options": [
+      "Honk your horn so the truck driver knows you are there.",
+      "Move closer to the truck to reduce wind resistance.",
+      "Increase your following distance until you can see the truck's side mirrors.",
+      "Swerve slightly into the adjacent lane to peek ahead of the truck."
+    ],
+    "correctIndex": 2,
+    "explanation": "If you cannot see the truck driver's side mirrors, they cannot see you. You should increase your following distance until the mirrors are visible.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_223",
+    "stateId": "ca",
+    "ruleId": "ca_rule_truck_blind_spots",
+    "questionType": "scenario",
+    "difficulty": "hard",
+    "text": "You are traveling in the right lane next to a large truck. The truck begins to signal a right turn. You should:",
+    "options": [
+      "Slow down and fall behind the truck until it completes its maneuver.",
+      "Speed up to pass the truck before it reaches the intersection.",
+      "Move into the truck's right blind spot to ensure you make the turn first.",
+      "Honk your horn to indicate you have the right-of-way."
+    ],
+    "correctIndex": 0,
+    "explanation": "Trucks make wide right turns and may swing into the left lane before turning. Never attempt to pass a turning truck on the right side; instead, slow down and wait.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_224",
+    "stateId": "ca",
+    "ruleId": "ca_rule_truck_turning",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "Because of their large size, commercial trucks often need to:",
+    "options": [
+      "Drive on the shoulder when passing.",
+      "Come to a complete stop before crossing intersections.",
+      "Use the carpool lane to maintain speed.",
+      "Swing wide to the left before making a right turn."
+    ],
+    "correctIndex": 3,
+    "explanation": "Large trucks often must swing wide to the left before starting a right turn to prevent the rear wheels from hitting the curb or pedestrians.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_225",
+    "stateId": "ca",
+    "ruleId": "ca_rule_truck_turning",
+    "questionType": "scenario",
+    "difficulty": "medium",
+    "text": "You see a large truck in front of you move into the left lane while signaling a right turn. You should:",
+    "options": [
+      "Pass the truck on the right side.",
+      "Assume the truck driver made a mistake and meant to signal left.",
+      "Honk to let the driver know their signal is incorrect.",
+      "Wait to see if the truck is actually turning right, as they often swing wide."
+    ],
+    "correctIndex": 3,
+    "explanation": "If a truck seems to be turning left but has a right turn signal on, it is likely swinging wide to make a right turn. You should wait and never pass on the right.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_226",
+    "stateId": "ca",
+    "ruleId": "ca_rule_truck_turning",
+    "questionType": "scenario",
+    "difficulty": "hard",
+    "text": "A large truck is turning right onto a narrow street and blocking your lane. You should:",
+    "options": [
+      "Wait patiently until the truck completes its turn.",
+      "Squeeze past the truck on the right side.",
+      "Drive into oncoming traffic to pass the truck.",
+      "Pull up as close as possible to the truck's rear bumper."
+    ],
+    "correctIndex": 0,
+    "explanation": "You should never try to squeeze past a truck on the right side, especially when it is turning. Wait patiently for the truck to complete its maneuver safely.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_227",
+    "stateId": "ca",
+    "ruleId": "ca_rule_light_rail_vehicles",
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When sharing the road with a light rail vehicle or trolley, you should remember that:",
+    "options": [
+      "They must always yield to passenger vehicles.",
+      "They share the same rights and responsibilities on public roadways as other vehicles.",
+      "They are only allowed to operate during daylight hours.",
+      "You are always permitted to drive in the designated light rail lane."
+    ],
+    "correctIndex": 1,
+    "explanation": "Light rail vehicles have the same rights and responsibilities on public roadways as other vehicles, and drivers must obey all traffic signals governing them.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_228",
+    "stateId": "ca",
+    "ruleId": "ca_rule_light_rail_vehicles",
+    "questionType": "scenario",
+    "difficulty": "medium",
+    "text": "You are preparing to cross light rail tracks. A trolley has just passed, but the crossing gates remain down. You should:",
+    "options": [
+      "Drive around the gates since the trolley is gone.",
+      "Honk your horn until the gates are raised.",
+      "Wait until the gates rise and you can clearly see in both directions.",
+      "Proceed cautiously if you do not see a second trolley."
+    ],
+    "correctIndex": 2,
+    "explanation": "Never drive around crossing gates. Wait until they rise completely and look in both directions, as a second light rail vehicle may be approaching.",
+    "verificationStatus": "REVIEW"
   }
 ]
