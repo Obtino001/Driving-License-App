@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import '../../lib/features/practice/data/models/question.dart';
 import '../../lib/core/models/region_state.dart';
+import '../../lib/core/models/driving_rule.dart';
 
 void main() {
   group('Model Tests', () {
@@ -39,6 +40,28 @@ void main() {
       expect(state.stateName, 'California');
       expect(state.abbreviation, 'CA');
       expect(state.status, 'COMING_SOON');
+    });
+
+    test('DrivingRule parses from JSON correctly with new version fields', () {
+      final json = {
+        "ruleId": "ca_rule_test",
+        "stateId": "ca",
+        "topic": "Test Topic",
+        "subtopic": "Test Subtopic",
+        "ruleSummary": "Rule summary",
+        "sourceId": "ca_dmv",
+        "sourceVersion": "v1.0",
+        "contentVersion": "v2.0",
+        "effectiveDate": "2024-01-01",
+        "lastVerified": 1234567890,
+        "status": "verified"
+      };
+
+      final rule = DrivingRule.fromJson(json);
+      expect(rule.ruleId, 'ca_rule_test');
+      expect(rule.contentVersion, 'v2.0');
+      expect(rule.effectiveDate, '2024-01-01');
+      expect(rule.sourceVersion, 'v1.0');
     });
   });
 }

@@ -15,6 +15,8 @@ class DrivingRule {
     this.section,
     this.page,
     required this.sourceVersion,
+    required this.contentVersion,
+    this.effectiveDate,
     required this.lastVerified,
     required this.status,
   });
@@ -52,6 +54,12 @@ class DrivingRule {
   /// The edition/version of the source when this rule was extracted
   final String sourceVersion;
 
+  /// The version of the content database
+  final String contentVersion;
+
+  /// Effective date of the rule, if applicable
+  final String? effectiveDate;
+
   /// Unix timestamp of when this rule was last fact-checked
   final int lastVerified;
 
@@ -71,6 +79,8 @@ class DrivingRule {
       section: json['section'] as String?,
       page: json['page'] as int?,
       sourceVersion: json['sourceVersion'] as String,
+      contentVersion: json['contentVersion'] as String? ?? 'v1',
+      effectiveDate: json['effectiveDate'] as String?,
       lastVerified: json['lastVerified'] as int,
       status: json['status'] as String,
     );
@@ -89,6 +99,8 @@ class DrivingRule {
       'section': section,
       'page': page,
       'sourceVersion': sourceVersion,
+      'contentVersion': contentVersion,
+      'effectiveDate': effectiveDate,
       'lastVerified': lastVerified,
       'status': status,
     };

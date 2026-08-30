@@ -64,5 +64,17 @@
     "priority": "LOW_PRIORITY",
     "reason": "Financial responsibility is mentioned but rarely detailed in knowledge tests.",
     "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Child Restraints",
+    "priority": "MEDIUM_PRIORITY",
+    "reason": "Age and height rules for car seats are commonly tested.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Sharing the Road",
+    "priority": "HIGH_PRIORITY",
+    "reason": "Interactions with large trucks and motorcycles are a major focus for safety.",
+    "officialSource": "ca_dmv_handbook"
   }
 ]

@@ -104,6 +104,14 @@ class ResearchValidator {
           buffer.writeln('  [ERROR] Orphaned rule (invalid sourceId): ${rule.ruleId} -> ${rule.sourceId}');
         }
 
+        if (rule.sourceVersion.isEmpty) {
+          buffer.writeln('  [ERROR] Rule missing sourceVersion: ${rule.ruleId}');
+        }
+        
+        if (rule.contentVersion.isEmpty) {
+          buffer.writeln('  [ERROR] Rule missing contentVersion: ${rule.ruleId}');
+        }
+
         if (rule.status == 'verified') {
           verifiedRules++;
         } else {
