@@ -1,0 +1,47 @@
+[
+  {
+    "stateId": "ca",
+    "stateCode": "CA",
+    "stateName": "California",
+    "licensingAuthority": "California Department of Motor Vehicles",
+    "officialWebsite": "https://www.dmv.ca.gov/",
+    "handbookFound": true,
+    "handbookURL": "https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/",
+    "handbookVersion": "2024",
+    "sampleTestFound": true,
+    "roadSignSourceFound": true,
+    "vehicleCodeSourceFound": true,
+    "lastResearchDate": 1725015000,
+    "researchStatus": "sources_found"
+  },
+  {
+    "stateId": "tx",
+    "stateCode": "TX",
+    "stateName": "Texas",
+    "licensingAuthority": "Texas Department of Public Safety",
+    "officialWebsite": "https://www.dps.texas.gov/",
+    "handbookFound": false,
+    "handbookURL": null,
+    "handbookVersion": null,
+    "sampleTestFound": false,
+    "roadSignSourceFound": false,
+    "vehicleCodeSourceFound": false,
+    "lastResearchDate": null,
+    "researchStatus": "not_started"
+  },
+  {
+    "stateId": "ny",
+    "stateCode": "NY",
+    "stateName": "New York",
+    "licensingAuthority": "New York Department of Motor Vehicles",
+    "officialWebsite": "https://dmv.ny.gov/",
+    "handbookFound": false,
+    "handbookURL": null,
+    "handbookVersion": null,
+    "sampleTestFound": false,
+    "roadSignSourceFound": false,
+    "vehicleCodeSourceFound": false,
+    "lastResearchDate": null,
+    "researchStatus": "not_started"
+  }
+]
