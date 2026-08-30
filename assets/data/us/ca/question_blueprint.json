@@ -10,17 +10,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "COVERED_BY_PILOT"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -32,12 +35,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "COVERED_BY_PILOT"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -49,12 +54,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "COVERED_BY_PILOT"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -66,12 +73,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -83,22 +92,26 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -110,17 +123,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -132,17 +148,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "COVERED_BY_PILOT"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -154,12 +173,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "COVERED_BY_PILOT"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -171,12 +192,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -188,7 +211,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -200,12 +224,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -217,17 +243,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "COVERED_BY_PILOT"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -239,7 +268,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -251,7 +281,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -263,12 +294,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -280,12 +313,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "COVERED_BY_PILOT"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -297,12 +332,15 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "status": "GENERATED",
+          "questionId": "ca_q_129"
         }
       ]
     },
@@ -314,17 +352,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -336,17 +377,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -358,12 +402,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -375,17 +421,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -397,17 +446,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -419,17 +471,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -441,27 +496,32 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -473,17 +533,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -495,22 +558,26 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -522,12 +589,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -539,12 +608,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -556,7 +627,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -568,7 +640,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -580,17 +653,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -602,7 +678,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -614,12 +691,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -631,12 +710,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -648,17 +729,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -670,17 +754,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -692,17 +779,20 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -714,12 +804,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -731,12 +823,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -748,7 +842,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -760,7 +855,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -772,12 +868,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -789,12 +887,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -806,12 +906,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -823,12 +925,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -840,12 +944,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -857,12 +963,14 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "auditStatus": "GENERATED"
         }
       ]
     },
@@ -874,12 +982,15 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "auditStatus": "GENERATED"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_130"
         }
       ]
     },
@@ -891,12 +1002,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_131"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_132"
         }
       ]
     },
@@ -908,12 +1023,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_133"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_134"
         }
       ]
     },
@@ -925,12 +1044,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_135"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "status": "GENERATED",
+          "questionId": "ca_q_136"
         }
       ]
     },
@@ -942,12 +1065,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_137"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_138"
         }
       ]
     },
@@ -959,12 +1086,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_139"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_140"
         }
       ]
     },
@@ -976,12 +1107,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_141"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_142"
         }
       ]
     },
@@ -993,17 +1128,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_143"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "status": "GENERATED",
+          "questionId": "ca_q_144"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_145"
         }
       ]
     },
@@ -1015,12 +1156,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_146"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_147"
         }
       ]
     },
@@ -1032,12 +1177,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_148"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_149"
         }
       ]
     },
@@ -1049,17 +1198,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_150"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_151"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_152"
         }
       ]
     },
@@ -1071,12 +1226,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_153"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_154"
         }
       ]
     },
@@ -1088,17 +1247,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_155"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_156"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_157"
         }
       ]
     },
@@ -1110,12 +1275,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_158"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_159"
         }
       ]
     },
@@ -1127,17 +1296,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_160"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_161"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_162"
         }
       ]
     },
@@ -1149,17 +1324,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_163"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "status": "GENERATED",
+          "questionId": "ca_q_164"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_165"
         }
       ]
     },
@@ -1171,17 +1352,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_166"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_167"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_168"
         }
       ]
     },
@@ -1193,17 +1380,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_169"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_170"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_171"
         }
       ]
     },
@@ -1215,17 +1408,23 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_172"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "status": "GENERATED",
+          "questionId": "ca_q_173"
         },
         {
           "type": "scenario",
           "difficulty": "medium",
-          "description": "Place the driver in a scenario requiring them to apply this rule."
+          "description": "Place the driver in a scenario requiring them to apply this rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_174"
         }
       ]
     },
@@ -1237,12 +1436,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_175"
         },
         {
           "type": "exception",
           "difficulty": "hard",
-          "description": "Test the specific exception: $exceptions"
+          "description": "Test the specific exception: $exceptions",
+          "status": "GENERATED",
+          "questionId": "ca_q_176"
         }
       ]
     },
@@ -1254,12 +1457,16 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED",
+          "questionId": "ca_q_177"
         },
         {
           "type": "numerical",
           "difficulty": "medium",
-          "description": "Test numerical memory while preserving the condition."
+          "description": "Test numerical memory while preserving the condition.",
+          "status": "GENERATED",
+          "questionId": "ca_q_178"
         }
       ]
     },
