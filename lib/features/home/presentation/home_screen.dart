@@ -6,12 +6,18 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/streak_badge.dart';
 import '../../practice/data/mock_questions.dart';
 import '../../practice/presentation/quiz_session_screen.dart';
 import '../../mock_test/presentation/mock_test_intro_screen.dart';
 import '../../road_signs/presentation/road_signs_screen.dart';
+import '../../practice/providers/mistakes_provider.dart';
+import '../../practice/presentation/mistakes_dashboard_screen.dart';
+import '../../../core/providers/subscription_provider.dart';
+import '../../premium/presentation/premium_upgrade_screen.dart';
 import 'widgets/progress_card.dart';
 import 'widgets/challenge_card.dart';
 import 'widgets/quick_action.dart';
@@ -97,6 +103,43 @@ class HomeScreen extends StatelessWidget {
                     ));
                   },
                 ),
+              ),
+            ),
+
+            // ─── Mistakes Banner ───
+            SliverToBoxAdapter(
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final mistakesAsync = ref.watch(mistakesProvider);
+                  return mistakesAsync.maybeWhen(
+                    data: (state) {
+                      if (state.totalMistakes > 0) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: AppSpacing.xl),
+                          child: _MistakesBanner(count: state.totalMistakes),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                    orElse: () => const SizedBox.shrink(),
+                  );
+                },
+              ),
+            ),
+
+            // ─── Premium Upsell Banner ───
+            SliverToBoxAdapter(
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final isPremium = ref.watch(isPremiumProvider);
+                  if (!isPremium) {
+                    return const Padding(
+                      padding: EdgeInsets.only(top: AppSpacing.xl),
+                      child: _PremiumUpsellBanner(),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
             ),
 
@@ -317,6 +360,72 @@ class _SectionLabelState extends State<_SectionLabel>
   }
 }
 
+class _MistakesBanner extends StatelessWidget {
+  const _MistakesBanner({required this.count});
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = context.appColors;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: Material(
+        color: colors.warning.withValues(alpha: 0.15),
+        borderRadius: AppRadius.borderRadiusLg,
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const MistakesDashboardScreen()),
+            );
+          },
+          borderRadius: AppRadius.borderRadiusLg,
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colors.warning.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.psychology_alt_rounded, color: colors.warning),
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Review Mistakes',
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          color: colors.warning,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        'You have $count questions to improve.',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.chevron_right_rounded, color: colors.warning),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 // ─── Motivational Footer ────────────────────────────────────────────────────
 
 class _MotivationalFooter extends StatefulWidget {
@@ -388,6 +497,78 @@ class _MotivationalFooterState extends State<_MotivationalFooter>
             fontStyle: FontStyle.italic,
           ),
           textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+}
+
+class _PremiumUpsellBanner extends StatelessWidget {
+  const _PremiumUpsellBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      child: Material(
+        color: theme.colorScheme.primaryContainer,
+        borderRadius: AppRadius.borderRadiusLg,
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const PremiumUpgradeScreen()),
+            );
+          },
+          borderRadius: AppRadius.borderRadiusLg,
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.workspace_premium_rounded,
+                    color: theme.colorScheme.primary,
+                    size: 28,
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Unlock Premium',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: theme.colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'No ads, Smart Mistakes & unlimited tests.',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.8),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Icon(
+                  Icons.arrow_forward_rounded,
+                  color: theme.colorScheme.primary,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

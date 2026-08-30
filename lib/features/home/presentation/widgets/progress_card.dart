@@ -98,17 +98,14 @@ class _ProgressCardState extends State<ProgressCard>
       child: FadeTransition(
         opacity: _fadeAnimation,
         child: Container(
-          padding: const EdgeInsets.all(AppSpacing.lg),
+          padding: const EdgeInsets.all(AppSpacing.xl),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.primaryContainer,
-                theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
-              ],
-            ),
+            color: theme.colorScheme.surfaceContainer,
             borderRadius: AppRadius.borderRadiusXl,
+            border: Border.all(
+              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+              width: 1,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,16 +116,15 @@ class _ProgressCardState extends State<ProgressCard>
                   Icon(
                     Icons.auto_stories_rounded,
                     size: 16,
-                    color: theme.colorScheme.onPrimaryContainer
-                        .withValues(alpha: 0.7),
+                    color: theme.colorScheme.primary,
                   ),
                   const SizedBox(width: AppSpacing.sm),
                   Text(
                     'Continue Learning',
                     style: theme.textTheme.labelLarge?.copyWith(
-                      color: theme.colorScheme.onPrimaryContainer
-                          .withValues(alpha: 0.7),
+                      color: theme.colorScheme.primary,
                       letterSpacing: 0.5,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
@@ -150,16 +146,15 @@ class _ProgressCardState extends State<ProgressCard>
                           painter: _ProgressRingPainter(
                             progress: _progressAnimation.value,
                             activeColor: colors.success,
-                            trackColor: theme.colorScheme.onPrimaryContainer
-                                .withValues(alpha: 0.1),
+                            trackColor: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
                             strokeWidth: 8,
                           ),
                           child: Center(
                             child: Text(
                               '${(_progressAnimation.value * 100).round()}%',
                               style: theme.textTheme.headlineSmall?.copyWith(
-                                color: theme.colorScheme.onPrimaryContainer,
-                                fontWeight: FontWeight.w700,
+                                color: theme.colorScheme.onSurface,
+                                fontWeight: FontWeight.w800,
                               ),
                             ),
                           ),
@@ -178,8 +173,8 @@ class _ProgressCardState extends State<ProgressCard>
                         Text(
                           widget.categoryName,
                           style: theme.textTheme.titleMedium?.copyWith(
-                            color: theme.colorScheme.onPrimaryContainer,
-                            fontWeight: FontWeight.w600,
+                            color: theme.colorScheme.onSurface,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         const SizedBox(height: AppSpacing.sm),
@@ -194,10 +189,8 @@ class _ProgressCardState extends State<ProgressCard>
                         _InfoChip(
                           icon: Icons.radio_button_unchecked_rounded,
                           label: '$remaining remaining',
-                          color: theme.colorScheme.onPrimaryContainer
-                              .withValues(alpha: 0.6),
-                          bgColor: theme.colorScheme.onPrimaryContainer
-                              .withValues(alpha: 0.06),
+                          color: theme.colorScheme.onSurfaceVariant,
+                          bgColor: theme.colorScheme.surfaceContainerHighest,
                         ),
                       ],
                     ),

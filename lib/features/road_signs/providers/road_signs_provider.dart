@@ -1,25 +1,33 @@
-library;
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../data/repositories/road_signs_repository.dart';
 
-/// Manages the user's favorite road signs (by ID).
-/// 
-/// In a real app, this would read/write from local storage (e.g., SharedPreferences or Hive).
 class FavoriteRoadSignsNotifier extends StateNotifier<Set<String>> {
-  FavoriteRoadSignsNotifier() : super({});
+  FavoriteRoadSignsNotifier(this._repo) : super({}) {
+    _loadFavorites();
+  }
 
-  void toggleFavorite(String id) {
+  final SqlRoadSignsRepository _repo;
+
+  Future<void> _loadFavorites() async {
+    final favorites = await _repo.getFavoriteSignIds();
+    state = favorites;
+  }
+
+  Future<void> toggleFavorite(String id) async {
+    // Optimistic UI update
     if (state.contains(id)) {
       state = {...state}..remove(id);
     } else {
       state = {...state}..add(id);
     }
+    // Persist to DB
+    await _repo.toggleFavorite(id);
   }
 
   bool isFavorite(String id) => state.contains(id);
 }
 
-/// Provider for favorite road signs.
-final favoriteRoadSignsProvider = StateNotifierProvider<FavoriteRoadSignsNotifier, Set<String>>(
-  (ref) => FavoriteRoadSignsNotifier(),
-);
+final favoriteRoadSignsProvider = StateNotifierProvider<FavoriteRoadSignsNotifier, Set<String>>((ref) {
+  final repo = ref.watch(sqlRoadSignsRepositoryProvider);
+  return FavoriteRoadSignsNotifier(repo);
+});

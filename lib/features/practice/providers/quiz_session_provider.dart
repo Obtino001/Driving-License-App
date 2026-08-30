@@ -7,6 +7,7 @@ library;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/question.dart';
+import '../data/repositories/question_repository.dart';
 
 /// Immutable state of the entire quiz session.
 @immutable
@@ -99,14 +100,18 @@ class QuizSessionState {
 
 /// Manages quiz session state transitions.
 class QuizSessionNotifier extends StateNotifier<QuizSessionState> {
-  QuizSessionNotifier(List<Question> questions)
-      : super(QuizSessionState(
+  QuizSessionNotifier({
+    required List<Question> questions,
+    required this.repository,
+  })  : super(QuizSessionState(
           questions: questions,
           results: List.generate(
             questions.length,
             (i) => QuestionResult(questionIndex: i),
           ),
         ));
+
+  final SqlQuestionRepository repository;
 
   /// User selects an answer. Immediately reveals correct/incorrect.
   void selectAnswer(int answerIndex) {
@@ -124,6 +129,12 @@ class QuizSessionNotifier extends StateNotifier<QuizSessionState> {
     state = state.copyWith(
       results: updatedResults,
       showExplanation: true,
+    );
+
+    // Persist result to the repository
+    repository.saveQuestionResult(
+      question.id,
+      isCorrect,
     );
   }
 

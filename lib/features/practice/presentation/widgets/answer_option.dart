@@ -115,15 +115,15 @@ class _AnswerOptionState extends State<AnswerOption>
 
     if (!widget.isRevealed) {
       // Unanswered state
-      borderColor = theme.colorScheme.outlineVariant;
-      backgroundColor = theme.colorScheme.surface;
+      borderColor = Colors.transparent;
+      backgroundColor = theme.colorScheme.surfaceContainerLow;
       textColor = theme.colorScheme.onSurface;
       letterBgColor = theme.colorScheme.surfaceContainerHighest;
       letterColor = theme.colorScheme.onSurfaceVariant;
     } else if (widget.isCorrectAnswer) {
       // This is the correct answer (always highlight green)
-      borderColor = colors.success;
-      backgroundColor = colors.successContainer.withValues(alpha: 0.4);
+      borderColor = Colors.transparent;
+      backgroundColor = colors.successContainer;
       textColor = colors.onSuccessContainer;
       letterBgColor = colors.success;
       letterColor = colors.onSuccess;
@@ -131,8 +131,8 @@ class _AnswerOptionState extends State<AnswerOption>
       trailingIconColor = colors.success;
     } else if (widget.isSelected && !widget.isCorrectAnswer) {
       // User selected this, but it's wrong
-      borderColor = theme.colorScheme.error;
-      backgroundColor = theme.colorScheme.errorContainer.withValues(alpha: 0.4);
+      borderColor = Colors.transparent;
+      backgroundColor = theme.colorScheme.errorContainer;
       textColor = theme.colorScheme.onErrorContainer;
       letterBgColor = theme.colorScheme.error;
       letterColor = theme.colorScheme.onError;
@@ -140,32 +140,38 @@ class _AnswerOptionState extends State<AnswerOption>
       trailingIconColor = theme.colorScheme.error;
     } else {
       // Other options after reveal (dimmed)
-      borderColor = theme.colorScheme.outlineVariant.withValues(alpha: 0.5);
-      backgroundColor = theme.colorScheme.surface;
+      borderColor = Colors.transparent;
+      backgroundColor = theme.colorScheme.surfaceContainerLow.withValues(alpha: 0.5);
       textColor = theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5);
       letterBgColor =
           theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5);
       letterColor = theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5);
     }
 
-    Widget card = AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: AppRadius.borderRadiusLg,
-        border: Border.all(color: borderColor, width: 1.5),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: widget.onTap,
+    Widget card = AnimatedScale(
+      scale: widget.isSelected && !widget.isRevealed ? 0.98 : 1.0,
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.easeOutCubic,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+        decoration: BoxDecoration(
+          color: backgroundColor,
           borderRadius: AppRadius.borderRadiusLg,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.md,
-              vertical: AppSpacing.md,
-            ),
+          border: Border.all(color: borderColor, width: 1),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: widget.onTap,
+            borderRadius: AppRadius.borderRadiusLg,
+            splashColor: theme.colorScheme.primary.withValues(alpha: 0.1),
+            highlightColor: theme.colorScheme.primary.withValues(alpha: 0.05),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: AppSpacing.md,
+              ),
             child: Row(
               children: [
                 // Letter badge
@@ -212,7 +218,7 @@ class _AnswerOptionState extends State<AnswerOption>
           ),
         ),
       ),
-    );
+    ));
 
     // Wrap in shake animation for wrong answer
     if (widget.isSelected && !widget.isCorrectAnswer && widget.isRevealed) {

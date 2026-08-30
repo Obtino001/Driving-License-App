@@ -85,16 +85,9 @@ class _ChallengeCardState extends State<ChallengeCard>
 
   Widget _buildActive(ThemeData theme, AppColorsExtension colors) {
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.xl),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            theme.colorScheme.tertiary,
-            theme.colorScheme.tertiary.withValues(alpha: 0.85),
-          ],
-        ),
+        color: theme.colorScheme.tertiaryContainer,
         borderRadius: AppRadius.borderRadiusXl,
       ),
       child: Row(

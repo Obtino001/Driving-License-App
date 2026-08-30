@@ -68,8 +68,12 @@ class _ExplanationPanelState extends State<ExplanationPanel>
 
     final accentColor = widget.isCorrect ? colors.success : theme.colorScheme.error;
     final bgColor = widget.isCorrect
-        ? colors.successContainer.withValues(alpha: 0.5)
-        : theme.colorScheme.errorContainer.withValues(alpha: 0.5);
+        ? colors.successContainer
+        : theme.colorScheme.errorContainer;
+
+    final onBgColor = widget.isCorrect 
+        ? colors.onSuccessContainer 
+        : theme.colorScheme.onErrorContainer;
 
     return SlideTransition(
       position: _slideAnimation,
@@ -77,7 +81,7 @@ class _ExplanationPanelState extends State<ExplanationPanel>
         opacity: _fadeAnimation,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(AppSpacing.lg),
+          padding: const EdgeInsets.all(AppSpacing.xl),
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: const BorderRadius.only(
@@ -99,42 +103,42 @@ class _ExplanationPanelState extends State<ExplanationPanel>
                           ? Icons.check_circle_rounded
                           : Icons.cancel_rounded,
                       color: accentColor,
-                      size: 24,
+                      size: 28,
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     Text(
-                      widget.isCorrect ? 'Correct!' : 'Not quite',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: accentColor,
-                        fontWeight: FontWeight.w700,
+                      widget.isCorrect ? 'Awesome!' : 'Not quite',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: onBgColor,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                   ],
                 ),
 
                 if (!widget.isCorrect) ...[
-                  const SizedBox(height: AppSpacing.sm),
+                  const SizedBox(height: AppSpacing.md),
                   Text(
                     'Correct answer: ${widget.correctAnswer}',
-                    style: theme.textTheme.bodyMedium?.copyWith(
+                    style: theme.textTheme.bodyLarge?.copyWith(
                       color: colors.success,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
 
-                const SizedBox(height: AppSpacing.ms),
+                const SizedBox(height: AppSpacing.md),
 
                 // Explanation text
                 Text(
                   widget.explanation,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.85),
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: onBgColor.withValues(alpha: 0.9),
                     height: 1.5,
                   ),
                 ),
 
-                const SizedBox(height: AppSpacing.lg),
+                const SizedBox(height: AppSpacing.xl),
 
                 // Next button — PROMINENT, impossible to miss
                 SizedBox(

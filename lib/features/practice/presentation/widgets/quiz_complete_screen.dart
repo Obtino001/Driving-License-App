@@ -2,13 +2,16 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/providers/subscription_provider.dart';
+import '../../../../core/providers/ads_provider.dart';
 import '../../../../core/widgets/circular_progress_indicator.dart';
 import '../../providers/quiz_session_provider.dart';
 
 /// Full-screen results shown after completing a quiz session.
-class QuizCompleteScreen extends StatefulWidget {
+class QuizCompleteScreen extends ConsumerStatefulWidget {
   const QuizCompleteScreen({
     super.key,
     required this.state,
@@ -23,10 +26,10 @@ class QuizCompleteScreen extends StatefulWidget {
   final VoidCallback? onReviewWrong;
 
   @override
-  State<QuizCompleteScreen> createState() => _QuizCompleteScreenState();
+  ConsumerState<QuizCompleteScreen> createState() => _QuizCompleteScreenState();
 }
 
-class _QuizCompleteScreenState extends State<QuizCompleteScreen>
+class _QuizCompleteScreenState extends ConsumerState<QuizCompleteScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scoreAnimation;
@@ -202,16 +205,23 @@ class _QuizCompleteScreenState extends State<QuizCompleteScreen>
                   width: double.infinity,
                   height: 56,
                   child: FilledButton(
-                    onPressed: widget.onExit,
+                    onPressed: () async {
+                      final isPremium = ref.read(isPremiumProvider);
+                      if (!isPremium) {
+                        await ref.read(adsServiceProvider).showInterstitialAd(context);
+                      }
+                      if (widget.onExit != null) widget.onExit!();
+                    },
                     style: FilledButton.styleFrom(
+                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                      foregroundColor: theme.colorScheme.onSurface,
                       shape: RoundedRectangleBorder(
                         borderRadius: AppRadius.borderRadiusMd,
                       ),
                     ),
-                    child: const Text('Done'),
+                    child: const Text('Back to Dashboard', style: TextStyle(fontSize: 16)),
                   ),
                 ),
-
                 const SizedBox(height: AppSpacing.md),
               ],
             ),

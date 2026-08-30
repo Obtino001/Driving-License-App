@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/providers/subscription_provider.dart';
+import '../../../../core/providers/ads_provider.dart';
 import '../../../../core/widgets/circular_progress_indicator.dart';
 import '../providers/mock_test_provider.dart';
 
@@ -225,7 +227,13 @@ class _MockTestResultsScreenState extends ConsumerState<MockTestResultsScreen>
                   width: double.infinity,
                   height: 56,
                   child: FilledButton(
-                    onPressed: widget.onExit,
+                    onPressed: () async {
+                      final isPremium = ref.read(isPremiumProvider);
+                      if (!isPremium) {
+                        await ref.read(adsServiceProvider).showInterstitialAd(context);
+                      }
+                      widget.onExit();
+                    },
                     style: FilledButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: AppRadius.borderRadiusMd,

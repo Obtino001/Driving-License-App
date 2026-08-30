@@ -19,6 +19,8 @@ import 'widgets/answer_option.dart';
 import 'widgets/explanation_panel.dart';
 import 'widgets/quiz_complete_screen.dart';
 
+import '../data/repositories/question_repository.dart';
+
 /// Entry point for starting a quiz session.
 ///
 /// Creates a [ProviderScope] override so the quiz session is scoped
@@ -43,7 +45,13 @@ class QuizSessionScreen extends StatelessWidget {
     return ProviderScope(
       overrides: [
         quizSessionProvider.overrideWith(
-          (ref) => QuizSessionNotifier(sessionQuestions),
+          (ref) {
+            final repo = ref.watch(sqlQuestionRepositoryProvider);
+            return QuizSessionNotifier(
+              questions: sessionQuestions,
+              repository: repo,
+            );
+          }
         ),
       ],
       child: _QuizSessionBody(title: title),
