@@ -10,6 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/streak_badge.dart';
+import '../../../core/widgets/state_switcher_sheet.dart';
+import '../../../core/providers/state_selection_provider.dart';
 import '../../practice/presentation/quiz_session_screen.dart';
 import '../../mock_test/presentation/mock_test_intro_screen.dart';
 import '../../road_signs/presentation/road_signs_screen.dart';
@@ -226,10 +228,20 @@ class HomeScreen extends StatelessWidget {
 
 // ─── Top Bar ────────────────────────────────────────────────────────────────
 
-class _TopBar extends StatelessWidget {
+class _TopBar extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final activeStateId = ref.watch(activeStateIdProvider);
+    final statesAsync = ref.watch(allStatesProvider);
+    
+    final activeStateName = statesAsync.maybeWhen(
+      data: (states) {
+        final state = states.firstWhere((s) => s.stateId == activeStateId, orElse: () => states.first);
+        return state.stateName;
+      },
+      orElse: () => 'US Generic',
+    );
 
     return Row(
       children: [
@@ -244,11 +256,27 @@ class _TopBar extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 2),
-              Text(
-                'Ready for your test?',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontWeight: FontWeight.w700,
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (_) => const StateSwitcherSheet(),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      activeStateId == 'us_generic' ? 'Ready for your test?' : 'Preparing for $activeStateName',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: theme.colorScheme.onSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(Icons.keyboard_arrow_down_rounded, color: theme.colorScheme.onSurface, size: 20),
+                  ],
                 ),
               ),
             ],

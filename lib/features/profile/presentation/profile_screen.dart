@@ -9,6 +9,8 @@ import '../../../app/app.dart';
 import '../../progress/providers/progress_provider.dart';
 import '../../practice/providers/mistakes_provider.dart';
 import '../providers/settings_provider.dart';
+import '../../../core/widgets/state_switcher_sheet.dart';
+import '../../../core/providers/state_selection_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -219,11 +221,33 @@ class ProfileScreen extends ConsumerWidget {
                   onTap: () => _showLanguageDialog(context, ref, settings.language),
                 ),
                 const Divider(indent: 56, height: 1),
-                _SettingsTile(
-                  icon: Icons.location_on_rounded,
-                  title: 'State/Region',
-                  subtitle: settings.region,
-                  onTap: () => _showRegionDialog(context, ref, settings.region),
+                Consumer(
+                  builder: (context, ref, _) {
+                    final activeStateId = ref.watch(activeStateIdProvider);
+                    final statesAsync = ref.watch(allStatesProvider);
+                    
+                    final activeStateName = statesAsync.maybeWhen(
+                      data: (states) {
+                        final state = states.firstWhere((s) => s.stateId == activeStateId, orElse: () => states.first);
+                        return state.stateName;
+                      },
+                      orElse: () => 'Loading...',
+                    );
+
+                    return _SettingsTile(
+                      icon: Icons.location_on_rounded,
+                      title: 'State/Region',
+                      subtitle: activeStateName,
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (_) => const StateSwitcherSheet(),
+                        );
+                      },
+                    );
+                  },
                 ),
                 const Divider(indent: 56, height: 1),
                 _SettingsTile(
@@ -344,27 +368,6 @@ class ProfileScreen extends ConsumerWidget {
           onChanged: (val) {
             if (val != null) {
               ref.read(settingsProvider.notifier).setLanguage(val as String);
-              Navigator.pop(context);
-            }
-          },
-        )).toList(),
-      ),
-    );
-  }
-
-  Future<void> _showRegionDialog(BuildContext context, WidgetRef ref, String current) async {
-    final regions = ['United States', 'United Kingdom', 'Canada', 'Australia'];
-    await showDialog(
-      context: context,
-      builder: (context) => SimpleDialog(
-        title: const Text('Select Region'),
-        children: regions.map((r) => RadioListTile(
-          title: Text(r),
-          value: r,
-          groupValue: current,
-          onChanged: (val) {
-            if (val != null) {
-              ref.read(settingsProvider.notifier).setRegion(val as String);
               Navigator.pop(context);
             }
           },

@@ -28,7 +28,7 @@ class LocalDatabase {
 
     return await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onCreate: _createDB,
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
@@ -96,6 +96,13 @@ class LocalDatabase {
           await db.execute('ALTER TABLE road_signs ADD COLUMN source_page TEXT');
           await db.execute('ALTER TABLE road_signs ADD COLUMN version TEXT');
           await db.execute('ALTER TABLE road_signs ADD COLUMN last_verified INTEGER');
+        }
+        if (oldVersion < 4) {
+          // Alter test_history to scope by state
+          await db.execute('ALTER TABLE test_history ADD COLUMN state_id TEXT');
+          
+          // Safely assign legacy mock tests to us_generic
+          await db.execute("UPDATE test_history SET state_id = 'us_generic' WHERE state_id IS NULL");
         }
       },
     );
@@ -208,7 +215,8 @@ class LocalDatabase {
         correct_answers INTEGER NOT NULL,
         time_used_seconds INTEGER NOT NULL,
         is_passed INTEGER NOT NULL,
-        completed_at INTEGER NOT NULL
+        completed_at INTEGER NOT NULL,
+        state_id TEXT
       )
     ''');
 
