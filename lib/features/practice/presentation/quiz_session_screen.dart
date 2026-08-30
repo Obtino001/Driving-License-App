@@ -13,7 +13,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../data/models/question.dart';
-import '../data/mock_questions.dart';
 import '../providers/quiz_session_provider.dart';
 import 'widgets/answer_option.dart';
 import 'widgets/explanation_panel.dart';
@@ -22,39 +21,106 @@ import 'widgets/quiz_complete_screen.dart';
 import '../data/repositories/question_repository.dart';
 
 /// Entry point for starting a quiz session.
-///
-/// Creates a [ProviderScope] override so the quiz session is scoped
-/// to this screen's lifecycle.
-class QuizSessionScreen extends StatelessWidget {
+class QuizSessionScreen extends ConsumerStatefulWidget {
   const QuizSessionScreen({
     super.key,
     this.questions,
+    this.categoryName,
+    this.isRandom = false,
+    this.randomCount = 10,
     this.title = 'Practice',
   });
 
-  /// Questions to use. Falls back to 10 random mock questions.
+  /// Explicit list of questions to use (bypasses category/random fetching if provided).
   final List<Question>? questions;
+
+  /// The category to load questions for.
+  final String? categoryName;
+  
+  /// If true, loads random questions.
+  final bool isRandom;
+  
+  /// Number of random questions to load.
+  final int randomCount;
 
   /// Title shown in the app bar.
   final String title;
 
   @override
-  Widget build(BuildContext context) {
-    final sessionQuestions = questions ?? getQuickPracticeQuestions(count: 10);
+  ConsumerState<QuizSessionScreen> createState() => _QuizSessionScreenState();
+}
 
+class _QuizSessionScreenState extends ConsumerState<QuizSessionScreen> {
+  Future<List<Question>>? _questionsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.questions == null) {
+      _loadQuestions();
+    }
+  }
+
+  void _loadQuestions() {
+    final repo = ref.read(sqlQuestionRepositoryProvider);
+    if (widget.categoryName != null) {
+      _questionsFuture = repo.getQuestionsByCategory(widget.categoryName!);
+    } else if (widget.isRandom) {
+      _questionsFuture = repo.getRandomQuestions(widget.randomCount);
+    } else {
+      _questionsFuture = Future.value([]);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.questions != null) {
+      return _buildProviderScope(widget.questions!);
+    }
+
+    return FutureBuilder<List<Question>>(
+      future: _questionsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(child: Text('Error loading questions: ${snapshot.error}')),
+          );
+        }
+
+        final sessionQuestions = snapshot.data ?? [];
+
+        if (sessionQuestions.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(title: Text(widget.title)),
+            body: const Center(child: Text('No questions available in this category.')),
+          );
+        }
+
+        return _buildProviderScope(sessionQuestions);
+      },
+    );
+  }
+
+  Widget _buildProviderScope(List<Question> questions) {
     return ProviderScope(
       overrides: [
         quizSessionProvider.overrideWith(
           (ref) {
             final repo = ref.watch(sqlQuestionRepositoryProvider);
             return QuizSessionNotifier(
-              questions: sessionQuestions,
+              questions: questions,
               repository: repo,
             );
           }
         ),
       ],
-      child: _QuizSessionBody(title: title),
+      child: _QuizSessionBody(title: widget.title),
     );
   }
 }

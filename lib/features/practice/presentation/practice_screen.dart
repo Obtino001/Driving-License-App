@@ -6,7 +6,6 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/circular_progress_indicator.dart';
-import '../data/mock_questions.dart';
 import 'quiz_session_screen.dart';
 
 /// Category list for the Learn tab.
@@ -98,14 +97,10 @@ class _CategoryTile extends StatelessWidget {
 
     return AppCard(
       onTap: () {
-        final questions = getQuestionsByCategory(category.name);
-        final sessionQuestions = questions.isNotEmpty
-            ? questions
-            : getQuickPracticeQuestions(count: 10);
         Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => QuizSessionScreen(
             title: category.name,
-            questions: sessionQuestions,
+            categoryName: category.name,
           ),
         ));
       },

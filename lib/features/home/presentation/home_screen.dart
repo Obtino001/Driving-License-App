@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/streak_badge.dart';
-import '../../practice/data/mock_questions.dart';
 import '../../practice/presentation/quiz_session_screen.dart';
 import '../../mock_test/presentation/mock_test_intro_screen.dart';
 import '../../road_signs/presentation/road_signs_screen.dart';
@@ -61,9 +60,9 @@ class HomeScreen extends StatelessWidget {
                   totalQuestions: 40,
                   onContinue: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => QuizSessionScreen(
+                      builder: (_) => const QuizSessionScreen(
                         title: 'Road Signs & Signals',
-                        questions: getQuestionsByCategory('Road Signs & Signals'),
+                        categoryName: 'Road Signs & Signals',
                       ),
                     ));
                   },
@@ -99,6 +98,8 @@ class HomeScreen extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => const QuizSessionScreen(
                         title: 'Daily Challenge',
+                        isRandom: true,
+                        randomCount: 10,
                       ),
                     ));
                   },

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../data/models/road_sign.dart';
 import '../data/repositories/road_signs_repository.dart';
 
 class FavoriteRoadSignsNotifier extends StateNotifier<Set<String>> {
@@ -30,4 +31,9 @@ class FavoriteRoadSignsNotifier extends StateNotifier<Set<String>> {
 final favoriteRoadSignsProvider = StateNotifierProvider<FavoriteRoadSignsNotifier, Set<String>>((ref) {
   final repo = ref.watch(sqlRoadSignsRepositoryProvider);
   return FavoriteRoadSignsNotifier(repo);
+});
+
+final allRoadSignsProvider = FutureProvider<List<RoadSign>>((ref) async {
+  final repo = ref.watch(sqlRoadSignsRepositoryProvider);
+  return repo.getAllSigns();
 });

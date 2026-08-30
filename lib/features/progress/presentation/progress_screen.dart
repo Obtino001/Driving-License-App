@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/app_shimmer.dart';
-import '../../practice/data/mock_questions.dart';
 import '../../practice/presentation/quiz_session_screen.dart';
 import '../providers/progress_provider.dart';
 import 'widgets/achievements_strip.dart';
@@ -75,7 +74,7 @@ class _ProgressDashboard extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (_) => QuizSessionScreen(
                         title: '${weakestCat.categoryName} Practice',
-                        questions: getQuestionsByCategory(weakestCat.categoryName),
+                        categoryName: weakestCat.categoryName,
                       ),
                     ),
                   );

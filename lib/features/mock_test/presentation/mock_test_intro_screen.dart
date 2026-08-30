@@ -1,15 +1,61 @@
-library;
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
-import '../../practice/data/mock_questions.dart';
+import '../../practice/data/repositories/question_repository.dart';
 import '../data/models/mock_test_config.dart';
 import 'mock_test_session_screen.dart';
 
 /// Introduction screen for the Mock Test.
-class MockTestIntroScreen extends StatelessWidget {
+class MockTestIntroScreen extends ConsumerStatefulWidget {
   const MockTestIntroScreen({super.key});
+
+  @override
+  ConsumerState<MockTestIntroScreen> createState() => _MockTestIntroScreenState();
+}
+
+class _MockTestIntroScreenState extends ConsumerState<MockTestIntroScreen> {
+  bool _isLoading = false;
+
+  Future<void> _startTest(MockTestConfig config) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final repo = ref.read(sqlQuestionRepositoryProvider);
+      final questions = await repo.getRandomQuestions(config.questionCount);
+      
+      if (!mounted) return;
+      
+      if (questions.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No questions available.')),
+        );
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => MockTestSessionScreen(
+            config: config,
+            questions: questions,
+          ),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error loading test: $e')),
+      );
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,29 +144,25 @@ class MockTestIntroScreen extends StatelessWidget {
                 SizedBox(
                   height: 56,
                   child: FilledButton(
-                    onPressed: () {
-                      final questions = getQuickPracticeQuestions(count: config.questionCount);
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (_) => MockTestSessionScreen(
-                            config: config,
-                            questions: questions,
-                          ),
-                        ),
-                      );
-                    },
+                    onPressed: _isLoading ? null : () => _startTest(config),
                     style: FilledButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: AppRadius.borderRadiusLg,
                       ),
                     ),
-                    child: Text(
-                      'Start Test',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: _isLoading 
+                      ? const SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3),
+                        )
+                      : Text(
+                          'Start Test',
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                   ),
                 ),
             ],

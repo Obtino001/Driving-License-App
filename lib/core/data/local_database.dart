@@ -28,7 +28,7 @@ class LocalDatabase {
 
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _createDB,
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
@@ -42,11 +42,100 @@ class LocalDatabase {
             )
           ''');
         }
+        if (oldVersion < 3) {
+          // 1. Create states table
+          await db.execute('''
+            CREATE TABLE IF NOT EXISTS states(
+              state_id TEXT PRIMARY KEY,
+              state_code TEXT NOT NULL,
+              state_name TEXT NOT NULL,
+              abbreviation TEXT NOT NULL,
+              licensing_authority TEXT,
+              official_website TEXT,
+              handbook_source TEXT,
+              content_version TEXT,
+              last_verified INTEGER,
+              status TEXT NOT NULL
+            )
+          ''');
+
+          // 2. Create sources table
+          await db.execute('''
+            CREATE TABLE IF NOT EXISTS sources(
+              source_id TEXT PRIMARY KEY,
+              state_id TEXT NOT NULL,
+              organization TEXT NOT NULL,
+              title TEXT NOT NULL,
+              url TEXT,
+              document_version TEXT,
+              publication_date INTEGER,
+              last_updated INTEGER,
+              source_type TEXT NOT NULL,
+              last_verified INTEGER,
+              status TEXT NOT NULL,
+              FOREIGN KEY (state_id) REFERENCES states (state_id) ON DELETE CASCADE
+            )
+          ''');
+
+          // 3. Alter questions table
+          await db.execute('ALTER TABLE questions ADD COLUMN state_id TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN subcategory_id TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN difficulty TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN rule_id TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN source_id TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN source_section TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN source_page TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN source_version TEXT');
+          await db.execute('ALTER TABLE questions ADD COLUMN last_verified INTEGER');
+          await db.execute('ALTER TABLE questions ADD COLUMN verification_status TEXT');
+
+          // 4. Alter road_signs table
+          await db.execute('ALTER TABLE road_signs ADD COLUMN state_id TEXT');
+          await db.execute('ALTER TABLE road_signs ADD COLUMN source_id TEXT');
+          await db.execute('ALTER TABLE road_signs ADD COLUMN source_section TEXT');
+          await db.execute('ALTER TABLE road_signs ADD COLUMN source_page TEXT');
+          await db.execute('ALTER TABLE road_signs ADD COLUMN version TEXT');
+          await db.execute('ALTER TABLE road_signs ADD COLUMN last_verified INTEGER');
+        }
       },
     );
   }
 
   Future<void> _createDB(Database db, int version) async {
+    // States Table
+    await db.execute('''
+      CREATE TABLE states(
+        state_id TEXT PRIMARY KEY,
+        state_code TEXT NOT NULL,
+        state_name TEXT NOT NULL,
+        abbreviation TEXT NOT NULL,
+        licensing_authority TEXT,
+        official_website TEXT,
+        handbook_source TEXT,
+        content_version TEXT,
+        last_verified INTEGER,
+        status TEXT NOT NULL
+      )
+    ''');
+
+    // Sources Table
+    await db.execute('''
+      CREATE TABLE sources(
+        source_id TEXT PRIMARY KEY,
+        state_id TEXT NOT NULL,
+        organization TEXT NOT NULL,
+        title TEXT NOT NULL,
+        url TEXT,
+        document_version TEXT,
+        publication_date INTEGER,
+        last_updated INTEGER,
+        source_type TEXT NOT NULL,
+        last_verified INTEGER,
+        status TEXT NOT NULL,
+        FOREIGN KEY (state_id) REFERENCES states (state_id) ON DELETE CASCADE
+      )
+    ''');
+
     // Categories Table
     await db.execute('''
       CREATE TABLE categories(
@@ -64,6 +153,17 @@ class LocalDatabase {
         options_json TEXT NOT NULL,
         correct_index INTEGER NOT NULL,
         explanation TEXT NOT NULL,
+        image_url TEXT,
+        state_id TEXT,
+        subcategory_id TEXT,
+        difficulty TEXT,
+        rule_id TEXT,
+        source_id TEXT,
+        source_section TEXT,
+        source_page TEXT,
+        source_version TEXT,
+        last_verified INTEGER,
+        verification_status TEXT,
         FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE
       )
     ''');
@@ -123,7 +223,13 @@ class LocalDatabase {
         example_situation TEXT NOT NULL,
         icon_data_code INTEGER NOT NULL,
         color_hex INTEGER NOT NULL,
-        shape_index INTEGER NOT NULL
+        shape_index INTEGER NOT NULL,
+        state_id TEXT,
+        source_id TEXT,
+        source_section TEXT,
+        source_page TEXT,
+        version TEXT,
+        last_verified INTEGER
       )
     ''');
 

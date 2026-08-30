@@ -1,24 +1,26 @@
 library;
 
-import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/data/local_database.dart';
 import '../../../../core/utils/mastery_calculator.dart';
 import '../../../../core/utils/streak_calculator.dart';
 import '../../../../core/services/preferences_service.dart';
+import '../../../../core/providers/state_selection_provider.dart';
 import '../models/question.dart';
 
 final sqlQuestionRepositoryProvider = Provider<SqlQuestionRepository>((ref) {
   final prefs = ref.watch(preferencesServiceProvider);
-  return SqlQuestionRepository(LocalDatabase.instance, prefs);
+  final stateId = ref.watch(activeStateIdProvider);
+  return SqlQuestionRepository(LocalDatabase.instance, prefs, stateId);
 });
 
 class SqlQuestionRepository {
-  SqlQuestionRepository(this._localDb, this._prefs);
+  SqlQuestionRepository(this._localDb, this._prefs, this._stateId);
 
   final LocalDatabase _localDb;
   final PreferencesService _prefs;
+  final String _stateId;
 
   Future<Database> get _db => _localDb.database;
 
@@ -31,10 +33,10 @@ class SqlQuestionRepository {
       SELECT q.*, c.name as category_name
       FROM questions q
       JOIN categories c ON q.category_id = c.id
-      WHERE c.name = ?
-    ''', [categoryName]);
+      WHERE c.name = ? AND q.state_id = ?
+    ''', [categoryName, _stateId]);
 
-    return results.map(_mapRowToQuestion).toList();
+    return results.map((row) => Question.fromMap(row, row['category_name'] as String)).toList();
   }
 
   /// Fetches N random questions for a mock test.
@@ -45,11 +47,12 @@ class SqlQuestionRepository {
       SELECT q.*, c.name as category_name
       FROM questions q
       JOIN categories c ON q.category_id = c.id
+      WHERE q.state_id = ?
       ORDER BY RANDOM()
       LIMIT ?
-    ''', [count]);
+    ''', [_stateId, count]);
 
-    return results.map(_mapRowToQuestion).toList();
+    return results.map((row) => Question.fromMap(row, row['category_name'] as String)).toList();
   }
 
   /// Records a user's answer to a question for progress tracking and updates mastery.
@@ -125,10 +128,10 @@ class SqlQuestionRepository {
       FROM questions q
       JOIN categories c ON q.category_id = c.id
       JOIN question_mastery m ON q.id = m.question_id
-      WHERE m.mastery_level IN (1, 2)
+      WHERE m.mastery_level IN (1, 2) AND q.state_id = ?
       ORDER BY m.mastery_level ASC, m.last_answered_at ASC
-    ''');
-    return results.map(_mapRowToQuestion).toList();
+    ''', [_stateId]);
+    return results.map((row) => Question.fromMap(row, row['category_name'] as String)).toList();
   }
 
   /// Returns counts for Learning, Improving, and Mastered questions.
@@ -184,14 +187,4 @@ class SqlQuestionRepository {
     }
   }
 
-  Question _mapRowToQuestion(Map<String, dynamic> row) {
-    return Question(
-      id: row['id'] as String,
-      category: row['category_name'] as String,
-      text: row['text'] as String,
-      options: List<String>.from(jsonDecode(row['options_json'] as String)),
-      correctIndex: row['correct_index'] as int,
-      explanation: row['explanation'] as String,
-    );
-  }
 }

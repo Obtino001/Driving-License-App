@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
-import '../../practice/data/mock_questions.dart';
 import '../../practice/presentation/quiz_session_screen.dart';
-import '../data/mock_road_signs.dart';
 import '../providers/road_signs_provider.dart';
 import 'road_sign_detail_screen.dart';
 import 'widgets/road_sign_card.dart';
@@ -21,18 +19,22 @@ class RoadSignsScreen extends ConsumerStatefulWidget {
 class _RoadSignsScreenState extends ConsumerState<RoadSignsScreen> {
   String _selectedCategory = 'All';
 
+  // Extract categories dynamically or hardcode. For now, hardcode the known categories
+  // since the database just has these.
+  static const roadSignCategories = [
+    'All',
+    'Warning',
+    'Regulatory',
+    'Guide',
+    'Construction',
+    'School',
+  ];
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final favorites = ref.watch(favoriteRoadSignsProvider);
-
-    final filteredSigns = mockRoadSigns.where((sign) {
-      if (_selectedCategory == 'Favorites') {
-        return favorites.contains(sign.id);
-      }
-      if (_selectedCategory == 'All') return true;
-      return sign.category == _selectedCategory;
-    }).toList();
+    final allSignsAsync = ref.watch(allRoadSignsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,8 +80,20 @@ class _RoadSignsScreenState extends ConsumerState<RoadSignsScreen> {
 
             // ─── Grid ───
             Expanded(
-              child: filteredSigns.isEmpty
-                  ? Center(
+              child: allSignsAsync.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (err, stack) => Center(child: Text('Error loading signs: $err')),
+                data: (allSigns) {
+                  final filteredSigns = allSigns.where((sign) {
+                    if (_selectedCategory == 'Favorites') {
+                      return favorites.contains(sign.id);
+                    }
+                    if (_selectedCategory == 'All') return true;
+                    return sign.category == _selectedCategory;
+                  }).toList();
+
+                  if (filteredSigns.isEmpty) {
+                    return Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -99,8 +113,10 @@ class _RoadSignsScreenState extends ConsumerState<RoadSignsScreen> {
                           ),
                         ],
                       ),
-                    )
-                  : GridView.builder(
+                    );
+                  }
+
+                  return GridView.builder(
                       padding: const EdgeInsets.fromLTRB(
                         AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.xxl,
                       ),
@@ -131,7 +147,9 @@ class _RoadSignsScreenState extends ConsumerState<RoadSignsScreen> {
                           ),
                         );
                       },
-                    ),
+                    );
+                },
+              ),
             ),
           ],
         ),
@@ -140,9 +158,9 @@ class _RoadSignsScreenState extends ConsumerState<RoadSignsScreen> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => QuizSessionScreen(
+              builder: (_) => const QuizSessionScreen(
                 title: 'Signs Quiz',
-                questions: getQuestionsByCategory('Road Signs & Signals'),
+                categoryName: 'Road Signs & Signals',
               ),
             ),
           );
