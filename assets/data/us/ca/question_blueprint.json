@@ -1,0 +1,2157 @@
+{
+  "stateId": "ca",
+  "targetQuestions": 261,
+  "rulesBlueprint": [
+    {
+      "ruleId": "ca_rule_speed_limit_school",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_limit_blind_intersection",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_limit_alley",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_limit_railroad",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_right_of_way_pedestrians",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 4,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_fire_hydrant",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_curb_colors_red",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_blood_alcohol_limit_adult",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_blood_alcohol_limit_minor",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_blood_alcohol_limit_commercial",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_passing_school_bus",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_lane_changes_signal",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_headlights_usage",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_headlights_wipers",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_cell_phone_minor",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_following_distance",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_turning_steering_wheel",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_right_of_way_t_intersection",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_right_of_way_mountain",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_u_turn_residential",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_four_way_stop",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_roundabout_direction",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_roundabout_yield",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_passing_bicycles",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 5,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_yielding_to_transit",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_yielding_emergency_vehicles",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 4,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_move_over_law",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_solid_yellow_lines",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_broken_yellow_lines",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_double_solid_white_lines",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_center_left_turn_lane",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_turnout_areas",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_bike_lane_parking",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_bike_lane_turning",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_yielding_blind_pedestrians",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_yielding_at_crosswalks",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_limit_max_freeway",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_limit_two_lane",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_limit_business",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_limit_animals",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_speed_law_basic",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_scanning_ahead",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_check_mirrors_frequently",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_blind_spots",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_tailgating_large_vehicles",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_stopping_behind_trucks",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_wet_roads",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_packed_snow",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_ice",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_hydroplaning",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_high_beams_fog",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_high_beams_distance",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_curb_colors_white",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_curb_colors_green",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_curb_colors_yellow",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_curb_colors_blue",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_downhill",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_uphill",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_no_curb",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_distance_from_curb",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_crosswalk",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_parking_railroad",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_merging_freeway",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_merging_space",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_exiting_freeway",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_passing_on_right",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_open_container",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_dui_conviction_time",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_implied_consent",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_prescription_drugs",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_cell_phone_adult",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_earplugs",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_seat_belt_law",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_child_restraint_age_8",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_child_restraint_age_2",
+      "priority": "MEDIUM_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_leaving_child_in_car",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_collision_reporting",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_hit_and_run",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_insurance_requirements",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_minimum_insurance",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_smoking_with_minor",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_dumping_animals",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_carrying_loads",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_red_flag_load",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_littering",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_honking_horn",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_provisional_permit_driving",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "numerical",
+          "difficulty": "medium",
+          "description": "Test numerical memory while preserving the condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_provisional_permit_solo",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_provisional_license_passengers",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_provisional_license_time",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "exception",
+          "difficulty": "hard",
+          "description": "Test the specific exception: $exceptions"
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_sharing_motorcycles",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_lane_splitting",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_truck_blind_spots",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_truck_turning",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_light_rail_vehicles",
+      "priority": "HIGH_PRIORITY",
+      "recommendedCount": 3,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "medium",
+          "description": "Place the driver in a scenario requiring them to apply this rule."
+        },
+        {
+          "type": "scenario",
+          "difficulty": "hard",
+          "description": "A complex scenario combining this rule with another common road condition."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_flashing_red_light",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_solid_yellow_light",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_flashing_yellow_light",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_flashing_yellow_arrow",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    },
+    {
+      "ruleId": "ca_rule_blackout_traffic_light",
+      "priority": "LOW_PRIORITY",
+      "recommendedCount": 1,
+      "angles": [
+        {
+          "type": "standard_mcq",
+          "difficulty": "easy",
+          "description": "Directly test the core requirement of the rule."
+        }
+      ]
+    }
+  ],
+  "signsBlueprint": [
+    {
+      "signResearchId": "ca_sign_stop",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_yield",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_wrong_way",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_do_not_enter",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_no_u_turn",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_slippery_when_wet",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_school_zone",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_divided_highway_begins",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_merge",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_lane_ends",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_two_way_traffic",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_added_lane",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_pedestrian_crossing",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_railroad_crossing",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_no_right_turn",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_keep_right",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_speed_limit",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_one_way",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_hospital",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_deer_crossing",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_steep_hill",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_crossroad",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_yield_ahead",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    },
+    {
+      "signResearchId": "ca_sign_stop_ahead",
+      "recommendedCount": 2,
+      "angles": [
+        {
+          "type": "sign_question",
+          "difficulty": "easy",
+          "description": "Identify the meaning of the sign."
+        },
+        {
+          "type": "sign_question",
+          "difficulty": "medium",
+          "description": "Identify the required driver action: ${sign['driverAction']}"
+        }
+      ]
+    }
+  ]
+}
