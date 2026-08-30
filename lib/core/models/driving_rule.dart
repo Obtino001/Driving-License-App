@@ -9,6 +9,8 @@ class DrivingRule {
     required this.topic,
     required this.subtopic,
     required this.ruleSummary,
+    this.details,
+    this.exceptions,
     required this.sourceId,
     this.section,
     this.page,
@@ -31,6 +33,12 @@ class DrivingRule {
 
   /// The raw factual summary of the rule
   final String ruleSummary;
+
+  /// Additional context or details supporting the rule summary
+  final String? details;
+
+  /// Specific legal exceptions to this rule
+  final String? exceptions;
 
   /// The ID of the official Source this rule is derived from
   final String sourceId;
@@ -57,6 +65,8 @@ class DrivingRule {
       topic: json['topic'] as String,
       subtopic: json['subtopic'] as String,
       ruleSummary: json['ruleSummary'] as String,
+      details: json['details'] as String?,
+      exceptions: json['exceptions'] as String?,
       sourceId: json['sourceId'] as String,
       section: json['section'] as String?,
       page: json['page'] as int?,
@@ -73,6 +83,8 @@ class DrivingRule {
       'topic': topic,
       'subtopic': subtopic,
       'ruleSummary': ruleSummary,
+      'details': details,
+      'exceptions': exceptions,
       'sourceId': sourceId,
       'section': section,
       'page': page,

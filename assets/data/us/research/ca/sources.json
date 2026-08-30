@@ -1,12 +1,12 @@
 [
   {
-    "sourceId": "ca_dmv_handbook_2024",
+    "sourceId": "ca_dmv_handbook",
     "stateId": "ca",
     "organization": "California Department of Motor Vehicles",
     "title": "California Driver's Handbook",
     "url": "https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/",
-    "documentVersion": "2024",
-    "publicationDate": 1704067200,
+    "documentVersion": "Current",
+    "publicationDate": null,
     "lastUpdated": 1704067200,
     "sourceType": "driver_handbook",
     "lastVerified": 1725015000,
@@ -22,6 +22,19 @@
     "publicationDate": null,
     "lastUpdated": 1725015000,
     "sourceType": "vehicle_code",
+    "lastVerified": 1725015000,
+    "status": "verified"
+  },
+  {
+    "sourceId": "ca_dmv_sample_tests",
+    "stateId": "ca",
+    "organization": "California Department of Motor Vehicles",
+    "title": "Sample Driver's License Knowledge Tests",
+    "url": "https://www.dmv.ca.gov/portal/driver-education-and-safety/educational-materials/sample-driver-license-knowledge-tests/",
+    "documentVersion": "Current",
+    "publicationDate": null,
+    "lastUpdated": 1725015000,
+    "sourceType": "official_sample_test",
     "lastVerified": 1725015000,
     "status": "verified"
   }

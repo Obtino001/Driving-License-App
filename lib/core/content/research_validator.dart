@@ -49,6 +49,24 @@ class ResearchValidator {
         rules = rulesJson.map((e) => DrivingRule.fromJson(e)).toList();
       }
 
+      int totalRoadSigns = 0;
+      int verifiedRoadSigns = 0;
+      int reviewRoadSigns = 0;
+      final roadSignsFile = File('$stateDir/road_signs.json');
+      if (await roadSignsFile.exists()) {
+        final roadSignsJson = jsonDecode(await roadSignsFile.readAsString()) as List;
+        totalRoadSigns = roadSignsJson.length;
+        
+        for (var signJson in roadSignsJson) {
+           final status = signJson['status'] as String?;
+           if (status == 'verified') {
+             verifiedRoadSigns++;
+           } else {
+             reviewRoadSigns++;
+           }
+        }
+      }
+
       // Validate Sources
       int verifiedSources = 0;
       int reviewSources = 0;
@@ -94,7 +112,8 @@ class ResearchValidator {
       }
 
       buffer.writeln('  Sources: ${sources.length} total ($verifiedSources verified, $reviewSources needs review)');
-      buffer.writeln('  Rules: ${rules.length} total ($verifiedRules verified, $reviewRules needs review)\n');
+      buffer.writeln('  Rules: ${rules.length} total ($verifiedRules verified, $reviewRules needs review)');
+      buffer.writeln('  Road Signs: $totalRoadSigns researched ($verifiedRoadSigns verified, $reviewRoadSigns needs review)\n');
     }
 
     buffer.writeln('=== END OF REPORT ===');

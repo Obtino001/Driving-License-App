@@ -1,0 +1,68 @@
+[
+  {
+    "topic": "Traffic Laws",
+    "priority": "HIGH_PRIORITY",
+    "reason": "Fundamental rules of the road tested heavily.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Right of Way",
+    "priority": "HIGH_PRIORITY",
+    "reason": "Critical safety interactions, heavily tested in sample exams.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Intersections",
+    "priority": "HIGH_PRIORITY",
+    "reason": "Common area for collisions; core knowledge for permit test.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Alcohol and Drugs",
+    "priority": "HIGH_PRIORITY",
+    "reason": "Strict DUI limits and Zero Tolerance laws are central to CA DMV testing.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Road Signs",
+    "priority": "HIGH_PRIORITY",
+    "reason": "Sign recognition is a dedicated portion of most knowledge tests.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Speed Limits",
+    "priority": "HIGH_PRIORITY",
+    "reason": "Specific numerical limits for schools, blind intersections, and business districts are heavily tested.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Lane Changes",
+    "priority": "MEDIUM_PRIORITY",
+    "reason": "Signaling and blind spots are tested, but fewer specific numerical rules.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Parking",
+    "priority": "MEDIUM_PRIORITY",
+    "reason": "Curb colors and downhill/uphill parking are common questions.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Distracted Driving",
+    "priority": "MEDIUM_PRIORITY",
+    "reason": "Cell phone laws for minors are usually present in at least one question.",
+    "officialSource": "ca_vehicle_code"
+  },
+  {
+    "topic": "Vehicle Equipment",
+    "priority": "LOW_PRIORITY",
+    "reason": "Basic knowledge (headlights, horn) is expected but not exhaustively tested.",
+    "officialSource": "ca_dmv_handbook"
+  },
+  {
+    "topic": "Insurance",
+    "priority": "LOW_PRIORITY",
+    "reason": "Financial responsibility is mentioned but rarely detailed in knowledge tests.",
+    "officialSource": "ca_dmv_handbook"
+  }
+]

@@ -28,7 +28,7 @@ class LocalDatabase {
 
     return await openDatabase(
       path,
-      version: 4,
+      version: 5,
       onCreate: _createDB,
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
@@ -104,6 +104,9 @@ class LocalDatabase {
           // Safely assign legacy mock tests to us_generic
           await db.execute("UPDATE test_history SET state_id = 'us_generic' WHERE state_id IS NULL");
         }
+        if (oldVersion < 5) {
+          await db.execute('ALTER TABLE questions ADD COLUMN question_type TEXT');
+        }
       },
     );
   }
@@ -171,6 +174,7 @@ class LocalDatabase {
         source_version TEXT,
         last_verified INTEGER,
         verification_status TEXT,
+        question_type TEXT,
         FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE
       )
     ''');

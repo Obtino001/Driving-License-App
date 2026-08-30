@@ -23,6 +23,7 @@ class Question {
     this.sourceVersion,
     this.lastVerified,
     this.verificationStatus,
+    this.questionType = 'standard_mcq',
   });
 
   /// Unique identifier.
@@ -76,6 +77,9 @@ class Question {
   /// Status of verification, e.g., 'verified', 'needs_review'.
   final String? verificationStatus;
 
+  /// Format of the question, e.g., 'standard_mcq', 'scenario', 'sign_question'.
+  final String? questionType;
+
   /// The correct answer text.
   String get correctAnswer => options[correctIndex];
 
@@ -99,6 +103,7 @@ class Question {
       sourceVersion: json['sourceVersion'] as String?,
       lastVerified: json['lastVerified'] as int?,
       verificationStatus: json['verificationStatus'] as String?,
+      questionType: json['questionType'] as String? ?? 'standard_mcq',
     );
   }
 
@@ -122,6 +127,7 @@ class Question {
       'sourceVersion': sourceVersion,
       'lastVerified': lastVerified,
       'verificationStatus': verificationStatus,
+      'questionType': questionType,
     };
   }
 
@@ -145,6 +151,7 @@ class Question {
       'source_version': sourceVersion,
       'last_verified': lastVerified,
       'verification_status': verificationStatus,
+      'question_type': questionType,
     };
   }
 
@@ -168,6 +175,7 @@ class Question {
       sourceVersion: map['source_version'] as String?,
       lastVerified: map['last_verified'] as int?,
       verificationStatus: map['verification_status'] as String?,
+      questionType: map['question_type'] as String? ?? 'standard_mcq',
     );
   }
 }
