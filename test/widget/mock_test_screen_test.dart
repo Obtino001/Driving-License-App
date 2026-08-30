@@ -16,7 +16,7 @@ void main() {
       const Question(
         id: 'q1',
         text: 'Mock Test Question 1',
-        options: ['A', 'B', 'C', 'D'],
+        options: ['Option A', 'Option B', 'Option C', 'Option D'],
         correctIndex: 0,
         explanation: 'Explanation 1',
         category: 'Signs',
@@ -51,13 +51,13 @@ void main() {
     expect(find.textContaining(':'), findsWidgets); // e.g. 10:00
 
     // Tap an answer
-    await tester.tap(find.text('A'));
+    await tester.tap(find.text('Option A'));
     await tester.pumpAndSettle();
 
     // Unlike practice session, mock test should NOT show explanation panel immediately
     expect(find.text('Explanation 1'), findsNothing);
 
     // Submit test button should be present
-    expect(find.text('Submit Test'), findsOneWidget);
+    expect(find.text('Submit'), findsOneWidget);
   });
 }

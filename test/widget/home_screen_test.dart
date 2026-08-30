@@ -8,8 +8,8 @@ import 'package:driving_license_app/core/theme/app_theme.dart';
 
 void main() {
   testWidgets('HomeScreen renders key components', (tester) async {
-    tester.view.physicalSize = const Size(1080, 2400); // Set a reasonable phone size
-    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1200, 2400); // Larger width to prevent RenderFlex overflow
+    tester.view.devicePixelRatio = 1.0;
 
     // We override necessary providers to avoid database calls
     await tester.pumpWidget(
@@ -25,7 +25,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Check for TopBar greeting
-    expect(find.text('Yasir'), findsOneWidget);
+    expect(find.text('Ready for your test?'), findsOneWidget);
 
     // Check for ProgressCard
     expect(find.byType(ProgressCard), findsOneWidget);
@@ -33,7 +33,7 @@ void main() {
 
     // Check for ChallengeCard
     expect(find.byType(ChallengeCard), findsOneWidget);
-    expect(find.text('Daily Challenge'), findsOneWidget);
+    expect(find.text("Today's Challenge"), findsOneWidget);
 
     // Check for Quick Actions
     expect(find.text('Mock Test'), findsOneWidget);

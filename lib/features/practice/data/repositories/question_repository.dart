@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/data/local_database.dart';
+import '../../../../core/utils/mastery_calculator.dart';
+import '../../../../core/utils/streak_calculator.dart';
 import '../../../../core/services/preferences_service.dart';
 import '../models/question.dart';
 
@@ -72,13 +74,9 @@ class SqlQuestionRepository {
         consecutive = masteryRows.first['consecutive_correct'] as int;
       }
 
-      if (isCorrect) {
-        consecutive += 1;
-        level = consecutive >= 2 ? 3 : 2; // >=2 is Mastered, 1 is Improving
-      } else {
-        consecutive = 0;
-        level = 1; // Learning
-      }
+      final newMastery = MasteryCalculator.calculateNewMastery(isCorrect, consecutive);
+      level = newMastery['level']!;
+      consecutive = newMastery['consecutive']!;
 
       await txn.insert('question_mastery', {
         'question_id': questionId,
@@ -98,43 +96,20 @@ class SqlQuestionRepository {
       lastActive = DateTime.tryParse(lastActiveStr);
     }
 
-    if (lastActive == null || lastActive.isBefore(today)) {
+    final newStreakState = StreakCalculator.calculateNewStreak(
+      today: today,
+      lastActive: lastActive,
+      currentStreak: _prefs.currentStreak,
+      bestStreak: _prefs.bestStreak,
+      recoveryAvailable: _prefs.streakRecoveryAvailable,
+    );
+
+    if (newStreakState['isNewDay'] == true) {
       // First activity of a new day
       await _prefs.setDailyQuestionsAnswered(1);
-
-      if (lastActive != null) {
-        final difference = today.difference(lastActive).inDays;
-        if (difference == 1) {
-          // Consecutive day
-          final newStreak = _prefs.currentStreak + 1;
-          await _prefs.setCurrentStreak(newStreak);
-          if (newStreak > _prefs.bestStreak) {
-            await _prefs.setBestStreak(newStreak);
-          }
-          // Award a streak freeze if they reach 3 days streak and don't have one
-          if (newStreak >= 3 && !_prefs.streakRecoveryAvailable) {
-            await _prefs.setStreakRecoveryAvailable(true);
-          }
-        } else if (difference > 1) {
-          // Missed a day
-          if (_prefs.streakRecoveryAvailable && _prefs.currentStreak > 0) {
-            // Consume freeze
-            await _prefs.setStreakRecoveryAvailable(false);
-            final newStreak = _prefs.currentStreak + 1;
-            await _prefs.setCurrentStreak(newStreak);
-            if (newStreak > _prefs.bestStreak) {
-              await _prefs.setBestStreak(newStreak);
-            }
-          } else {
-            // Lost streak
-            await _prefs.setCurrentStreak(1);
-          }
-        }
-      } else {
-        // First day ever
-        await _prefs.setCurrentStreak(1);
-        await _prefs.setBestStreak(1);
-      }
+      await _prefs.setCurrentStreak(newStreakState['newStreak'] as int);
+      await _prefs.setBestStreak(newStreakState['bestStreak'] as int);
+      await _prefs.setStreakRecoveryAvailable(newStreakState['recoveryAvailable'] as bool);
       await _prefs.setLastActiveDate(today.toIso8601String());
     } else {
       // Same day activity

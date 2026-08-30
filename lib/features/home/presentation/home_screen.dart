@@ -276,23 +276,27 @@ class _AvatarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return GestureDetector(
-      onTap: () {
-        // TODO: Navigate to profile
-      },
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: theme.colorScheme.primaryContainer,
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Text(
-            'Y',
-            style: theme.textTheme.titleSmall?.copyWith(
-              color: theme.colorScheme.onPrimaryContainer,
-              fontWeight: FontWeight.w700,
+    return Semantics(
+      button: true,
+      label: 'Profile',
+      child: GestureDetector(
+        onTap: () {
+          // TODO: Navigate to profile
+        },
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primaryContainer,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Text(
+              'Y',
+              style: theme.textTheme.titleSmall?.copyWith(
+                color: theme.colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),

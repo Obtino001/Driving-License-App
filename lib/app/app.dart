@@ -8,6 +8,7 @@ import '../core/theme/app_theme.dart';
 import '../navigation/app_shell.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
 import '../features/onboarding/providers/onboarding_provider.dart';
+import '../core/config/app_config.dart';
 
 /// Global theme mode state.
 final themeModeProvider = StateProvider<ThemeMode>((_) => ThemeMode.system);
@@ -22,7 +23,7 @@ class DriveWiseApp extends ConsumerWidget {
     final hasCompletedOnboarding = ref.watch(onboardingCompleteProvider);
 
     return MaterialApp(
-      title: 'DriveWise',
+      title: AppConfig.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,

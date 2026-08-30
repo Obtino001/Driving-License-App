@@ -1,16 +1,16 @@
 library;
 
 import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:sqflite/sqflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../features/practice/data/mock_questions.dart';
-import '../../features/road_signs/data/mock_road_signs.dart';
+import '../config/app_config.dart';
 import 'local_database.dart';
 
 /// Seeds the local database with initial content (questions, road signs)
 /// on the very first launch.
 class DatabaseSeeder {
-  static const String _seededKey = 'db_seeded_v1';
+  static const String _seededKey = 'db_seeded_v2';
 
   static Future<void> seedIfNeeded() async {
     final prefs = await SharedPreferences.getInstance();
@@ -19,10 +19,18 @@ class DatabaseSeeder {
     if (isSeeded) return;
 
     final db = await LocalDatabase.instance.database;
+    final basePath = AppConfig.dataAssetPath;
+
+    // Load JSON data
+    final questionsJsonStr = await rootBundle.loadString('$basePath/questions.json');
+    final roadSignsJsonStr = await rootBundle.loadString('$basePath/road_signs.json');
+
+    final List<dynamic> questionsData = jsonDecode(questionsJsonStr);
+    final List<dynamic> roadSignsData = jsonDecode(roadSignsJsonStr);
 
     await db.transaction((txn) async {
-      // 1. Seed Categories (Extract from mock questions)
-      final categories = mockQuestions.map((q) => q.category).toSet();
+      // 1. Seed Categories (Extract from questions data)
+      final Set<String> categories = questionsData.map((q) => q['category'] as String).toSet();
       for (final cat in categories) {
         await txn.insert(
           'categories',
@@ -32,35 +40,35 @@ class DatabaseSeeder {
       }
 
       // 2. Seed Questions
-      for (final q in mockQuestions) {
+      for (final q in questionsData) {
         await txn.insert(
           'questions',
           {
-            'id': q.id,
-            'category_id': q.category.toLowerCase().replaceAll(' ', '_'),
-            'text': q.text,
-            'options_json': jsonEncode(q.options),
-            'correct_index': q.correctIndex,
-            'explanation': q.explanation,
+            'id': q['id'],
+            'category_id': (q['category'] as String).toLowerCase().replaceAll(' ', '_'),
+            'text': q['text'],
+            'options_json': jsonEncode(q['options']),
+            'correct_index': q['correctIndex'],
+            'explanation': q['explanation'],
           },
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
       }
 
       // 3. Seed Road Signs
-      for (final sign in mockRoadSigns) {
+      for (final sign in roadSignsData) {
         await txn.insert(
           'road_signs',
           {
-            'id': sign.id,
-            'name': sign.name,
-            'category': sign.category,
-            'meaning': sign.meaning,
-            'action_required': sign.actionRequired,
-            'example_situation': sign.exampleSituation,
-            'icon_data_code': sign.iconData.codePoint,
-            'color_hex': sign.color.toARGB32(),
-            'shape_index': sign.shape.index,
+            'id': sign['id'],
+            'name': sign['name'],
+            'category': sign['category'],
+            'meaning': sign['meaning'],
+            'action_required': sign['actionRequired'],
+            'example_situation': sign['exampleSituation'],
+            'icon_data_code': sign['iconDataCode'],
+            'color_hex': sign['colorHex'],
+            'shape_index': sign['shapeIndex'],
           },
           conflictAlgorithm: ConflictAlgorithm.replace,
         );

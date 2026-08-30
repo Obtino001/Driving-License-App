@@ -124,5 +124,5 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
 /// Convenience extension on BuildContext to access custom colors.
 extension AppColorsX on BuildContext {
   AppColorsExtension get appColors =>
-      Theme.of(this).extension<AppColorsExtension>()!;
+      Theme.of(this).extension<AppColorsExtension>() ?? AppColorsExtension.light;
 }
