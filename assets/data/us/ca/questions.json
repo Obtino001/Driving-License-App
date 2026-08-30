@@ -4612,5 +4612,838 @@
     "correctIndex": 2,
     "explanation": "Never drive around crossing gates. Wait until they rise completely and look in both directions, as a second light rail vehicle may be approaching.",
     "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_229",
+    "ruleId": "ca_rule_light_rail_vehicles",
+    "signId": null,
+    "questionType": "scenario",
+    "difficulty": "hard",
+    "text": "You are preparing to turn across a set of train tracks and see a light rail vehicle approaching in your mirrors. What is the most important reason you must not turn in front of it?",
+    "options": [
+      "Light rail vehicles cannot steer off the tracks to avoid a collision.",
+      "The light rail vehicle will automatically stop if it detects a vehicle in its path.",
+      "You are required to yield to all commercial vehicles in the turning lane.",
+      "Light rail vehicles are required to honk their horn before you can turn."
+    ],
+    "correctIndex": 0,
+    "explanation": "You must never turn in front of an approaching light rail vehicle because they run on tracks and cannot steer away from an obstacle to avoid a collision.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_230",
+    "ruleId": "ca_rule_flashing_red_light",
+    "signId": null,
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "What does a flashing red traffic signal light mean?",
+    "options": [
+      "The traffic light is broken and you should proceed without stopping.",
+      "STOP. After stopping, you may proceed when it is safe.",
+      "Slow down and yield to oncoming traffic before proceeding.",
+      "Stop only if pedestrians are present in the crosswalk."
+    ],
+    "correctIndex": 1,
+    "explanation": "A flashing red traffic signal light means 'STOP.' You must treat it the same as a stop sign, and proceed only when it is safe to do so.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_231",
+    "ruleId": "ca_rule_solid_yellow_light",
+    "signId": null,
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "When you approach an intersection and see a solid yellow traffic signal light, what should you do?",
+    "options": [
+      "Speed up to cross the intersection before the light turns red.",
+      "Stop immediately in the middle of the intersection.",
+      "Stop if you can do so safely, as the light is about to turn red.",
+      "Prepare to yield to traffic on your right."
+    ],
+    "correctIndex": 2,
+    "explanation": "A solid yellow traffic signal light means 'CAUTION.' The red traffic signal light is about to appear, and you should stop if you can do so safely.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_232",
+    "ruleId": "ca_rule_flashing_yellow_light",
+    "signId": null,
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "What is the proper driver action when encountering a flashing yellow traffic signal light?",
+    "options": [
+      "Come to a complete stop before proceeding.",
+      "Treat it as a four-way stop.",
+      "Speed up to clear the intersection quickly.",
+      "Slow down and be alert before entering the intersection."
+    ],
+    "correctIndex": 3,
+    "explanation": "A flashing yellow traffic signal light warns you to 'PROCEED WITH CAUTION.' You do not need to stop, but you must slow down and be especially alert.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_233",
+    "ruleId": "ca_rule_flashing_yellow_arrow",
+    "signId": null,
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "What does a flashing yellow arrow traffic signal indicate?",
+    "options": [
+      "You may turn, but your turn is not protected. You must yield to oncoming traffic and pedestrians.",
+      "You have the right-of-way to make a protected turn.",
+      "You must stop and wait for a solid green arrow before turning.",
+      "The lane you are in is ending and you must merge left."
+    ],
+    "correctIndex": 0,
+    "explanation": "A flashing yellow arrow means you can turn, but it is not a protected turn. You must yield to oncoming traffic and pedestrians before proceeding.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_234",
+    "ruleId": "ca_rule_blackout_traffic_light",
+    "signId": null,
+    "questionType": "standard_mcq",
+    "difficulty": "easy",
+    "text": "If you approach an intersection where the traffic signal lights are not working (blackout), how must you proceed?",
+    "options": [
+      "Treat the intersection as if it is controlled by STOP signs in all directions.",
+      "Slow down and proceed through the intersection without stopping.",
+      "Yield to the vehicle on your left and proceed.",
+      "Wait until a law enforcement officer arrives to direct traffic."
+    ],
+    "correctIndex": 0,
+    "explanation": "If a traffic signal light is blacked out, you must treat the intersection as if it were controlled by STOP signs in all directions.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_235",
+    "ruleId": null,
+    "signId": "ca_sign_stop",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When approaching a red octagonal sign, where is the legally required place to stop your vehicle?",
+    "options": [
+      "Wait, what is this asking?",
+      "At the solid white limit line or before entering the crosswalk/intersection.",
+      "Wherever you have the best view of oncoming traffic.",
+      "Anywhere within 10 feet of the intersection."
+    ],
+    "correctIndex": 1,
+    "explanation": "A STOP sign requires you to come to a complete stop at the solid white limit line or before entering the crosswalk/intersection.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_236",
+    "ruleId": null,
+    "signId": "ca_sign_yield",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "You are approaching a red and white triangular sign while merging onto a highway. What action is required?",
+    "options": [
+      "You must always come to a complete stop before merging.",
+      "You have the right-of-way and other vehicles must slow down for you.",
+      "Slow down and be ready to stop to let any vehicle, bicyclist, or pedestrian pass.",
+      "Accelerate to match the speed of highway traffic without yielding."
+    ],
+    "correctIndex": 2,
+    "explanation": "The YIELD sign means you must slow down and be ready to stop to let any vehicle, bicyclist, or pedestrian pass before you proceed.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_237",
+    "ruleId": null,
+    "signId": "ca_sign_wrong_way",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a red rectangular sign with the words 'WRONG WAY' indicate?",
+    "options": [
+      "You are in a lane that will force you to turn left.",
+      "You are going against traffic.",
+      "The road ahead is closed for construction.",
+      "You are approaching a one-way street going in your direction."
+    ],
+    "correctIndex": 1,
+    "explanation": "A WRONG WAY sign indicates that you are driving against the flow of traffic. You must pull over and safely turn around.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_238",
+    "ruleId": null,
+    "signId": "ca_sign_do_not_enter",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a red square sign with a white horizontal line and the words 'DO NOT ENTER' mean?",
+    "options": [
+      "Do not enter the road or off ramp.",
+      "You may enter, but only if you live on this street.",
+      "Proceed carefully as the road surface is uneven.",
+      "Commercial vehicles are prohibited."
+    ],
+    "correctIndex": 0,
+    "explanation": "The DO NOT ENTER sign means you must not enter the road or off-ramp, as it is a one-way road against your direction of travel.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_239",
+    "ruleId": null,
+    "signId": "ca_sign_do_not_enter",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "If you drive past a red square 'DO NOT ENTER' sign at a freeway off-ramp, what is the safest immediate action?",
+    "options": [
+      "Accelerate to quickly merge with oncoming traffic.",
+      "Honk your horn continuously to warn other drivers.",
+      "Continue driving but stay on the far right shoulder.",
+      "Drive to the side of the road and stop, then safely back out or turn around."
+    ],
+    "correctIndex": 3,
+    "explanation": "If you pass a DO NOT ENTER or WRONG WAY sign, you are driving against traffic. You should drive to the side of the road, stop, and when safe, turn around or back out.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_240",
+    "ruleId": null,
+    "signId": "ca_sign_no_u_turn",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a white square sign with a U-turn arrow and a red slash across it mean?",
+    "options": [
+      "Left turns are prohibited, but U-turns are allowed.",
+      "U-turns are permitted only during daylight hours.",
+      "The road curves sharply ahead.",
+      "U-turns are illegal."
+    ],
+    "correctIndex": 3,
+    "explanation": "A red slash across a symbol means the action is prohibited. This sign means U-turns are illegal at this location.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_241",
+    "ruleId": null,
+    "signId": "ca_sign_no_u_turn",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "You approach an intersection displaying a 'NO U-TURN' sign. Which of the following statements is true?",
+    "options": [
+      "You may make a U-turn if no other vehicles are approaching.",
+      "You may make a U-turn if you are driving an emergency vehicle.",
+      "You may still turn left into a driveway or side street if safe.",
+      "You are required to proceed straight through the intersection."
+    ],
+    "correctIndex": 2,
+    "explanation": "A 'NO U-TURN' sign specifically prohibits U-turns. Unless a 'NO LEFT TURN' sign is also present, you may still make a standard left turn if it is otherwise safe and legal.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_242",
+    "ruleId": null,
+    "signId": "ca_sign_slippery_when_wet",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign with a car and swerving tracks indicate?",
+    "options": [
+      "The road ahead is under construction.",
+      "You are approaching a winding mountain road.",
+      "The road surface is unpaved ahead.",
+      "The road ahead is slippery when wet."
+    ],
+    "correctIndex": 3,
+    "explanation": "This warning sign indicates that the road ahead becomes unusually slippery in wet conditions. You should avoid sudden turns or hard braking.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_243",
+    "ruleId": null,
+    "signId": "ca_sign_school_zone",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When you see a yellow-green pentagon sign showing two children walking, what is the correct driver action?",
+    "options": [
+      "Slow down and watch for children crossing, as you are near a school.",
+      "Come to a complete stop before proceeding.",
+      "Honk your horn to warn pedestrians.",
+      "Yield only to children carrying school bags."
+    ],
+    "correctIndex": 0,
+    "explanation": "A pentagon-shaped sign indicates a school zone or school crossing. You must slow down and watch carefully for children.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_244",
+    "ruleId": null,
+    "signId": "ca_sign_divided_highway_begins",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign showing two arrows pointing in opposite directions with a barrier at the top mean?",
+    "options": [
+      "The divided highway you are on is ending.",
+      "A divided highway begins ahead.",
+      "You must yield to traffic approaching from the opposite direction.",
+      "You are entering a two-way street."
+    ],
+    "correctIndex": 1,
+    "explanation": "This sign indicates that the highway ahead is divided by a median or physical barrier, meaning a divided highway is beginning.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_245",
+    "ruleId": null,
+    "signId": "ca_sign_divided_highway_begins",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "You are driving on a two-lane road and see a yellow diamond sign indicating a divided highway begins ahead. What should you do?",
+    "options": [
+      "Merge into the left lane.",
+      "Prepare to stop at a toll booth.",
+      "Keep to the right of the physical barrier or median.",
+      "Reduce your speed to 25 mph."
+    ],
+    "correctIndex": 2,
+    "explanation": "When a divided highway begins, opposing traffic will be separated by a median or barrier. You must stay to the right of this barrier.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_246",
+    "ruleId": null,
+    "signId": "ca_sign_merge",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign showing an arrow merging into a straight arrow mean?",
+    "options": [
+      "You must yield the right-of-way to all exiting vehicles.",
+      "You are approaching a one-way street.",
+      "Your lane is ending and you must merge.",
+      "Traffic from another lane is merging into your lane."
+    ],
+    "correctIndex": 3,
+    "explanation": "This sign warns that traffic from another road or on-ramp is merging into your lane. You should be prepared to allow vehicles to enter safely.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_247",
+    "ruleId": null,
+    "signId": "ca_sign_merge",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When you encounter a 'Merge' sign while driving on the highway, what is the appropriate action?",
+    "options": [
+      "Be prepared to adjust your speed and allow entering vehicles to merge safely.",
+      "Move to the shoulder to make room for entering traffic.",
+      "Speed up significantly to pass the entering vehicles.",
+      "Stop immediately to let the merging traffic go first."
+    ],
+    "correctIndex": 0,
+    "explanation": "While merging traffic must yield to highway traffic, a courteous and safe driver will adjust speed or change lanes when safe to allow merging vehicles to enter smoothly.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_248",
+    "ruleId": null,
+    "signId": "ca_sign_lane_ends",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "A yellow diamond sign shows a straight line and an angled line merging together. What does this mean?",
+    "options": [
+      "The speed limit will decrease ahead.",
+      "The lane you are in is ending.",
+      "A new lane is being added to the road.",
+      "Traffic is merging from the left."
+    ],
+    "correctIndex": 1,
+    "explanation": "This warning sign means that the lane is ending and you must merge safely into the next lane.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_249",
+    "ruleId": null,
+    "signId": "ca_sign_lane_ends",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "If you are driving in the right lane and see a 'Lane Ends' sign, how should you proceed?",
+    "options": [
+      "Stay in your lane until you reach the very end, then force your way in.",
+      "Stop in your lane and wait for a gap in traffic.",
+      "Check your mirrors and blind spots, and merge safely into the next lane.",
+      "Accelerate past all traffic before the lane closes."
+    ],
+    "correctIndex": 2,
+    "explanation": "When your lane is ending, you should safely merge into the adjacent lane by checking your mirrors, looking over your shoulder, and signaling your intent.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_250",
+    "ruleId": null,
+    "signId": "ca_sign_two_way_traffic",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign with two arrows pointing in opposite directions indicate?",
+    "options": [
+      "You are entering a divided highway.",
+      "You are approaching an intersection with two-way traffic.",
+      "The lane ahead is closed to traffic.",
+      "You are on a two-way road with oncoming traffic."
+    ],
+    "correctIndex": 3,
+    "explanation": "This sign warns you that you are traveling on a two-way road. You must stay in your lane and watch for oncoming traffic.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_251",
+    "ruleId": null,
+    "signId": "ca_sign_two_way_traffic",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "You are transitioning off a divided highway and see a 'Two-Way Traffic' sign. What must you keep in mind?",
+    "options": [
+      "You may pass vehicles at any time in the oncoming lane.",
+      "You must drive entirely on the left side of the road.",
+      "You should increase your speed as the physical barrier ends.",
+      "There is no longer a physical barrier separating you from oncoming traffic."
+    ],
+    "correctIndex": 3,
+    "explanation": "The sign warns that you are leaving a divided highway and entering a road where opposing traffic is separated only by painted lines, not a barrier.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_252",
+    "ruleId": null,
+    "signId": "ca_sign_added_lane",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign showing two arrows coming together but remaining separate mean?",
+    "options": [
+      "Traffic from another road is entering the highway, but they have their own lane.",
+      "Two lanes are merging into one lane.",
+      "You must yield to all entering traffic.",
+      "The road divides into two separate highways."
+    ],
+    "correctIndex": 0,
+    "explanation": "The 'Added Lane' sign indicates that merging is not necessary because the entering traffic has its own dedicated lane.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_253",
+    "ruleId": null,
+    "signId": "ca_sign_added_lane",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When you see an 'Added Lane' sign near a freeway on-ramp, what is the required driver action?",
+    "options": [
+      "You must yield to the vehicles entering the new lane.",
+      "You must immediately change lanes to the left.",
+      "You must accelerate to prevent vehicles from using the new lane.",
+      "No merging is necessary, as entering vehicles have their own lane."
+    ],
+    "correctIndex": 3,
+    "explanation": "Because the entering traffic has a dedicated lane added to the highway, neither you nor the entering drivers need to merge immediately.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_254",
+    "ruleId": null,
+    "signId": "ca_sign_pedestrian_crossing",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign with a symbol of a walking person mean?",
+    "options": [
+      "A pedestrian crosswalk is ahead.",
+      "Pedestrians are not allowed in this area.",
+      "You must stop immediately for pedestrians.",
+      "The sidewalk ends ahead."
+    ],
+    "correctIndex": 0,
+    "explanation": "This warning sign means a pedestrian crosswalk is ahead. You should slow down and watch carefully for pedestrians.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_255",
+    "ruleId": null,
+    "signId": "ca_sign_pedestrian_crossing",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When approaching a 'Pedestrian Crossing' sign, what is the safest driving practice?",
+    "options": [
+      "Sound your horn to alert pedestrians of your approach.",
+      "Slow down, scan the road sides, and be prepared to stop if pedestrians are present.",
+      "Accelerate to pass the crosswalk before pedestrians can enter.",
+      "Maintain your speed unless a crossing guard is present."
+    ],
+    "correctIndex": 1,
+    "explanation": "When approaching a pedestrian crossing, you must slow down and watch for pedestrians, stopping if they are in or entering the crosswalk.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_256",
+    "ruleId": null,
+    "signId": "ca_sign_railroad_crossing",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow circular sign with an 'RxR' crossbuck symbol mean?",
+    "options": [
+      "You are driving parallel to train tracks.",
+      "A train station is located nearby.",
+      "You are approaching a railroad crossing.",
+      "The road is closed due to a train accident."
+    ],
+    "correctIndex": 2,
+    "explanation": "This circular warning sign means you are approaching a railroad crossing. You must look, listen, and be prepared to stop.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_257",
+    "ruleId": null,
+    "signId": "ca_sign_railroad_crossing",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "What must you do when you see a yellow circular 'RxR' sign?",
+    "options": [
+      "Stop your vehicle immediately, regardless of whether a train is coming.",
+      "Accelerate to clear the tracks as quickly as possible.",
+      "Proceed at your normal speed unless the crossing gates are lowered.",
+      "Look, listen, and be prepared to stop before the tracks if a train is approaching."
+    ],
+    "correctIndex": 3,
+    "explanation": "The 'RxR' sign warns you that a railroad crossing is ahead. You must be prepared to stop by looking and listening for trains.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_258",
+    "ruleId": null,
+    "signId": "ca_sign_no_right_turn",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a white square sign with a right arrow and a red slash across it indicate?",
+    "options": [
+      "Right turns are illegal.",
+      "The right lane is ending.",
+      "You must turn right at the intersection.",
+      "Right turns are permitted only on a green light."
+    ],
+    "correctIndex": 0,
+    "explanation": "A red slash across a symbol means the action is prohibited. This sign means you may not turn right.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_259",
+    "ruleId": null,
+    "signId": "ca_sign_no_right_turn",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "If you approach an intersection with a 'NO RIGHT TURN' sign, which of the following is true?",
+    "options": [
+      "You may turn right if the cross traffic is clear.",
+      "You must not turn right under any circumstances.",
+      "You may turn right after coming to a complete stop.",
+      "You may turn right only if you are in the far right lane."
+    ],
+    "correctIndex": 1,
+    "explanation": "A 'NO RIGHT TURN' sign strictly prohibits making a right turn at that location, regardless of traffic conditions or traffic signals.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_260",
+    "ruleId": null,
+    "signId": "ca_sign_keep_right",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a white rectangular sign showing an arrow pointing right around an obstruction mean?",
+    "options": [
+      "The road turns sharply to the right.",
+      "You must exit the highway on the right.",
+      "Traffic must stay to the right of a divider or obstruction.",
+      "You may pass vehicles only on the right side."
+    ],
+    "correctIndex": 2,
+    "explanation": "This is a 'Keep Right' sign. It directs traffic to stay to the right of a traffic island, median, or other obstruction.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_261",
+    "ruleId": null,
+    "signId": "ca_sign_keep_right",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When you encounter a 'Keep Right' sign on a road with a median, what is the required driver action?",
+    "options": [
+      "Move to the right lane and prepare to stop.",
+      "Drive around the left side of the median if the right lane is blocked.",
+      "Turn right at the next available intersection.",
+      "Stay to the right of the median or obstruction."
+    ],
+    "correctIndex": 3,
+    "explanation": "A 'Keep Right' sign instructs drivers that they must drive to the right side of the indicated divider or obstruction.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_262",
+    "ruleId": null,
+    "signId": "ca_sign_speed_limit",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a white rectangular sign with the words 'SPEED LIMIT' indicate?",
+    "options": [
+      "The maximum legal speed under ideal conditions.",
+      "The minimum speed you are allowed to travel.",
+      "The recommended speed for poor weather conditions.",
+      "The speed limit only for commercial vehicles."
+    ],
+    "correctIndex": 0,
+    "explanation": "A 'SPEED LIMIT' sign displays the maximum legal speed you may travel under ideal weather and traffic conditions.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_263",
+    "ruleId": null,
+    "signId": "ca_sign_speed_limit",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "If you see a 'SPEED LIMIT 55' sign, which of the following is true?",
+    "options": [
+      "You must drive exactly 55 mph at all times.",
+      "You may drive up to 65 mph to pass slower vehicles safely.",
+      "You must drive 55 mph even if the road is covered in snow.",
+      "You must not exceed 55 mph, and you must drive slower if conditions are unsafe."
+    ],
+    "correctIndex": 3,
+    "explanation": "A speed limit sign indicates the absolute maximum speed allowed under ideal conditions. By law, you must drive slower if heavy traffic or bad weather makes 55 mph unsafe.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_264",
+    "ruleId": null,
+    "signId": "ca_sign_one_way",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a black and white rectangular sign with an arrow and the text 'ONE WAY' mean?",
+    "options": [
+      "You must turn into the closest lane.",
+      "The road ahead is a dead end.",
+      "You may park only on one side of the street.",
+      "Traffic flows only in the direction of the arrow."
+    ],
+    "correctIndex": 3,
+    "explanation": "A 'ONE WAY' sign indicates that traffic on that street may only flow in the direction the arrow is pointing.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_265",
+    "ruleId": null,
+    "signId": "ca_sign_one_way",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When turning onto a street that has a 'ONE WAY' sign pointing to the left, what must you do?",
+    "options": [
+      "Wait for oncoming traffic from the left before turning.",
+      "You may turn either left or right if no traffic is approaching.",
+      "Look for traffic approaching from the right.",
+      "Drive only to the left, in the direction indicated."
+    ],
+    "correctIndex": 3,
+    "explanation": "You must drive only in the direction the arrow is pointing. Turning right would mean driving against the flow of traffic, which is illegal and dangerous.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_266",
+    "ruleId": null,
+    "signId": "ca_sign_hospital",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a blue rectangular sign with a white letter 'H' indicate?",
+    "options": [
+      "A hospital is nearby.",
+      "A highway rest area is ahead.",
+      "Handicapped parking is available.",
+      "Helicopters may land in the area."
+    ],
+    "correctIndex": 0,
+    "explanation": "This blue guide sign indicates that a hospital or medical center is located nearby.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_267",
+    "ruleId": null,
+    "signId": "ca_sign_hospital",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "If you are driving and see a blue sign with a large white 'H', what should you understand?",
+    "options": [
+      "You are entering a quiet zone where honking is strictly prohibited.",
+      "You should follow these signs if emergency medical services are needed.",
+      "The road ahead is designed for High Occupancy Vehicles (HOV) only.",
+      "You must yield to all emergency vehicles parked in the area."
+    ],
+    "correctIndex": 1,
+    "explanation": "The 'H' sign points the way to a hospital. It is placed on roads to help drivers quickly locate emergency medical facilities.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_268",
+    "ruleId": null,
+    "signId": "ca_sign_deer_crossing",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign with a symbol of a leaping deer mean?",
+    "options": [
+      "A petting zoo or animal farm is located ahead.",
+      "You are entering a state park.",
+      "Deer often cross the road in this area.",
+      "Hunting is permitted in the surrounding area."
+    ],
+    "correctIndex": 2,
+    "explanation": "This warning sign alerts drivers that they are in an area where deer frequently cross the roadway.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_269",
+    "ruleId": null,
+    "signId": "ca_sign_deer_crossing",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When driving through an area posted with a 'Deer Crossing' sign, when should you be especially alert?",
+    "options": [
+      "Only during the winter months.",
+      "Only when driving in heavy rain.",
+      "During the middle of the day when visibility is best.",
+      "At dusk and dawn, when deer are most active."
+    ],
+    "correctIndex": 3,
+    "explanation": "While you should always be alert in a deer crossing area, deer are especially active and harder to see at dawn and dusk.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_270",
+    "ruleId": null,
+    "signId": "ca_sign_steep_hill",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign showing a truck going down a hill indicate?",
+    "options": [
+      "A steep downgrade is ahead.",
+      "The road is closed to heavy trucks.",
+      "Trucks are required to use runaway truck ramps.",
+      "A steep uphill climb is ahead."
+    ],
+    "correctIndex": 0,
+    "explanation": "This warning sign means a steep downgrade (hill) is ahead. Drivers should check their brakes and be prepared to manage their speed.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_271",
+    "ruleId": null,
+    "signId": "ca_sign_steep_hill",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "You see a yellow warning sign showing a truck going down a hill. What is a recommended driving action?",
+    "options": [
+      "Shift into neutral to save fuel on the way down.",
+      "Check your brakes and consider shifting to a lower gear.",
+      "Accelerate slightly to maintain momentum for the next hill.",
+      "Turn on your hazard lights to warn vehicles behind you."
+    ],
+    "correctIndex": 1,
+    "explanation": "When approaching a steep downgrade, shifting to a lower gear helps your engine control your vehicle's speed, preventing your brakes from overheating.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_272",
+    "ruleId": null,
+    "signId": "ca_sign_crossroad",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign with a black plus sign (+) mean?",
+    "options": [
+      "A hospital or medical clinic is ahead.",
+      "The road ends in a T-intersection.",
+      "A four-way intersection is ahead.",
+      "A railroad crossing is ahead."
+    ],
+    "correctIndex": 2,
+    "explanation": "This 'Crossroad' sign warns that another road crosses your road ahead, forming a four-way intersection.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_273",
+    "ruleId": null,
+    "signId": "ca_sign_crossroad",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "If you see a yellow diamond sign with a black cross (+) on a rural highway, what should you do?",
+    "options": [
+      "Stop completely before the intersection.",
+      "Assume you have the right-of-way and maintain speed.",
+      "Speed up to clear the intersection quickly.",
+      "Watch for traffic entering from the side roads."
+    ],
+    "correctIndex": 3,
+    "explanation": "The 'Crossroad' sign warns of an intersection ahead. You should look out for cross traffic that may be entering or crossing your path.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_274",
+    "ruleId": null,
+    "signId": "ca_sign_yield_ahead",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign showing the symbol of a YIELD sign mean?",
+    "options": [
+      "There is a YIELD sign ahead.",
+      "You must yield to pedestrians in the crosswalk right now.",
+      "You are required to merge into the left lane.",
+      "The road curves sharply ahead."
+    ],
+    "correctIndex": 0,
+    "explanation": "This warning sign alerts drivers that they are approaching a YIELD sign and must prepare to slow down or stop.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_275",
+    "ruleId": null,
+    "signId": "ca_sign_yield_ahead",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "When you encounter a 'Yield Ahead' sign, what is the safest driving practice?",
+    "options": [
+      "Accelerate so you do not have to yield.",
+      "Stop immediately at the location of the warning sign.",
+      "Honk your horn to warn vehicles that you are approaching the yield sign.",
+      "Slow down and prepare to yield at the upcoming intersection or roundabout."
+    ],
+    "correctIndex": 3,
+    "explanation": "The sign warns of a YIELD sign ahead, usually because the actual YIELD sign might be hidden by a curve or hill. You should adjust your speed and prepare to yield.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_276",
+    "ruleId": null,
+    "signId": "ca_sign_stop_ahead",
+    "questionType": "sign_question",
+    "difficulty": "easy",
+    "text": "What does a yellow diamond sign showing the symbol of a STOP sign or a red octagon mean?",
+    "options": [
+      "The road is closed ahead.",
+      "You must come to a complete stop immediately.",
+      "A traffic light is ahead.",
+      "There is a STOP sign ahead."
+    ],
+    "correctIndex": 3,
+    "explanation": "This warning sign lets you know that a STOP sign is approaching, so you should begin slowing down.",
+    "verificationStatus": "REVIEW"
+  },
+  {
+    "id": "ca_q_277",
+    "ruleId": null,
+    "signId": "ca_sign_stop_ahead",
+    "questionType": "sign_question",
+    "difficulty": "medium",
+    "text": "If you are driving on a rural road and pass a 'Stop Ahead' sign, what action should you take?",
+    "options": [
+      "Pull over to the side of the road and wait.",
+      "Brake hard to stop as quickly as possible.",
+      "Assume cross traffic will yield to you.",
+      "Slow down and prepare to come to a complete stop."
+    ],
+    "correctIndex": 3,
+    "explanation": "Because the upcoming STOP sign may be hidden by a curve or poor visibility, the warning sign tells you to slow down early so you can stop safely.",
+    "verificationStatus": "REVIEW"
   }
 ]

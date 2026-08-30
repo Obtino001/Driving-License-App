@@ -1960,7 +1960,8 @@
         {
           "type": "scenario",
           "difficulty": "hard",
-          "description": "A complex scenario combining this rule with another common road condition."
+          "description": "A complex scenario combining this rule with another common road condition.",
+          "status": "GENERATED"
         }
       ]
     },
@@ -1972,7 +1973,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED"
         }
       ]
     },
@@ -1984,7 +1986,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED"
         }
       ]
     },
@@ -1996,7 +1999,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2008,7 +2012,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2020,7 +2025,8 @@
         {
           "type": "standard_mcq",
           "difficulty": "easy",
-          "description": "Directly test the core requirement of the rule."
+          "description": "Directly test the core requirement of the rule.",
+          "status": "GENERATED"
         }
       ]
     }
@@ -2038,7 +2044,8 @@
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2054,7 +2061,8 @@
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2065,7 +2073,8 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
@@ -2081,12 +2090,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2097,12 +2108,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2113,7 +2126,8 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
@@ -2134,7 +2148,8 @@
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2145,12 +2160,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2161,12 +2178,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2177,12 +2196,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2193,12 +2214,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2209,12 +2232,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2225,12 +2250,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2241,12 +2268,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2257,12 +2286,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2273,12 +2304,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2289,12 +2322,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2305,12 +2340,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2321,12 +2358,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2337,12 +2376,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2353,12 +2394,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2369,12 +2412,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2385,12 +2430,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     },
@@ -2401,12 +2448,14 @@
         {
           "type": "sign_question",
           "difficulty": "easy",
-          "description": "Identify the meaning of the sign."
+          "description": "Identify the meaning of the sign.",
+          "status": "GENERATED"
         },
         {
           "type": "sign_question",
           "difficulty": "medium",
-          "description": "Identify the required driver action: ${sign['driverAction']}"
+          "description": "Identify the required driver action: ${sign['driverAction']}",
+          "status": "GENERATED"
         }
       ]
     }
