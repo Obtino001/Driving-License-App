@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTypography {
-  static dynamic get textTheme {
-    return GoogleFonts.outfitTextTheme().copyWith(
+  static TextTheme get textTheme {
+    return TextTheme(
       displayLarge: GoogleFonts.outfit(
         fontSize: 40,
         fontWeight: FontWeight.w700,
