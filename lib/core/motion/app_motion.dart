@@ -10,7 +10,7 @@ class AppMotion {
   // Curves
   static const Curve standardEasing = Curves.easeOutCubic;
   static const Curve standardAccelerate = Curves.easeInCubic;
-  
+
   static const Curve springSubtle = Curves.easeOutBack;
 
   static const Curve springExpressive = Curves.elasticOut;

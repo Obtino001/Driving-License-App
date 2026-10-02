@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
 import '../motion/app_motion.dart';
 
@@ -22,17 +23,15 @@ class AppButton extends StatefulWidget {
   State<AppButton> createState() => _AppButtonState();
 }
 
-class _AppButtonState extends State<AppButton> with SingleTickerProviderStateMixin {
+class _AppButtonState extends State<AppButton>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: AppMotion.quick,
-    );
+    _controller = AnimationController(vsync: this, duration: AppMotion.quick);
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.97).animate(
       CurvedAnimation(parent: _controller, curve: AppMotion.standardEasing),
     );
@@ -87,10 +86,8 @@ class _AppButtonState extends State<AppButton> with SingleTickerProviderStateMix
       onTapCancel: _handleTapCancel,
       child: AnimatedBuilder(
         animation: _scaleAnimation,
-        builder: (context, child) => Transform.scale(
-          scale: _scaleAnimation.value,
-          child: child,
-        ),
+        builder: (context, child) =>
+            Transform.scale(scale: _scaleAnimation.value, child: child),
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 18),
@@ -104,16 +101,12 @@ class _AppButtonState extends State<AppButton> with SingleTickerProviderStateMix
                 ? SizedBox(
                     height: 24,
                     width: 24,
-                    child: CircularProgressIndicator(
-                      color: fg,
-                      strokeWidth: 2,
-                    ),
+                    child: CircularProgressIndicator(color: fg, strokeWidth: 2),
                   )
                 : Text(
                     widget.text,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: fg,
-                        ),
+                    style: Theme.of(context).textTheme.labelLarge
+                        ?.copyWith(color: fg),
                   ),
           ),
         ),

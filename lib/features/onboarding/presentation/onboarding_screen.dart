@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/motion/app_motion.dart';
+
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -77,20 +79,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(PhosphorIcons.carProfile(PhosphorIconsStyle.fill), color: AppColors.primaryAccent, size: 64),
+          Icon(
+            PhosphorIcons.carProfile(PhosphorIconsStyle.fill),
+            color: AppColors.primaryAccent,
+            size: 64,
+          ),
           const SizedBox(height: 24),
           Text(
             "Master the California Road.",
-            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  color: AppColors.textInverse,
-                ),
+            style: Theme.of(context).textTheme.displayLarge
+                ?.copyWith(color: AppColors.textInverse),
           ),
           const SizedBox(height: 16),
           Text(
             "The most efficient, modern way to pass your DMV written exam.",
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textTertiary,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge
+                ?.copyWith(color: AppColors.textTertiary),
           ),
         ],
       ),
@@ -106,9 +110,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           Text(
             "What are you preparing for?",
-            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  color: AppColors.textInverse,
-                ),
+            style: Theme.of(context).textTheme.displayMedium
+                ?.copyWith(color: AppColors.textInverse),
           ),
           const SizedBox(height: 48),
           _buildSelectableCard("California Class C", true),
@@ -130,9 +133,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           Text(
             "When is your test?",
-            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  color: AppColors.textInverse,
-                ),
+            style: Theme.of(context).textTheme.displayMedium
+                ?.copyWith(color: AppColors.textInverse),
           ),
           const SizedBox(height: 48),
           _buildSelectableCard("This week", false),
@@ -154,21 +156,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(PhosphorIcons.checkCircle(PhosphorIconsStyle.fill), color: AppColors.primaryAccent, size: 80),
+          Icon(
+            PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
+            color: AppColors.primaryAccent,
+            size: 80,
+          ),
           const SizedBox(height: 32),
           Text(
             "Your plan is ready.",
-            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  color: AppColors.textInverse,
-                ),
+            style: Theme.of(context).textTheme.displayMedium
+                ?.copyWith(color: AppColors.textInverse),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           Text(
             "We've customized your learning path based on your exam date.",
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textTertiary,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge
+                ?.copyWith(color: AppColors.textTertiary),
             textAlign: TextAlign.center,
           ),
         ],
@@ -185,7 +189,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         color: isSelected ? AppColors.primaryAccent : AppColors.surfaceDark,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isSelected ? AppColors.primaryAccent : AppColors.textTertiary.withValues(alpha: 0.3),
+          color: isSelected
+              ? AppColors.primaryAccent
+              : AppColors.textTertiary.withValues(alpha: 0.3),
         ),
       ),
       child: Row(
@@ -194,12 +200,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Text(
               title,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: isSelected ? AppColors.primaryDark : AppColors.textInverse,
-                  ),
+                color: isSelected
+                    ? AppColors.primaryDark
+                    : AppColors.textInverse,
+              ),
             ),
           ),
           if (isSelected)
-            Icon(PhosphorIcons.checkCircle(PhosphorIconsStyle.fill), color: AppColors.primaryDark)
+            Icon(
+              PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
+              color: AppColors.primaryDark,
+            ),
         ],
       ),
     );
