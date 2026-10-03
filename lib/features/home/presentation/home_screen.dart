@@ -15,7 +15,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final stateAsync = ref.watch(homeProvider);
     Future<void> openAndRefresh(String route, {Object? extra}) async {
-      if (route == '/learn' || route == '/progress' || route == '/settings') {
+      if (route == '/learn' || route == '/practice' || route == '/progress') {
         context.go(route, extra: extra);
       } else {
         await context.push(route, extra: extra);
@@ -161,6 +161,26 @@ class HomeHeader extends StatelessWidget {
               ),
             ),
           ),
+        const SizedBox(width: 8),
+        GestureDetector(
+          onTap: () {
+            AppHaptics.buttonPress();
+            context.push('/settings');
+          },
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+            ),
+            child: Icon(
+              PhosphorIcons.user(PhosphorIconsStyle.fill),
+              color: AppColors.textPrimary,
+              size: 20,
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -7,6 +7,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/motion/app_motion.dart';
 import '../../../core/utils/haptics.dart';
+import '../../../core/preferences/preferences_provider.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -19,7 +20,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
-  void _nextPage() {
+  void _nextPage() async {
     AppHaptics.buttonPress();
     if (_currentIndex < 3) {
       _pageController.nextPage(
@@ -27,7 +28,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         curve: AppMotion.standardEasing,
       );
     } else {
-      context.go('/home');
+      final prefs = ref.read(sharedPreferencesProvider);
+      await prefs.setBool('onboarding_complete', true);
+      if (mounted) {
+        context.go('/home');
+      }
     }
   }
 

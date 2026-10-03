@@ -35,15 +35,15 @@ class _BottomNav extends StatelessWidget {
     final currentIndex = navigationShell.currentIndex;
     return Container(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).padding.bottom + 12,
-        top: 12,
+        bottom: MediaQuery.of(context).padding.bottom + 8,
+        top: 8,
         left: 24,
         right: 24,
       ),
       decoration: BoxDecoration(
         color: AppColors.surface,
         border: Border(
-          top: BorderSide(color: AppColors.textTertiary.withOpacity(0.1)),
+          top: BorderSide(color: AppColors.textTertiary.withValues(alpha: 0.1)),
         ),
       ),
       child: Row(
@@ -64,16 +64,16 @@ class _BottomNav extends StatelessWidget {
             onTap: () => _onTap(context, 1),
           ),
           _NavItem(
-            icon: PhosphorIcons.chartLineUp(),
-            activeIcon: PhosphorIcons.chartLineUp(PhosphorIconsStyle.fill),
-            label: 'Progress',
+            icon: PhosphorIcons.steeringWheel(),
+            activeIcon: PhosphorIcons.steeringWheel(PhosphorIconsStyle.fill),
+            label: 'Practice',
             isActive: currentIndex == 2,
             onTap: () => _onTap(context, 2),
           ),
           _NavItem(
-            icon: PhosphorIcons.gear(),
-            activeIcon: PhosphorIcons.gear(PhosphorIconsStyle.fill),
-            label: 'Settings',
+            icon: PhosphorIcons.chartLineUp(),
+            activeIcon: PhosphorIcons.chartLineUp(PhosphorIconsStyle.fill),
+            label: 'Progress',
             isActive: currentIndex == 3,
             onTap: () => _onTap(context, 3),
           ),
@@ -104,31 +104,37 @@ class _NavItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        curve: Curves.easeOutCubic,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: isActive
-              ? AppColors.primaryAccent.withOpacity(0.2)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(999),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+      child: SizedBox(
+        width: 64,
+        height: 56,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(isActive ? activeIcon : icon, color: color, size: 24),
-            if (isActive) ...[
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: AppColors.primaryDark,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                ),
+            Icon(
+              isActive ? activeIcon : icon,
+              color: color,
+              size: 24,
+            ),
+            const SizedBox(height: 4),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              width: isActive ? 16 : 0,
+              height: 4,
+              decoration: BoxDecoration(
+                color: isActive ? AppColors.primaryAccent : Colors.transparent,
+                borderRadius: BorderRadius.circular(2),
               ),
-            ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: color,
+                    fontSize: 10,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+                  ),
+            ),
           ],
         ),
       ),

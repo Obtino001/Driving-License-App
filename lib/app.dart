@@ -16,10 +16,12 @@ class DmvPracticeApp extends ConsumerWidget {
       (previous, next) => AppHaptics.enabled = next,
     );
 
+    final router = ref.watch(appRouterProvider);
+
     return MaterialApp.router(
       title: 'DMV Practice',
       theme: AppTheme.lightTheme,
-      routerConfig: appRouter,
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
   }
