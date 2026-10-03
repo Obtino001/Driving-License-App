@@ -18,6 +18,7 @@
       "explanationDetailed": "High beams will reflect off the moisture in the fog and create glare, reducing your visibility further. Low beams direct light downward onto the road surface.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -39,6 +40,7 @@
       "explanationDetailed": "Hydroplaning occurs when tires ride on a layer of water instead of the road. Braking hard or turning sharply can cause a complete loss of control. Easing off the gas allows the tires to eventually reconnect with the road.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -60,6 +62,7 @@
       "explanationDetailed": "Flashing red lights on a school bus mean you must stop from either direction on a two-lane road. You may only proceed once the lights stop flashing and the bus begins to move.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -81,6 +84,7 @@
       "explanationDetailed": "It is illegal to leave a child 6 years old or younger unattended in a motor vehicle unless supervised by a person who is at least 12 years old, due to extreme temperature risks and safety hazards.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -102,6 +106,7 @@
       "explanationDetailed": "Regardless of the posted limit, your speed must be adjusted for weather, traffic, road conditions, and visibility. The posted limit indicates the maximum speed under ideal conditions.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -123,6 +128,7 @@
       "explanationDetailed": "You may not cross solid double yellow lines to pass another vehicle. You may only cross them to make a permitted left turn into or out of a driveway or alley.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -144,6 +150,7 @@
       "explanationDetailed": "A flashing red traffic signal means exactly the same thing as a stop sign. You must come to a complete stop, yield the right-of-way, and proceed only when safe.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -165,6 +172,7 @@
       "explanationDetailed": "Yellow diamond-shaped signs alert drivers to specific road conditions or hazards ahead, such as a sharp curve, pedestrian crossing, or slippery road.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -186,6 +194,7 @@
       "explanationDetailed": "White rectangular signs are regulatory. This sign explicitly prohibits you from overtaking and passing other vehicles in that specific zone.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -207,6 +216,7 @@
       "explanationDetailed": "When a traffic signal is blacked out, all vehicles must come to a complete stop. You must then proceed using the standard right-of-way rules for a four-way stop intersection.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -228,8 +238,9 @@
       "explanationDetailed": "At a four-way stop, if two vehicles arrive simultaneously, the vehicle on the right has the right-of-way. The driver on the left must yield.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "fourWayIntersection",
       "motionVariant": null
     },
     {
@@ -249,9 +260,10 @@
       "explanationDetailed": "A solid green light permits a left turn, but it is unprotected. You must pull forward and yield to any oncoming vehicles and pedestrians before completing the turn.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
-      "motionVariant": null
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "leftTurnConflict",
+      "motionVariant": "drawPath"
     },
     {
       "id": "q_rw_03",
@@ -270,8 +282,9 @@
       "explanationDetailed": "Crosswalks exist at all intersections, whether they are marked with painted lines or not. You must always yield to pedestrians crossing the street at an intersection.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "pedestrianCrossing",
       "motionVariant": null
     },
     {
@@ -291,6 +304,7 @@
       "explanationDetailed": "At a T-intersection without signs or signals, vehicles on the road that ends must yield the right-of-way to vehicles traveling on the continuing cross street.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -312,6 +326,7 @@
       "explanationDetailed": "Before entering a public road from an alley, driveway, or parking lot, you must stop and yield to all pedestrians and vehicles already on the road or sidewalk.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -333,6 +348,7 @@
       "explanationDetailed": "To protect pedestrians and local traffic, California law sets a default speed limit of 25 mph in all residential and business districts unless signage specifies otherwise.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -354,6 +370,7 @@
       "explanationDetailed": "To avoid rear-end collisions, pick a fixed object ahead. When the vehicle in front of you passes it, count 'one-thousand-one, one-thousand-two, one-thousand-three.' If you pass the object before finishing, you are following too closely.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -375,6 +392,7 @@
       "explanationDetailed": "Wet roads have less traction. To maintain control and avoid hydroplaning, you should reduce your speed by about 5 to 10 miles per hour compared to dry conditions.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -396,6 +414,7 @@
       "explanationDetailed": "An intersection is 'blind' if there are no stop signs and you cannot see 100 feet in either direction during the last 100 feet before crossing. The limit is 15 mph to allow time to stop.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -417,6 +436,7 @@
       "explanationDetailed": "When children are outside or crossing the street near a school, the speed limit is 25 mph. Some school zones may have lower posted limits, but 25 mph is the standard maximum.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -438,6 +458,7 @@
       "explanationDetailed": "All vehicles entering a roundabout must yield to traffic already in the circle and proceed to the right, driving in a counter-clockwise direction.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -459,6 +480,7 @@
       "explanationDetailed": "If your wheels are turned left while waiting, a rear-end collision could push your vehicle directly into the path of oncoming traffic. Keep them straight until it is safe to turn.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -480,6 +502,7 @@
       "explanationDetailed": "You must never stop in the middle of an intersection. If you have already crossed the limit line when the light turns red, proceed through to clear the intersection.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -501,8 +524,9 @@
       "explanationDetailed": "Unlike a solid red circle, a red arrow means you must stop and you may NOT turn in the direction of the arrow until it turns green.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "stopSignPriority",
       "motionVariant": null
     },
     {
@@ -522,6 +546,7 @@
       "explanationDetailed": "These markings, often accompanied by 'Keep Clear' signs, indicate that you must not enter the intersection unless you have enough space to cross completely without stopping.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -543,8 +568,9 @@
       "explanationDetailed": "You may enter a bike lane to make a right turn, but you must not drive in it for more than 200 feet before the intersection, and you must yield to bicycles.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "bicycleLane",
       "motionVariant": null
     },
     {
@@ -564,6 +590,7 @@
       "explanationDetailed": "The far-left lane is for passing or faster traffic. The far-right lane is for slower traffic, entering, and exiting. The middle lane generally provides the smoothest flow.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -585,6 +612,7 @@
       "explanationDetailed": "This lane is reserved for vehicles making left turns (or U-turns where permitted) from either direction. You may only drive in this lane for a maximum of 200 feet.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -606,6 +634,7 @@
       "explanationDetailed": "Solid white lines separate lanes of traffic traveling in the same direction. They indicate that lane changes are discouraged due to potential hazards, though not strictly illegal.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -627,6 +656,7 @@
       "explanationDetailed": "Carpool or HOV lanes are reserved for vehicles with a minimum number of occupants, or specific low-emission vehicles. They are clearly marked with a painted white diamond on the road surface.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -648,8 +678,9 @@
       "explanationDetailed": "If your brakes fail on a downhill slope, turning the wheels toward the curb will cause the vehicle to roll into the curb and stop, preventing it from rolling into traffic.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "hillParking",
       "motionVariant": null
     },
     {
@@ -669,6 +700,7 @@
       "explanationDetailed": "A blue curb designates parking exclusively for persons with disabilities. A valid disabled placard or special license plate must be visibly displayed on the vehicle.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -690,9 +722,10 @@
       "explanationDetailed": "California law requires that when parallel parked on a level street, the wheels of your vehicle must be parallel to and within 18 inches of the curb.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
-      "motionVariant": null
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "parallelParking",
+      "motionVariant": "drawPath"
     },
     {
       "id": "q_pk_04",
@@ -711,6 +744,7 @@
       "explanationDetailed": "When there is no curb (uphill or downhill), always turn your wheels toward the edge of the road so that if the vehicle rolls, it will roll off the roadway, not into traffic.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -732,6 +766,7 @@
       "explanationDetailed": "A white painted curb means you may stop only for the immediate loading or unloading of passengers, or to deposit mail in an adjacent mailbox.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -753,6 +788,7 @@
       "explanationDetailed": "Large vehicles often must swing wide into the adjacent left lane to prevent their rear wheels from jumping the curb. Never try to squeeze past a truck on the right when it is turning.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -774,9 +810,10 @@
       "explanationDetailed": "Never stop in the middle of an intersection. Proceed safely through the intersection, then immediately pull over to the right edge of the road and stop.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
-      "motionVariant": null
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "emergencyVehicle",
+      "motionVariant": "drawPath"
     },
     {
       "id": "q_sr_03",
@@ -795,6 +832,7 @@
       "explanationDetailed": "Light rail vehicles cannot stop quickly and have limited visibility. Always verify that a turn is completely clear of approaching trolleys before crossing the tracks.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -816,9 +854,10 @@
       "explanationDetailed": "Lane splitting is legal in California. Because motorcycles are small and can appear suddenly between lanes, you must be extremely diligent about checking blind spots before any maneuver.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
-      "motionVariant": null
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "laneChange",
+      "motionVariant": "drawPath"
     },
     {
       "id": "q_sr_05",
@@ -837,6 +876,7 @@
       "explanationDetailed": "By law, you must provide a minimum clearance of 3 feet when overtaking a bicycle. If 3 feet is not possible, you must slow down and wait until it is safe to pass.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -858,6 +898,7 @@
       "explanationDetailed": "It is illegal to hold a phone to read, write, or send text messages while driving. You may only use a device if it is mounted and operated entirely hands-free or via voice commands.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -879,6 +920,7 @@
       "explanationDetailed": "Good drivers keep their eyes constantly moving. Staring at a single fixed object causes 'highway hypnosis' and reduces your awareness of surrounding hazards.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -900,6 +942,7 @@
       "explanationDetailed": "Drowsy driving is extremely dangerous. It mimics the effects of alcohol impairment, reducing your ability to make split-second decisions and slowing your physical reaction time.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -921,6 +964,7 @@
       "explanationDetailed": "Mirrors do not show everything. After signaling and checking mirrors, you must briefly turn your head to look over your shoulder into the blind spot to ensure the space is empty.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -942,6 +986,7 @@
       "explanationDetailed": "For adults 21 and older operating a regular passenger vehicle, driving with a BAC of 0.08% or higher is a DUI offense. However, you can still be impaired and arrested at lower levels.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -963,6 +1008,7 @@
       "explanationDetailed": "Over-correcting (yanking the wheel) or braking hard on dirt can cause the vehicle to flip or spin into oncoming traffic. Maintain control, slow down, and merge back carefully.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -984,6 +1030,7 @@
       "explanationDetailed": "A blowout will pull the vehicle hard to the side of the blown tire. Braking hard will exacerbate this pull. Hold the wheel tight, ease off the gas, and brake gently only after regaining control.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -1005,6 +1052,7 @@
       "explanationDetailed": "Water pressure will rapidly make doors impossible to open. The electrical system may fail quickly, so immediately roll down or break a side window (not the windshield) to escape.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -1026,6 +1074,7 @@
       "explanationDetailed": "Pumping the brakes may build up enough fluid pressure to stop the vehicle. Shifting to a lower gear allows the engine to help slow the vehicle down.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
+      "contentVersion": 1,
       "assetType": null,
       "assetPath": null,
       "motionVariant": null
@@ -1047,9 +1096,10 @@
       "explanationDetailed": "If a collision causes property damage only and the vehicles can be moved, you must move them out of the traffic lanes to prevent further accidents and traffic congestion.",
       "sourceReference": "DMV_CA_Handbook_2024",
       "reviewStatus": "needsReview",
-      "assetType": null,
-      "assetPath": null,
-      "motionVariant": null
+      "contentVersion": 1,
+      "assetType": "scenario",
+      "assetPath": "highwayMerge",
+      "motionVariant": "drawPath"
     }
   ]
 }

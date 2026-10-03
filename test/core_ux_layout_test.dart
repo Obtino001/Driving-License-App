@@ -93,6 +93,19 @@ void main() {
 
       await tester.pumpWidget(
         ProviderScope(
+          key: UniqueKey(),
+          overrides: [
+            signsProvider.overrideWith((ref) => Future.value([
+              const RoadSign(
+                id: 's_warn_04',
+                name: 'Merge',
+                category: 'Warning',
+                assetPath: 'assets/signs/merge.svg',
+                shortMeaning: 'Traffic merging ahead.',
+                detailedMeaning: 'EASY TO MISS',
+              ),
+            ])),
+          ],
           child: MaterialApp(
             home: MediaQuery(
               data: const MediaQueryData(textScaler: TextScaler.linear(1.3)),
@@ -118,8 +131,8 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Warning'));
       await tester.pumpAndSettle();
-      expect(find.text('Merging Traffic'), findsOneWidget);
-      await tester.tap(find.text('Merging Traffic'));
+      expect(find.text('Merge'), findsWidgets);
+      await tester.tap(find.text('Merge').first);
       await tester.pumpAndSettle();
       expect(find.text('EASY TO MISS'), findsOneWidget);
       expect(

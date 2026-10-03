@@ -141,12 +141,15 @@ class _PracticeQuizScreenState extends ConsumerState<PracticeQuizScreen> {
                                       ),
                                 ),
                                 if (question.illustrationAsset
-                                        ?.trim()
-                                        .isNotEmpty ==
-                                    true) ...[
+                                            ?.trim()
+                                            .isNotEmpty ==
+                                        true ||
+                                    question.assetType == 'scenario') ...[
                                   const SizedBox(height: 20),
                                   VisualScenario(
+                                    assetType: question.assetType,
                                     assetPath: question.illustrationAsset,
+                                    isRevealed: state.isRevealed,
                                   ),
                                 ],
                                 const SizedBox(height: 28),

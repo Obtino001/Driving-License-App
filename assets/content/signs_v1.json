@@ -10,7 +10,7 @@
       "detailedMeaning": "You must make a full stop at the solid white limit line or before entering the crosswalk.",
       "commonMistake": "Slowing down without coming to a complete cessation of movement (a 'rolling stop').",
       "sourceReference": "DMV_CA_Handbook_2024",
-      "reviewStatus": "verified",
+      "reviewStatus": "needsReview",
       "contentVersion": 1
     },
     {
@@ -22,7 +22,31 @@
       "detailedMeaning": "You must slow down and be ready to stop to let any vehicle, bicyclist, or pedestrian pass before you proceed.",
       "commonMistake": "Failing to stop when other traffic is present.",
       "sourceReference": "DMV_CA_Handbook_2024",
-      "reviewStatus": "verified",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_reg_03",
+      "name": "Do Not Enter",
+      "category": "Regulatory",
+      "assetPath": "assets/signs/donotenter.svg",
+      "shortMeaning": "Do not drive in this direction.",
+      "detailedMeaning": "This road is restricted to traffic coming toward you.",
+      "commonMistake": "Thinking it only applies to commercial vehicles.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_reg_04",
+      "name": "Wrong Way",
+      "category": "Regulatory",
+      "assetPath": "assets/signs/wrongway.svg",
+      "shortMeaning": "You are driving against traffic.",
+      "detailedMeaning": "Often paired with Do Not Enter signs. You must immediately pull over and turn around safely.",
+      "commonMistake": "Ignoring it and continuing.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
       "contentVersion": 1
     },
     {
@@ -34,7 +58,7 @@
       "detailedMeaning": "Alerts you to a crosswalk or location where pedestrians often cross. Slow down and prepare to stop.",
       "commonMistake": "Assuming pedestrians must yield to vehicles.",
       "sourceReference": "DMV_CA_Handbook_2024",
-      "reviewStatus": "verified",
+      "reviewStatus": "needsReview",
       "contentVersion": 1
     },
     {
@@ -46,7 +70,31 @@
       "detailedMeaning": "The road surface ahead reduces traction when wet. Slow down and avoid sudden braking or turning.",
       "commonMistake": "Maintaining normal speed during rain.",
       "sourceReference": "DMV_CA_Handbook_2024",
-      "reviewStatus": "verified",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_warn_03",
+      "name": "Sharp Curve",
+      "category": "Warning",
+      "assetPath": "assets/signs/curve.svg",
+      "shortMeaning": "Sharp curve ahead.",
+      "detailedMeaning": "The road will curve sharply. You should slow down to the advised speed before entering the curve.",
+      "commonMistake": "Braking hard in the middle of the curve.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_warn_04",
+      "name": "Merge",
+      "category": "Warning",
+      "assetPath": "assets/signs/merge.svg",
+      "shortMeaning": "Traffic merging ahead.",
+      "detailedMeaning": "Traffic from another road will be merging into your lane. Be prepared to adjust your speed or change lanes.",
+      "commonMistake": "Refusing to allow merging traffic to enter.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
       "contentVersion": 1
     },
     {
@@ -58,7 +106,79 @@
       "detailedMeaning": "Directs drivers to a nearby hospital providing emergency medical services.",
       "commonMistake": "Confusing it with a general rest stop.",
       "sourceReference": "DMV_CA_Handbook_2024",
-      "reviewStatus": "verified",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_guide_02",
+      "name": "Route Marker",
+      "category": "Guide",
+      "assetPath": "assets/signs/route.svg",
+      "shortMeaning": "Interstate highway marker.",
+      "detailedMeaning": "Indicates the interstate route you are traveling on.",
+      "commonMistake": "Confusing it with a speed limit sign.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_cons_01",
+      "name": "Road Work Ahead",
+      "category": "Construction",
+      "assetPath": "assets/signs/roadwork.svg",
+      "shortMeaning": "Construction zone ahead.",
+      "detailedMeaning": "Indicates upcoming road work. Slow down and be prepared for lane closures or workers.",
+      "commonMistake": "Maintaining normal highway speed.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_cons_02",
+      "name": "Flagger Ahead",
+      "category": "Construction",
+      "assetPath": "assets/signs/flagger.svg",
+      "shortMeaning": "A flagger is controlling traffic.",
+      "detailedMeaning": "A person is directing traffic ahead. You must follow their instructions.",
+      "commonMistake": "Ignoring the flagger and following the regular traffic light.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_rail_01",
+      "name": "Railroad Crossing",
+      "category": "Railroad",
+      "assetPath": "assets/signs/railroad.svg",
+      "shortMeaning": "Railroad tracks ahead.",
+      "detailedMeaning": "You are approaching a railroad crossing. Look, listen, and prepare to stop.",
+      "commonMistake": "Trying to beat a train across the tracks.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_rail_02",
+      "name": "Crossbuck",
+      "category": "Railroad",
+      "assetPath": "assets/signs/crossbuck.svg",
+      "shortMeaning": "Yield to trains.",
+      "detailedMeaning": "Located exactly at the tracks. Always yield the right-of-way to approaching trains.",
+      "commonMistake": "Stopping directly on the tracks.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_reg_05",
+      "name": "No U-Turn",
+      "category": "Regulatory",
+      "assetPath": "assets/signs/nouturn.svg",
+      "shortMeaning": "U-turns are prohibited.",
+      "detailedMeaning": "You may not turn your vehicle around to travel in the opposite direction.",
+      "commonMistake": "Making a U-turn when the road seems clear.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "needsReview",
       "contentVersion": 1
     }
   ]

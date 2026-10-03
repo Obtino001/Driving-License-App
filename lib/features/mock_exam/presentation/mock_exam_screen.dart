@@ -12,6 +12,8 @@ import 'widgets/mock_exam_navigator_sheet.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/widgets/visual_scenario.dart';
+
 class MockExamScreen extends ConsumerWidget {
   const MockExamScreen({super.key});
 
@@ -160,13 +162,13 @@ class MockExamScreen extends ConsumerWidget {
                             ),
                       ),
                       const SizedBox(height: 16),
-                      if (currentQ.illustrationAsset != null &&
-                          currentQ.illustrationAsset!.isNotEmpty) ...[
-                        Center(
-                          child: SvgPicture.asset(
-                            currentQ.illustrationAsset!,
-                            height: 120,
-                          ),
+                      if (currentQ.illustrationAsset?.trim().isNotEmpty ==
+                              true ||
+                          currentQ.assetType == 'scenario') ...[
+                        VisualScenario(
+                          assetType: currentQ.assetType,
+                          assetPath: currentQ.illustrationAsset,
+                          isRevealed: currentSQ.selectedAnswerIndex != null,
                         ),
                         const SizedBox(height: 24),
                       ],
