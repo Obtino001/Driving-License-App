@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../motion/app_motion.dart';
 
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
@@ -28,9 +31,30 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/practice',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final category = state.extra as String?;
-        return PracticeQuizScreen(category: category);
+        return CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: AppMotion.standard,
+          reverseTransitionDuration: AppMotion.standard,
+          child: PracticeQuizScreen(category: category),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final curved = CurvedAnimation(
+              parent: animation,
+              curve: AppMotion.standardEasing,
+            );
+            return FadeTransition(
+              opacity: curved,
+              child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, .035),
+                  end: Offset.zero,
+                ).animate(curved),
+                child: child,
+              ),
+            );
+          },
+        );
       },
     ),
   ],

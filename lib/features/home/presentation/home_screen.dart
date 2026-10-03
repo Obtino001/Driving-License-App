@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/app_button.dart';
-import '../application/home_controller.dart';
 import '../../../core/utils/haptics.dart';
+import '../application/home_controller.dart';
+import 'widgets/home_sections.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -14,319 +14,150 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final stateAsync = ref.watch(homeProvider);
+    Future<void> openAndRefresh(String route, {Object? extra}) async {
+      await context.push(route, extra: extra);
+      if (context.mounted) {
+        await ref.read(homeProvider.notifier).loadHomeData();
+      }
+    }
 
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => ref.read(homeProvider.notifier).loadHomeData(),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(24.0),
-            child: stateAsync.when(
-              data: (state) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildHeader(context, state),
-                    const SizedBox(height: 32),
-                    _buildReadinessHero(context, state),
-                    const SizedBox(height: 32),
-                    _buildActionGrid(context, state),
-                    const SizedBox(height: 32),
-                    _buildDailyGoal(context, state),
-                    const SizedBox(height: 32),
-                    _buildLearningRoadmap(context),
-                  ],
-                );
-              },
-              loading: () => const Center(
-                child: CircularProgressIndicator(
-                  color: AppColors.primaryAccent,
-                ),
-              ),
-              error: (e, _) => Center(child: Text("Error: \$e")),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context, HomeState state) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Today's Goal",
-              style: Theme.of(context).textTheme.bodyMedium
-                  ?.copyWith(color: AppColors.textSecondary),
-            ),
-            const SizedBox(height: 4),
-            Row(
+          color: AppColors.primaryDark,
+          child: stateAsync.when(
+            data: (state) => ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
               children: [
-                Icon(
-                  PhosphorIcons.fire(PhosphorIconsStyle.fill),
-                  color: AppColors.warning,
-                  size: 24,
+                HomeHeader(streak: state.streak),
+                const SizedBox(height: 26),
+                ReadinessJourneyHero(
+                  readiness: state.readiness,
+                  exploredTopics: state.exploredTopics,
+                  totalTopics: state.totalTopics,
+                  onContinue: () {
+                    AppHaptics.buttonPress();
+                    openAndRefresh('/learn');
+                  },
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(height: 26),
+                TodayRecommendationCard(
+                  title: state.nextTopic,
+                  onTap: () {
+                    AppHaptics.selection();
+                    openAndRefresh('/practice', extra: state.nextTopic);
+                  },
+                ),
+                const SizedBox(height: 26),
                 Text(
-                  "\${state.streak} Day Streak",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  'Make a move',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 14),
+                QuickActions(
+                  mistakesCount: state.mistakesCount,
+                  onOpen: openAndRefresh,
+                ),
+                const SizedBox(height: 26),
+                DailyGoalCard(progress: state.dailyGoalProgress),
+                const SizedBox(height: 26),
+                JourneyPreview(
+                  currentTopic: state.currentTopic,
+                  currentProgress: state.currentTopicProgress,
+                  nextTopic: state.nextTopic,
+                  onTap: () {
+                    AppHaptics.selection();
+                    openAndRefresh('/learn');
+                  },
                 ),
               ],
             ),
-          ],
-        ),
-        CircleAvatar(
-          backgroundColor: AppColors.surfaceElevated,
-          radius: 24,
-          child: Icon(PhosphorIcons.user(), color: AppColors.primaryDark),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildReadinessHero(BuildContext context, HomeState state) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: AppColors.primaryDark,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "You're",
-                    style: Theme.of(context).textTheme.headlineMedium
-                        ?.copyWith(color: AppColors.textTertiary),
-                  ),
-                  Text(
-                    "\${state.readiness}% ready",
-                    style: Theme.of(context).textTheme.displayMedium
-                        ?.copyWith(color: AppColors.primaryAccent),
-                  ),
-                ],
-              ),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: AppColors.surfaceDark,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Icon(
-                  PhosphorIcons.chartLineUp(),
-                  color: AppColors.textInverse,
-                ),
-              ),
-            ],
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error, _) => ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                const SizedBox(height: 160),
+                Center(child: Text('Could not load your progress: $error')),
+              ],
+            ),
           ),
-          const SizedBox(height: 32),
-          AppButton(
-            text: "Continue Learning",
-            onPressed: () {
-              AppHaptics.buttonPress();
-              context.push('/learn');
-            },
-          ),
-        ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildActionGrid(BuildContext context, HomeState state) {
-    return Column(
+class HomeHeader extends StatelessWidget {
+  const HomeHeader({super.key, required this.streak});
+  final int streak;
+
+  @override
+  Widget build(BuildContext context) {
+    final hour = DateTime.now().hour;
+    final greeting = hour < 12
+        ? 'Good morning'
+        : hour < 18
+        ? 'Good afternoon'
+        : 'Good evening';
+    return Row(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: _buildActionCard(
-                context,
-                "Quick Practice",
-                PhosphorIcons.lightning(PhosphorIconsStyle.fill),
-                AppColors.secondaryAccent,
-                () {
-                  AppHaptics.selection();
-                  context.push('/practice');
-                },
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: _buildActionCard(
-                context,
-                "Road Signs",
-                PhosphorIcons.trafficSign(PhosphorIconsStyle.fill),
-                AppColors.warning,
-                () {
-                  AppHaptics.selection();
-                  context.push('/signs');
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: _buildActionCard(
-                context,
-                "Mistakes (\${state.mistakesCount})",
-                PhosphorIcons.target(PhosphorIconsStyle.fill),
-                AppColors.danger,
-                () {
-                  AppHaptics.selection();
-                  context.push('/mistakes');
-                },
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionCard(
-    BuildContext context,
-    String title,
-    IconData icon,
-    Color iconColor,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFE0E0E0)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, color: iconColor),
-            ),
-            const SizedBox(height: 16),
-            Text(title, style: Theme.of(context).textTheme.labelLarge),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDailyGoal(BuildContext context, HomeState state) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Daily Goal", style: Theme.of(context).textTheme.headlineMedium),
-        const SizedBox(height: 16),
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFE0E0E0)),
-          ),
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Practice 10 Questions",
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  Text(
-                    "\${state.dailyGoalProgress} / 10",
-                    style: Theme.of(context).textTheme.labelMedium
-                        ?.copyWith(color: AppColors.textSecondary),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              LinearProgressIndicator(
-                value: state.dailyGoalProgress / 10,
-                backgroundColor: AppColors.textTertiary.withValues(alpha: 0.2),
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  state.dailyGoalProgress >= 10
-                      ? AppColors.success
-                      : AppColors.primaryAccent,
+              Text(
+                'CALIFORNIA  /  CLASS C',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: AppColors.textSecondary,
+                  letterSpacing: 1.4,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
                 ),
-                minHeight: 8,
-                borderRadius: BorderRadius.circular(4),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                greeting,
+                maxLines: 2,
+                style: Theme.of(context).textTheme.displaySmall
+                    ?.copyWith(fontSize: 29, letterSpacing: -1.1, height: 1.08),
               ),
             ],
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildLearningRoadmap(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.push('/learn'),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFE0E0E0)),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
+        const SizedBox(width: 8),
+        if (streak > 0)
+          Semantics(
+            label: '$streak day streak',
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 9),
               decoration: BoxDecoration(
-                color: AppColors.primaryAccent,
-                shape: BoxShape.circle,
+                color: const Color(0xFFFFE9C2),
+                borderRadius: BorderRadius.circular(24),
               ),
-              child: Icon(
-                PhosphorIcons.mapTrifold(PhosphorIconsStyle.fill),
-                color: AppColors.primaryDark,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    "Learning Roadmap",
-                    style: Theme.of(context).textTheme.headlineSmall,
+                  Icon(
+                    PhosphorIcons.fire(PhosphorIconsStyle.fill),
+                    size: 16,
+                    color: const Color(0xFF9D5B00),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(width: 4),
                   Text(
-                    "View all modules and topics",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    '$streak',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primaryDark,
+                    ),
                   ),
                 ],
               ),
             ),
-            Icon(PhosphorIcons.caretRight(), color: AppColors.textTertiary),
-          ],
-        ),
-      ),
+          ),
+      ],
     );
   }
 }

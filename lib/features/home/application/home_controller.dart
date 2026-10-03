@@ -4,18 +4,26 @@ import '../../../core/database/database_provider.dart';
 import '../../../core/database/database_repository.dart';
 
 class HomeState {
-  final int readiness; // 0-100 percentage
+  final int readiness; // Question coverage, 0-100.
   final int streak;
   final int mistakesCount;
   final int dailyGoalProgress;
-  final bool isLoading;
+  final int exploredTopics;
+  final int totalTopics;
+  final String currentTopic;
+  final double currentTopicProgress;
+  final String nextTopic;
 
   HomeState({
     this.readiness = 0,
     this.streak = 0,
     this.mistakesCount = 0,
     this.dailyGoalProgress = 0,
-    this.isLoading = false,
+    this.exploredTopics = 0,
+    this.totalTopics = 0,
+    this.currentTopic = 'Road Rules',
+    this.currentTopicProgress = 0,
+    this.nextTopic = 'Road Rules',
   });
 }
 
@@ -29,28 +37,67 @@ class HomeController extends AsyncNotifier<HomeState> {
   }
 
   Future<HomeState> _fetchData() async {
-    // Calculate mistakes count
     final mistakesCount = await _repository.getMistakeBankCount();
-    
-    // Calculate readiness based on practice accuracy and coverage.
-    final allProgress = await _repository.getCategoryProgress('Road Rules');
-    final completed = allProgress['completed'] ?? 0;
-    
-    int readiness = (completed * 10).clamp(0, 100).toInt();
-    if (readiness == 0) readiness = 12; // Just to not show 0 initially if they did nothing
-
-    final dailyGoalProgress = completed.clamp(0, 10);
+    const categories = [
+      'Road Rules',
+      'Traffic Signs',
+      'Right of Way',
+      'Speed & Distance',
+      'Intersections',
+      'Lane Control',
+      'Parking',
+      'Sharing the Road',
+      'Safe Driving',
+      'Emergencies',
+    ];
+    final progress = await Future.wait(
+      categories.map(_repository.getCategoryProgress),
+    );
+    var total = 0;
+    var completed = 0;
+    var explored = 0;
+    for (final item in progress) {
+      final count = item['completed'] ?? 0;
+      completed += count;
+      total += item['total'] ?? 0;
+      if (count > 0) explored++;
+    }
+    final currentIndex = progress.indexWhere(
+      (item) =>
+          (item['completed'] ?? 0) > 0 &&
+          (item['completed'] ?? 0) < (item['total'] ?? 0),
+    );
+    final nextIndex = progress.indexWhere(
+      (item) =>
+          (item['completed'] ?? 0) < (item['total'] ?? 0) &&
+          (item['total'] ?? 0) > 0,
+    );
+    final activeIndex = currentIndex >= 0
+        ? currentIndex
+        : (nextIndex >= 0 ? nextIndex : 0);
+    final recommendationIndex = nextIndex >= 0 ? nextIndex : activeIndex;
+    final active = progress[activeIndex];
+    final activeTotal = active['total'] ?? 0;
+    final today = await _repository.getTodayQuestionCount();
 
     return HomeState(
-      readiness: readiness,
-      streak: completed > 0 ? 3 : 0, // Mock streak
+      readiness: total == 0
+          ? 0
+          : ((completed / total) * 100).round().clamp(0, 100),
+      streak: 0, // No daily history is stored yet; avoid showing a fabricated streak.
       mistakesCount: mistakesCount,
-      dailyGoalProgress: dailyGoalProgress,
+      dailyGoalProgress: today.clamp(0, 10),
+      exploredTopics: explored,
+      totalTopics: categories.length,
+      currentTopic: categories[activeIndex],
+      currentTopicProgress: activeTotal == 0
+          ? 0
+          : (active['completed'] ?? 0) / activeTotal,
+      nextTopic: categories[recommendationIndex],
     );
   }
 
   Future<void> loadHomeData() async {
-    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _fetchData());
   }
 }

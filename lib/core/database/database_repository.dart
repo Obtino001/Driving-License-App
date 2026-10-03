@@ -90,6 +90,21 @@ class DatabaseRepository {
     return result.read(countExp) ?? 0;
   }
 
+  /// Distinct questions whose most recent answer happened today.
+  Future<int> getTodayQuestionCount() async {
+    final now = DateTime.now();
+    final start = DateTime(now.year, now.month, now.day);
+    final end = start.add(const Duration(days: 1));
+    final count = _db.questionProgress.questionId.count();
+    final query = _db.selectOnly(_db.questionProgress)
+      ..addColumns([count])
+      ..where(
+        _db.questionProgress.lastAnsweredAt.isBiggerOrEqualValue(start) &
+            _db.questionProgress.lastAnsweredAt.isSmallerThanValue(end),
+      );
+    return (await query.getSingle()).read(count) ?? 0;
+  }
+
   Future<Map<String, int>> getCategoryProgress(String category) async {
     final allQuestionsQuery = _db.selectOnly(_db.questions)
       ..addColumns([_db.questions.id.count()])

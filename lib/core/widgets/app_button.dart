@@ -32,7 +32,7 @@ class _AppButtonState extends State<AppButton>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this, duration: AppMotion.quick);
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.97).animate(
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.98).animate(
       CurvedAnimation(parent: _controller, curve: AppMotion.standardEasing),
     );
   }
