@@ -128,7 +128,7 @@ class MockExamController extends Notifier<MockExamState> {
     
     // Update local state
     final updatedList = List<ExamSessionQuestion>.from(state.sessionQuestions!);
-    updatedList[state.currentIndex] = currentQ.copyWith(selectedAnswerIndex: Value(optionIndex));
+    updatedList[state.currentIndex] = currentQ.copyWith(selectedAnswerIndex: optionIndex);
     
     state = state.copyWith(sessionQuestions: updatedList);
   }
@@ -144,7 +144,7 @@ class MockExamController extends Notifier<MockExamState> {
     
     // Update local state
     final updatedList = List<ExamSessionQuestion>.from(state.sessionQuestions!);
-    updatedList[state.currentIndex] = currentQ.copyWith(isFlagged: Value(newFlag));
+    updatedList[state.currentIndex] = currentQ.copyWith(isFlagged: newFlag);
     
     state = state.copyWith(sessionQuestions: updatedList);
   }
