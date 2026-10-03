@@ -187,7 +187,7 @@ class MockExamAnswersScreen extends ConsumerWidget {
                     Expanded(
                       child: AppButton(
                         text: 'Previous',
-                        isPrimary: false,
+                        type: AppButtonType.secondary,
                         onPressed: () {
                           AppHaptics.buttonPress();
                           ref.read(mockExamProvider.notifier).previousQuestion();
