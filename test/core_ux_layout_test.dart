@@ -167,7 +167,8 @@ void main() {
         reason: 'LearnScreen at $width px',
       );
       await tester.scrollUntilVisible(
-        find.text('Right of Way'), 180,
+        find.text('Right of Way'),
+        180,
         scrollable: find.byType(Scrollable).first,
       );
       await tester.ensureVisible(find.text('Right of Way'));

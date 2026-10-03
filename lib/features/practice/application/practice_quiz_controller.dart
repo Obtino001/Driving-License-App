@@ -49,7 +49,7 @@ class PracticeQuizController extends AsyncNotifier<PracticeQuizState> {
   @override
   Future<PracticeQuizState> build() async {
     _repository = ref.watch(databaseRepositoryProvider);
-    return _fetchData(null);
+    return PracticeQuizState();
   }
 
   Future<PracticeQuizState> _fetchData(String? category) async {

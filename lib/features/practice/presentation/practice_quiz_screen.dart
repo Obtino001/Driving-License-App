@@ -25,13 +25,17 @@ class PracticeQuizScreen extends ConsumerStatefulWidget {
 class _PracticeQuizScreenState extends ConsumerState<PracticeQuizScreen> {
   bool _showDetail = false;
   bool _submitting = false;
+  bool _ready = false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
-        ref.read(practiceQuizProvider.notifier).loadQuestions(widget.category);
+        await ref
+            .read(practiceQuizProvider.notifier)
+            .loadQuestions(widget.category);
+        if (mounted) setState(() => _ready = true);
       }
     });
   }
@@ -59,154 +63,169 @@ class _PracticeQuizScreenState extends ConsumerState<PracticeQuizScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
-        child: async.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, _) => _EmptyQuiz(
-            title: 'Could not load practice',
-            detail: '$error',
-            onClose: () => context.pop(),
-          ),
-          data: (state) {
-            if (state.questions.isEmpty) {
-              return _EmptyQuiz(
-                title: 'No questions here yet',
-                detail: 'Choose another topic to keep moving.',
-                onClose: () => context.pop(),
-              );
-            }
-            if (state.isFinished) {
-              return _QuizFinished(
-                correct: state.correctCount,
-                total: state.questions.length,
-                onDone: () => context.pop(),
-              );
-            }
-            final question = state.currentQuestion!;
-            return Column(
-              children: [
-                QuizProgressHeader(
-                  index: state.currentIndex,
-                  total: state.questions.length,
-                  category: question.category,
+        child: !_ready
+            ? const Center(child: CircularProgressIndicator())
+            : async.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (error, _) => _EmptyQuiz(
+                  title: 'Could not load practice',
+                  detail: '$error',
                   onClose: () => context.pop(),
                 ),
-                Expanded(
-                  child: AnimatedSwitcher(
-                    duration: AppMotion.standard,
-                    switchInCurve: AppMotion.standardEasing,
-                    switchOutCurve: AppMotion.standardAccelerate,
-                    transitionBuilder: (child, animation) => FadeTransition(
-                      opacity: animation,
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(.035, 0),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
+                data: (state) {
+                  if (state.questions.isEmpty) {
+                    return _EmptyQuiz(
+                      title: 'No questions here yet',
+                      detail: 'Choose another topic to keep moving.',
+                      onClose: () => context.pop(),
+                    );
+                  }
+                  if (state.isFinished) {
+                    return _QuizFinished(
+                      correct: state.correctCount,
+                      total: state.questions.length,
+                      onDone: () => context.pop(),
+                    );
+                  }
+                  final question = state.currentQuestion!;
+                  return Column(
+                    children: [
+                      QuizProgressHeader(
+                        index: state.currentIndex,
+                        total: state.questions.length,
+                        category: question.category,
+                        onClose: () => context.pop(),
                       ),
-                    ),
-                    child: SingleChildScrollView(
-                      key: ValueKey(question.id),
-                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 26),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'CHOOSE ONE ANSWER',
-                            style: Theme.of(context).textTheme.labelMedium
-                                ?.copyWith(
-                                  fontSize: 11,
-                                  letterSpacing: 1.5,
-                                  color: AppColors.textSecondary,
-                                  fontWeight: FontWeight.w700,
+                      Expanded(
+                        child: AnimatedSwitcher(
+                          duration: AppMotion.standard,
+                          switchInCurve: AppMotion.standardEasing,
+                          switchOutCurve: AppMotion.standardAccelerate,
+                          transitionBuilder: (child, animation) =>
+                              FadeTransition(
+                                opacity: animation,
+                                child: SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(.035, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
                                 ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            question.questionText,
-                            style: Theme.of(context).textTheme.displaySmall
-                                ?.copyWith(
-                                  fontSize: 29,
-                                  height: 1.14,
-                                  letterSpacing: -.7,
-                                ),
-                          ),
-                          if (question.illustrationAsset?.trim().isNotEmpty ==
-                              true) ...[
-                            const SizedBox(height: 20),
-                            VisualScenario(
-                              assetPath: question.illustrationAsset,
-                            ),
-                          ],
-                          const SizedBox(height: 28),
-                          ...List.generate(3, (index) {
-                            final answers = [
-                              question.answerA,
-                              question.answerB,
-                              question.answerC,
-                            ];
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: PremiumAnswerCard(
-                                index: index,
-                                text: answers[index],
-                                revealed: state.isRevealed,
-                                selected: state.selectedIndex == index,
-                                correct: question.correctAnswerIndex == index,
-                                onTap: () =>
-                                    _submit(index, question.correctAnswerIndex),
                               ),
-                            );
-                          }),
-                          AnimatedSize(
-                            duration: AppMotion.standard,
-                            curve: AppMotion.standardEasing,
-                            alignment: Alignment.topCenter,
-                            child: state.isRevealed
-                                ? Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: ExplanationPanel(
-                                      question: question,
+                          child: SingleChildScrollView(
+                            key: ValueKey(question.id),
+                            padding: const EdgeInsets.fromLTRB(20, 20, 20, 26),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'CHOOSE ONE ANSWER',
+                                  style: Theme.of(context).textTheme.labelMedium
+                                      ?.copyWith(
+                                        fontSize: 11,
+                                        letterSpacing: 1.5,
+                                        color: AppColors.textSecondary,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  question.questionText,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                        fontSize: 29,
+                                        height: 1.14,
+                                        letterSpacing: -.7,
+                                      ),
+                                ),
+                                if (question.illustrationAsset
+                                        ?.trim()
+                                        .isNotEmpty ==
+                                    true) ...[
+                                  const SizedBox(height: 20),
+                                  VisualScenario(
+                                    assetPath: question.illustrationAsset,
+                                  ),
+                                ],
+                                const SizedBox(height: 28),
+                                ...List.generate(3, (index) {
+                                  final answers = [
+                                    question.answerA,
+                                    question.answerB,
+                                    question.answerC,
+                                  ];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: PremiumAnswerCard(
+                                      index: index,
+                                      text: answers[index],
+                                      revealed: state.isRevealed,
+                                      selected: state.selectedIndex == index,
                                       correct:
-                                          state.selectedIndex ==
-                                          question.correctAnswerIndex,
-                                      expanded: _showDetail,
-                                      onToggle: () => setState(
-                                        () => _showDetail = !_showDetail,
+                                          question.correctAnswerIndex == index,
+                                      onTap: () => _submit(
+                                        index,
+                                        question.correctAnswerIndex,
                                       ),
                                     ),
-                                  )
-                                : const SizedBox.shrink(),
+                                  );
+                                }),
+                                AnimatedSize(
+                                  duration: AppMotion.standard,
+                                  curve: AppMotion.standardEasing,
+                                  alignment: Alignment.topCenter,
+                                  child: state.isRevealed
+                                      ? Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 15,
+                                          ),
+                                          child: ExplanationPanel(
+                                            question: question,
+                                            correct:
+                                                state.selectedIndex ==
+                                                question.correctAnswerIndex,
+                                            expanded: _showDetail,
+                                            onToggle: () => setState(
+                                              () => _showDetail = !_showDetail,
+                                            ),
+                                          ),
+                                        )
+                                      : const SizedBox.shrink(),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                if (state.isRevealed)
-                  Container(
-                    padding: EdgeInsets.fromLTRB(
-                      20,
-                      11,
-                      20,
-                      12 + MediaQuery.paddingOf(context).bottom,
-                    ),
-                    color: AppColors.backgroundLight,
-                    child: AppButton(
-                      text: state.currentIndex + 1 == state.questions.length
-                          ? 'See results  →'
-                          : 'Next question  →',
-                      onPressed: () {
-                        AppHaptics.buttonPress();
-                        setState(() => _showDetail = false);
-                        ref.read(practiceQuizProvider.notifier).nextQuestion();
-                      },
-                    ),
-                  ),
-              ],
-            );
-          },
-        ),
+                      if (state.isRevealed)
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                            20,
+                            11,
+                            20,
+                            12 + MediaQuery.paddingOf(context).bottom,
+                          ),
+                          color: AppColors.backgroundLight,
+                          child: AppButton(
+                            text:
+                                state.currentIndex + 1 == state.questions.length
+                                ? 'See results  →'
+                                : 'Next question  →',
+                            onPressed: () {
+                              AppHaptics.buttonPress();
+                              setState(() => _showDetail = false);
+                              ref
+                                  .read(practiceQuizProvider.notifier)
+                                  .nextQuestion();
+                            },
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              ),
       ),
     );
   }

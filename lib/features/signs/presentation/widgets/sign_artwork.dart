@@ -97,37 +97,49 @@ class SignArtwork extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-          if (sign.id == 'road_work')
-            const Positioned(
-              top: 49,
-              left: 24,
-              right: 24,
-              child: Text(
-                'ROAD\nWORK\nAHEAD',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFF272924),
-                  fontSize: 17,
-                  height: 1.05,
-                  fontWeight: FontWeight.w900,
+              ),
+            if (sign.id == 'road_work')
+              const Positioned(
+                top: 49,
+                left: 24,
+                right: 24,
+                child: Text(
+                  'ROAD\nWORK\nAHEAD',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF272924),
+                    fontSize: 17,
+                    height: 1.05,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
-            ),
-          if (sign.id == 'railroad') ...[
-            const Positioned(
-              top: 67,
-              left: 28,
-              child: Text('R', style: TextStyle(
-                color: Color(0xFF252823), fontSize: 24, fontWeight: FontWeight.w900)),
-            ),
-            const Positioned(
-              top: 67,
-              right: 28,
-              child: Text('R', style: TextStyle(
-                color: Color(0xFF252823), fontSize: 24, fontWeight: FontWeight.w900)),
-            ),
-          ],
+            if (sign.id == 'railroad') ...[
+              const Positioned(
+                top: 67,
+                left: 28,
+                child: Text(
+                  'R',
+                  style: TextStyle(
+                    color: Color(0xFF252823),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
               ),
+              const Positioned(
+                top: 67,
+                right: 28,
+                child: Text(
+                  'R',
+                  style: TextStyle(
+                    color: Color(0xFF252823),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),
