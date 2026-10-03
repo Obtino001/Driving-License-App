@@ -37,6 +37,10 @@ class HomeScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
               children: [
                 HomeHeader(streak: state.streak),
+                if (state.latestMockScore != null) ...[
+                  const SizedBox(height: 26),
+                  _MockScoreCTA(score: state.latestMockScore!),
+                ],
                 const SizedBox(height: 26),
                 ReadinessJourneyHero(
                   readiness: state.readiness,
@@ -172,7 +176,7 @@ class HomeHeader extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.surface,
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+              border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
             ),
             child: Icon(
               PhosphorIcons.user(PhosphorIconsStyle.fill),
@@ -182,6 +186,80 @@ class HomeHeader extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _MockScoreCTA extends StatelessWidget {
+  const _MockScoreCTA({required this.score});
+  final int score;
+
+  @override
+  Widget build(BuildContext context) {
+    // Determine pass/fail roughly based on 80% passing
+    final isPass = score >= 16; // Assuming 20 questions for now, so 80%
+    final percentage = ((score / 20) * 100).round(); // Again assuming 20 questions
+
+    return GestureDetector(
+      onTap: () {
+        AppHaptics.selection();
+        context.push('/mock_exam_intro');
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isPass ? AppColors.primaryDark.withValues(alpha: 0.3) : AppColors.textTertiary.withValues(alpha: 0.1),
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: isPass ? AppColors.primaryAccent.withValues(alpha: 0.2) : AppColors.textTertiary.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                PhosphorIcons.flagCheckered(PhosphorIconsStyle.fill),
+                color: isPass ? AppColors.primaryDark : AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Latest mock',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: AppColors.textTertiary,
+                        ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '$percentage%',
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          color: AppColors.textPrimary,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              'Try another',
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: AppColors.primaryDark,
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+            const SizedBox(width: 4),
+            Icon(PhosphorIcons.caretRight(), color: AppColors.primaryDark, size: 16),
+          ],
+        ),
+      ),
     );
   }
 }

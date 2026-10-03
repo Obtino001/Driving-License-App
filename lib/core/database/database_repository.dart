@@ -151,4 +151,165 @@ class DatabaseRepository {
   Future<void> resetProgress() async {
     await _db.delete(_db.questionProgress).go();
   }
+
+  // MOCK EXAM METHODS
+
+  Future<ExamSession> createExamSession({
+    required String profileId,
+    required String state,
+    required String licenseType,
+    required int passingRequirement,
+    required List<Question> questions,
+  }) async {
+    final sessionId = 'exam_${DateTime.now().millisecondsSinceEpoch}';
+    final now = DateTime.now();
+
+    return await _db.transaction(() async {
+      final session = ExamSession(
+        id: sessionId,
+        profileId: profileId,
+        state: state,
+        licenseType: licenseType,
+        startedAt: now,
+        completedAt: null,
+        status: 'in_progress',
+        score: null,
+        passingRequirement: passingRequirement,
+        questionCount: questions.length,
+      );
+
+      await _db.into(_db.examSessions).insert(session);
+
+      var index = 0;
+      for (final q in questions) {
+        await _db.into(_db.examSessionQuestions).insert(
+          ExamSessionQuestion(
+            sessionId: sessionId,
+            questionId: q.id,
+            questionIndex: index,
+            selectedAnswerIndex: null,
+            correctAnswerIndex: q.correctAnswerIndex,
+            isFlagged: false,
+            isCorrect: null,
+          ),
+        );
+        index++;
+      }
+      return session;
+    });
+  }
+
+  Future<void> updateExamSessionAnswer(
+      String sessionId, String questionId, int? selectedAnswerIndex) async {
+    await (_db.update(_db.examSessionQuestions)
+          ..where((q) =>
+              q.sessionId.equals(sessionId) & q.questionId.equals(questionId)))
+        .write(
+      ExamSessionQuestionsCompanion(
+        selectedAnswerIndex: Value(selectedAnswerIndex),
+      ),
+    );
+  }
+
+  Future<void> updateExamSessionFlag(
+      String sessionId, String questionId, bool isFlagged) async {
+    await (_db.update(_db.examSessionQuestions)
+          ..where((q) =>
+              q.sessionId.equals(sessionId) & q.questionId.equals(questionId)))
+        .write(
+      ExamSessionQuestionsCompanion(
+        isFlagged: Value(isFlagged),
+      ),
+    );
+  }
+
+  Future<List<ExamSessionQuestion>> getExamSessionQuestions(String sessionId) async {
+    final query = _db.select(_db.examSessionQuestions)
+      ..where((q) => q.sessionId.equals(sessionId))
+      ..orderBy([(q) => OrderingTerm(expression: q.questionIndex, mode: OrderingMode.asc)]);
+    return query.get();
+  }
+
+  Future<List<Question>> getQuestionsForSession(String sessionId) async {
+    final query = _db.select(_db.questions).join([
+      innerJoin(
+        _db.examSessionQuestions,
+        _db.examSessionQuestions.questionId.equalsExp(_db.questions.id),
+      ),
+    ])
+      ..where(_db.examSessionQuestions.sessionId.equals(sessionId))
+      ..orderBy([OrderingTerm(expression: _db.examSessionQuestions.questionIndex, mode: OrderingMode.asc)]);
+
+    final rows = await query.get();
+    return rows.map((row) => row.readTable(_db.questions)).toList();
+  }
+
+  Future<ExamSession?> getInProgressSession() async {
+    return (_db.select(_db.examSessions)
+          ..where((s) => s.status.equals('in_progress'))
+          ..orderBy([
+            (s) => OrderingTerm(expression: s.startedAt, mode: OrderingMode.desc)
+          ])
+          ..limit(1))
+        .getSingleOrNull();
+  }
+
+  Future<void> finishExamSession(String sessionId, int score) async {
+    await _db.transaction(() async {
+      // 1. Update session status and score
+      await (_db.update(_db.examSessions)..where((s) => s.id.equals(sessionId)))
+          .write(
+        ExamSessionsCompanion(
+          status: const Value('completed'),
+          completedAt: Value(DateTime.now()),
+          score: Value(score),
+        ),
+      );
+
+      // 2. Evaluate each question and update Mistake Bank idempotently
+      final questions = await getExamSessionQuestions(sessionId);
+      for (final q in questions) {
+        final isCorrect = q.selectedAnswerIndex == q.correctAnswerIndex;
+        // Update snapshot
+        await (_db.update(_db.examSessionQuestions)
+              ..where((esq) =>
+                  esq.sessionId.equals(sessionId) & esq.questionId.equals(q.questionId)))
+            .write(
+          ExamSessionQuestionsCompanion(
+            isCorrect: Value(isCorrect),
+          ),
+        );
+        // Only record if answered
+        if (q.selectedAnswerIndex != null) {
+          await recordAnswer(q.questionId, isCorrect);
+        }
+      }
+    });
+  }
+
+  Future<int> getMockExamsCount() async {
+    final countExp = _db.examSessions.id.count();
+    final query = _db.selectOnly(_db.examSessions)
+      ..addColumns([countExp])
+      ..where(_db.examSessions.status.equals('completed'));
+    return (await query.getSingle()).read(countExp) ?? 0;
+  }
+
+  Future<int?> getLatestMockScore() async {
+    final row = await (_db.select(_db.examSessions)
+          ..where((s) => s.status.equals('completed'))
+          ..orderBy([(s) => OrderingTerm(expression: s.completedAt, mode: OrderingMode.desc)])
+          ..limit(1))
+        .getSingleOrNull();
+    return row?.score;
+  }
+
+  Future<int?> getBestMockScore() async {
+    final row = await (_db.select(_db.examSessions)
+          ..where((s) => s.status.equals('completed'))
+          ..orderBy([(s) => OrderingTerm(expression: s.score, mode: OrderingMode.desc)])
+          ..limit(1))
+        .getSingleOrNull();
+    return row?.score;
+  }
 }

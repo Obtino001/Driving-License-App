@@ -13,6 +13,7 @@ class HomeState {
   final String currentTopic;
   final double currentTopicProgress;
   final String nextTopic;
+  final int? latestMockScore;
 
   HomeState({
     this.readiness = 0,
@@ -24,6 +25,7 @@ class HomeState {
     this.currentTopic = 'Road Rules',
     this.currentTopicProgress = 0,
     this.nextTopic = 'Road Rules',
+    this.latestMockScore,
   });
 }
 
@@ -79,6 +81,7 @@ class HomeController extends AsyncNotifier<HomeState> {
     final active = progress[activeIndex];
     final activeTotal = active['total'] ?? 0;
     final today = await _repository.getTodayQuestionCount();
+    final latestMockScore = await _repository.getLatestMockScore();
 
     return HomeState(
       readiness: total == 0
@@ -94,6 +97,7 @@ class HomeController extends AsyncNotifier<HomeState> {
           ? 0
           : (active['completed'] ?? 0) / activeTotal,
       nextTopic: categories[recommendationIndex],
+      latestMockScore: latestMockScore,
     );
   }
 

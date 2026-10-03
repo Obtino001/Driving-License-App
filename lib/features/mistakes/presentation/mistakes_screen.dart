@@ -73,7 +73,7 @@ class MistakesScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -124,7 +124,7 @@ class MistakesScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               color: AppColors.surface,
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+              border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
             ),
             child: Icon(
               PhosphorIcons.roadHorizon(PhosphorIconsStyle.fill),
@@ -161,7 +161,7 @@ class MistakesScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +178,7 @@ class MistakesScreen extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withOpacity(0.1),
+                  color: AppColors.warning.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: Text(

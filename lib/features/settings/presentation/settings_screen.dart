@@ -151,7 +151,7 @@ class _SettingsRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -190,7 +190,7 @@ class _SettingsActionRow extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+          border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -234,7 +234,7 @@ class _SettingsToggleRow extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+          border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -261,7 +261,7 @@ class _CustomSwitch extends StatelessWidget {
       height: 28,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(999),
-        color: value ? AppColors.primaryDark : AppColors.textTertiary.withOpacity(0.2),
+        color: value ? AppColors.primaryDark : AppColors.textTertiary.withValues(alpha: 0.2),
       ),
       child: AnimatedAlign(
         duration: const Duration(milliseconds: 200),

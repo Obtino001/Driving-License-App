@@ -53,3 +53,34 @@ class RoadSigns extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
+
+@DataClassName('ExamSession')
+class ExamSessions extends Table {
+  TextColumn get id => text()();
+  TextColumn get profileId => text()();
+  TextColumn get state => text()();
+  TextColumn get licenseType => text()();
+  DateTimeColumn get startedAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get completedAt => dateTime().nullable()();
+  TextColumn get status => text().withDefault(const Constant('in_progress'))(); // 'in_progress', 'completed'
+  IntColumn get score => integer().nullable()();
+  IntColumn get passingRequirement => integer()();
+  IntColumn get questionCount => integer()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+@DataClassName('ExamSessionQuestion')
+class ExamSessionQuestions extends Table {
+  TextColumn get sessionId => text().references(ExamSessions, #id)();
+  TextColumn get questionId => text().references(Questions, #id)();
+  IntColumn get questionIndex => integer()();
+  IntColumn get selectedAnswerIndex => integer().nullable()();
+  IntColumn get correctAnswerIndex => integer()(); // snapshot
+  BoolColumn get isFlagged => boolean().withDefault(const Constant(false))();
+  BoolColumn get isCorrect => boolean().nullable()(); // Evaluated on completion
+
+  @override
+  Set<Column> get primaryKey => {sessionId, questionId};
+}

@@ -176,7 +176,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: AppColors.primaryAccent.withOpacity(0.2),
+              color: AppColors.primaryAccent.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -223,7 +223,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           border: Border.all(
             color: isSelected
                 ? AppColors.primaryDark
-                : AppColors.textTertiary.withOpacity(0.2),
+                : AppColors.textTertiary.withValues(alpha: 0.2),
           ),
         ),
         child: Row(

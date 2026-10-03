@@ -26,6 +26,10 @@ final progressProvider = FutureProvider<ProgressState>((ref) async {
     }
   }
 
+  final mockExamsCount = await repo.getMockExamsCount();
+  final latestMockScore = await repo.getLatestMockScore();
+  final bestMockScore = await repo.getBestMockScore();
+
   final readiness = totalQuestions == 0 ? 0 : ((totalCompleted / totalQuestions) * 100).round();
   
   return ProgressState(
@@ -35,6 +39,9 @@ final progressProvider = FutureProvider<ProgressState>((ref) async {
     todayQuestions: todayQuestions,
     mistakeCount: mistakeCount,
     categoryStats: categoryStats,
+    mockExamsCount: mockExamsCount,
+    latestMockScore: latestMockScore,
+    bestMockScore: bestMockScore,
   );
 });
 
@@ -45,6 +52,9 @@ class ProgressState {
   final int todayQuestions;
   final int mistakeCount;
   final Map<String, Map<String, int>> categoryStats;
+  final int mockExamsCount;
+  final int? latestMockScore;
+  final int? bestMockScore;
 
   ProgressState({
     required this.readiness,
@@ -53,5 +63,8 @@ class ProgressState {
     required this.todayQuestions,
     required this.mistakeCount,
     required this.categoryStats,
+    required this.mockExamsCount,
+    this.latestMockScore,
+    this.bestMockScore,
   });
 }

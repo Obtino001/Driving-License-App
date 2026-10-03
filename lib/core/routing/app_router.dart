@@ -16,6 +16,11 @@ import '../../features/signs/presentation/signs_screen.dart';
 import '../../features/signs/presentation/flashcards_screen.dart';
 import '../../features/progress/presentation/progress_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/mock_exam/presentation/mock_exam_intro_screen.dart';
+import '../../features/mock_exam/presentation/mock_exam_screen.dart';
+import '../../features/mock_exam/presentation/mock_exam_review_screen.dart';
+import '../../features/mock_exam/presentation/mock_exam_result_screen.dart';
+import '../../features/mock_exam/presentation/mock_exam_answers_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
@@ -96,6 +101,31 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final category = state.extra as String?;
           return _editorialPage(state, PracticeQuizScreen(category: category));
         },
+      ),
+      GoRoute(
+        path: '/mock_exam_intro',
+        pageBuilder: (context, state) =>
+            _editorialPage(state, const MockExamIntroScreen()),
+      ),
+      GoRoute(
+        path: '/mock_exam',
+        pageBuilder: (context, state) =>
+            _editorialPage(state, const MockExamScreen()),
+      ),
+      GoRoute(
+        path: '/mock_exam_review',
+        pageBuilder: (context, state) =>
+            _editorialPage(state, const MockExamReviewScreen()),
+      ),
+      GoRoute(
+        path: '/mock_exam_results',
+        pageBuilder: (context, state) =>
+            _editorialPage(state, const MockExamResultScreen()),
+      ),
+      GoRoute(
+        path: '/mock_exam_answers',
+        pageBuilder: (context, state) =>
+            _editorialPage(state, const MockExamAnswersScreen()),
       ),
     ],
   );

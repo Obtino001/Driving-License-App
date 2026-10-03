@@ -1,17 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/editorial_header.dart';
 import '../../../core/utils/haptics.dart';
 import '../../../core/motion/app_motion.dart';
+import '../../mock_exam/application/mock_exam_controller.dart';
 
-class PracticeLandingScreen extends StatelessWidget {
+class PracticeLandingScreen extends ConsumerStatefulWidget {
   const PracticeLandingScreen({super.key});
 
   @override
+  ConsumerState<PracticeLandingScreen> createState() => _PracticeLandingScreenState();
+}
+
+class _PracticeLandingScreenState extends ConsumerState<PracticeLandingScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(mockExamProvider.notifier).checkResume();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final mockExamState = ref.watch(mockExamProvider);
+    final hasInProgressExam = mockExamState.session != null && mockExamState.session!.status == 'in_progress';
+
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
@@ -23,6 +41,49 @@ class PracticeLandingScreen extends StatelessWidget {
               subtitle: 'Sharpen your skills.',
             ),
             const SizedBox(height: 32),
+            Text(
+              'FEATURED',
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: AppColors.textTertiary,
+                    letterSpacing: 1.2,
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+            const SizedBox(height: 16),
+            if (hasInProgressExam)
+              _PracticeOptionCard(
+                title: 'Continue Mock Exam',
+                subtitle: 'Resume your saved progress',
+                icon: PhosphorIcons.play(PhosphorIconsStyle.fill),
+                color: AppColors.primaryDark,
+                featured: true,
+                onTap: () {
+                  AppHaptics.selection();
+                  context.push('/mock_exam');
+                },
+              )
+            else
+              _PracticeOptionCard(
+                title: 'Mock Exam',
+                subtitle: 'Full test run. No feedback until the end.',
+                icon: PhosphorIcons.flagCheckered(PhosphorIconsStyle.fill),
+                color: AppColors.primaryDark,
+                featured: true,
+                onTap: () {
+                  AppHaptics.selection();
+                  context.push('/mock_exam_intro');
+                },
+              ),
+            const SizedBox(height: 32),
+            Text(
+              'TRAINING',
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: AppColors.textTertiary,
+                    letterSpacing: 1.2,
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+            const SizedBox(height: 16),
             _PracticeOptionCard(
               title: 'Quick Practice',
               subtitle: 'Random set of 10 questions',
@@ -77,6 +138,7 @@ class _PracticeOptionCard extends StatelessWidget {
     required this.icon,
     required this.color,
     required this.onTap,
+    this.featured = false,
   });
 
   final String title;
@@ -84,6 +146,7 @@ class _PracticeOptionCard extends StatelessWidget {
   final IconData icon;
   final Color color;
   final VoidCallback onTap;
+  final bool featured;
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +159,16 @@ class _PracticeOptionCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: featured ? AppColors.primaryAccent.withValues(alpha: 0.15) : AppColors.surface,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+          border: Border.all(color: featured ? AppColors.primaryAccent : AppColors.textTertiary.withValues(alpha: 0.1)),
         ),
         child: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, color: color, size: 32),

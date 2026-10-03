@@ -61,6 +61,24 @@ class ProgressScreen extends ConsumerWidget {
                   label: 'Questions today',
                   value: '${state.todayQuestions}',
                 ),
+                if (state.mockExamsCount > 0) ...[
+                  const SizedBox(height: 32),
+                  _SectionHeader('MOCK EXAMS'),
+                  _ActivityRow(
+                    label: 'Mock exams completed',
+                    value: '${state.mockExamsCount}',
+                  ),
+                  if (state.latestMockScore != null)
+                    _ActivityRow(
+                      label: 'Latest mock score',
+                      value: '${state.latestMockScore}',
+                    ),
+                  if (state.bestMockScore != null)
+                    _ActivityRow(
+                      label: 'Best mock score',
+                      value: '${state.bestMockScore}',
+                    ),
+                ],
               ],
             ),
             loading: () => const Center(child: CircularProgressIndicator()),
@@ -138,7 +156,7 @@ class _StatCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,7 +224,7 @@ class _CategoryProgressRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +274,7 @@ class _ActivityRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
