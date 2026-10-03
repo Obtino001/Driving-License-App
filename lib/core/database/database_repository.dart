@@ -147,4 +147,8 @@ class DatabaseRepository {
     }
     return answered == 0 ? null : correct / answered;
   }
+
+  Future<void> resetProgress() async {
+    await _db.delete(_db.questionProgress).go();
+  }
 }

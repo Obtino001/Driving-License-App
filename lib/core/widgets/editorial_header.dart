@@ -5,13 +5,13 @@ import '../theme/app_colors.dart';
 class EditorialHeader extends StatelessWidget {
   const EditorialHeader({
     super.key,
-    required this.eyebrow,
+    this.eyebrow,
     required this.title,
     this.subtitle,
     this.trailing,
   });
 
-  final String eyebrow;
+  final String? eyebrow;
   final String title;
   final String? subtitle;
   final Widget? trailing;
@@ -22,18 +22,19 @@ class EditorialHeader extends StatelessWidget {
     children: [
       Row(
         children: [
-          Expanded(
-            child: Text(
-              eyebrow.toUpperCase(),
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: AppColors.textSecondary,
-                fontSize: 11,
-                letterSpacing: 1.6,
-                fontWeight: FontWeight.w700,
+          if (eyebrow != null)
+            Expanded(
+              child: Text(
+                eyebrow!.toUpperCase(),
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: AppColors.textSecondary,
+                  fontSize: 11,
+                  letterSpacing: 1.6,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-          ),
-          ?trailing,
+          if (trailing != null) trailing!,
         ],
       ),
       const SizedBox(height: 10),

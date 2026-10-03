@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../motion/app_motion.dart';
@@ -10,6 +11,10 @@ import '../../features/mistakes/presentation/mistakes_screen.dart';
 import '../../features/learn/presentation/learn_screen.dart';
 import '../../features/signs/presentation/signs_screen.dart';
 import '../../features/signs/presentation/flashcards_screen.dart';
+import '../../features/progress/presentation/progress_screen.dart';
+import '../../features/settings/presentation/settings_screen.dart';
+import '../preferences/preferences_provider.dart';
+import 'app_shell.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/onboarding',
@@ -18,15 +23,52 @@ final appRouter = GoRouter(
       path: '/onboarding',
       builder: (context, state) => const OnboardingScreen(),
     ),
-    GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-    GoRoute(
-      path: '/learn',
-      pageBuilder: (context, state) =>
-          _editorialPage(state, const LearnScreen()),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) =>
+          AppShell(navigationShell: navigationShell),
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/home',
+              pageBuilder: (context, state) =>
+                  _editorialPage(state, const HomeScreen()),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/learn',
+              pageBuilder: (context, state) =>
+                  _editorialPage(state, const LearnScreen()),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/progress',
+              pageBuilder: (context, state) =>
+                  _editorialPage(state, const ProgressScreen()),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/settings',
+              pageBuilder: (context, state) =>
+                  _editorialPage(state, const SettingsScreen()),
+            ),
+          ],
+        ),
+      ],
     ),
     GoRoute(
       path: '/mistakes',
-      builder: (context, state) => const MistakesScreen(),
+      pageBuilder: (context, state) =>
+          _editorialPage(state, const MistakesScreen()),
     ),
     GoRoute(
       path: '/signs',
@@ -42,28 +84,7 @@ final appRouter = GoRouter(
       path: '/practice',
       pageBuilder: (context, state) {
         final category = state.extra as String?;
-        return CustomTransitionPage(
-          key: state.pageKey,
-          transitionDuration: AppMotion.standard,
-          reverseTransitionDuration: AppMotion.standard,
-          child: PracticeQuizScreen(category: category),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curved = CurvedAnimation(
-              parent: animation,
-              curve: AppMotion.standardEasing,
-            );
-            return FadeTransition(
-              opacity: curved,
-              child: SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(0, .035),
-                  end: Offset.zero,
-                ).animate(curved),
-                child: child,
-              ),
-            );
-          },
-        );
+        return _editorialPage(state, PracticeQuizScreen(category: category));
       },
     ),
   ],
@@ -76,10 +97,17 @@ CustomTransitionPage<void> _editorialPage(GoRouterState state, Widget child) =>
       transitionDuration: AppMotion.standard,
       reverseTransitionDuration: AppMotion.standard,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final reducedMotion = ProviderScope.containerOf(context).read(reducedMotionProvider);
+
         final curved = CurvedAnimation(
           parent: animation,
           curve: AppMotion.standardEasing,
         );
+
+        if (reducedMotion) {
+          return FadeTransition(opacity: curved, child: child);
+        }
+
         return FadeTransition(
           opacity: curved,
           child: SlideTransition(

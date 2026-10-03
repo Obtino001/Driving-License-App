@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../application/mistakes_controller.dart';
+import '../../../core/widgets/editorial_header.dart';
 import '../../../core/widgets/app_button.dart';
+import '../../learn/presentation/module_motif.dart';
+import '../application/mistakes_controller.dart';
+import '../../../core/utils/haptics.dart';
 
 class MistakesScreen extends ConsumerWidget {
   const MistakesScreen({super.key});
@@ -16,41 +18,51 @@ class MistakesScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(title: const Text("Mistake Bank")),
       body: SafeArea(
-        child: stateAsync.when(
-          data: (state) {
-            final mistakes = state.mistakes;
-
-            if (mistakes.isEmpty) {
-              return _buildEmptyState(context);
-            }
-
-            return CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(child: _buildHero(context, mistakes.length)),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16,
-                  ),
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final question = mistakes[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: _buildMistakeCard(context, question),
-                      );
-                    }, childCount: mistakes.length),
-                  ),
-                ),
-              ],
-            );
+        child: RefreshIndicator(
+          onRefresh: () async {
+            // refresh logic
           },
-          loading: () => const Center(
-            child: CircularProgressIndicator(color: AppColors.primaryAccent),
+          color: AppColors.primaryDark,
+          child: stateAsync.when(
+            data: (state) {
+              final mistakes = state.mistakes;
+
+              if (mistakes.isEmpty) {
+                return ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
+                  children: [
+                    const EditorialHeader(
+                      title: 'MISTAKES',
+                      subtitle: 'Turn weak spots into confidence.',
+                    ),
+                    const SizedBox(height: 60),
+                    _buildEmptyState(context),
+                  ],
+                );
+              }
+
+              return ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
+                children: [
+                  const EditorialHeader(
+                    title: 'MISTAKES',
+                    subtitle: 'Turn weak spots into confidence.',
+                  ),
+                  const SizedBox(height: 24),
+                  _buildHero(context, mistakes.length),
+                  const SizedBox(height: 32),
+                  ...mistakes.map((q) => _buildMistakeCard(context, q)),
+                ],
+              );
+            },
+            loading: () => const Center(
+              child: CircularProgressIndicator(color: AppColors.primaryAccent),
+            ),
+            error: (e, _) => Center(child: Text("Error: $e")),
           ),
-          error: (e, _) => Center(child: Text("Error: \$e")),
         ),
       ),
     );
@@ -58,44 +70,44 @@ class MistakesScreen extends ConsumerWidget {
 
   Widget _buildHero(BuildContext context, int count) {
     return Container(
-      margin: const EdgeInsets.all(24),
-      padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: AppColors.primaryDark,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Icon(
-                PhosphorIcons.target(PhosphorIconsStyle.fill),
-                color: AppColors.danger,
-                size: 32,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  "Your weak spots",
-                  style: Theme.of(context).textTheme.headlineMedium
-                      ?.copyWith(color: AppColors.textInverse),
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: const BoxDecoration(
+              color: AppColors.primaryDark,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            ),
+            child: Row(
+              children: [
+                const ModuleMotif(category: 'Traffic Signs'),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Text(
+                    "$count Questions\nNeed Review",
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          color: AppColors.textInverse,
+                          fontSize: 24,
+                        ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 24),
-          Text(
-            "\$count questions to master",
-            style: Theme.of(context).textTheme.bodyLarge
-                ?.copyWith(color: AppColors.textTertiary),
-          ),
-          const SizedBox(height: 24),
-          AppButton(
-            text: "Review All",
-            onPressed: () {
-              // Later: launch quiz with only mistake questions
-            },
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: AppButton(
+              text: "Practice Mistakes",
+              onPressed: () {
+                AppHaptics.buttonPress();
+              },
+            ),
           ),
         ],
       ),
@@ -104,95 +116,85 @@ class MistakesScreen extends ConsumerWidget {
 
   Widget _buildEmptyState(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(48.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: AppColors.success.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
-                color: AppColors.success,
-                size: 64,
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
             ),
-            const SizedBox(height: 32),
-            Text(
-              "No mistakes yet",
-              style: Theme.of(context).textTheme.displaySmall,
+            child: Icon(
+              PhosphorIcons.roadHorizon(PhosphorIconsStyle.fill),
+              color: AppColors.primaryAccent,
+              size: 64,
+            ),
+          ),
+          const SizedBox(height: 32),
+          Text(
+            "Clear road ahead.",
+            style: Theme.of(context).textTheme.displaySmall,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text(
+              "You have no mistakes to review right now. Keep practicing to build confidence.",
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            Text(
-              "Keep practicing! Any questions you get wrong will automatically appear here.",
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildMistakeCard(BuildContext context, dynamic question) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE0E0E0)),
+        border: Border.all(color: AppColors.textTertiary.withOpacity(0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: AppColors.surfaceElevated,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              question.category,
-              style: Theme.of(context).textTheme.bodySmall
-                  ?.copyWith(color: AppColors.textSecondary),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                question.category,
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: AppColors.textTertiary,
+                    ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  "Needs review",
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: AppColors.warning,
+                        fontSize: 11,
+                      ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 12),
           Text(
             question.questionText,
             style: Theme.of(context).textTheme.headlineSmall,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    PhosphorIcons.xCircle(),
-                    color: AppColors.danger,
-                    size: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    "Needs review",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
-              ),
-              Icon(
-                PhosphorIcons.caretRight(),
-                color: AppColors.textTertiary,
-                size: 16,
-              ),
-            ],
           ),
         ],
       ),

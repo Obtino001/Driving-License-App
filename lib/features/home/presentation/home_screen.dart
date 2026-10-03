@@ -15,7 +15,11 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final stateAsync = ref.watch(homeProvider);
     Future<void> openAndRefresh(String route, {Object? extra}) async {
-      await context.push(route, extra: extra);
+      if (route == '/learn' || route == '/progress' || route == '/settings') {
+        context.go(route, extra: extra);
+      } else {
+        await context.push(route, extra: extra);
+      }
       if (context.mounted) {
         await ref.read(homeProvider.notifier).loadHomeData();
       }
