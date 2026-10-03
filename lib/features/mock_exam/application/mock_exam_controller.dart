@@ -64,12 +64,14 @@ class MockExamController extends Notifier<MockExamState> {
   Future<void> resumeExam(ExamSession session) async {
     state = state.copyWith(isLoading: true);
     final repo = ref.read(databaseRepositoryProvider);
-    
+
     final questions = await repo.getQuestionsForSession(session.id);
     final sessionQuestions = await repo.getExamSessionQuestions(session.id);
-    
+
     // Find first unanswered question
-    int firstUnanswered = sessionQuestions.indexWhere((q) => q.selectedAnswerIndex == null);
+    int firstUnanswered = sessionQuestions.indexWhere(
+      (q) => q.selectedAnswerIndex == null,
+    );
     if (firstUnanswered == -1) firstUnanswered = 0;
 
     state = state.copyWith(
@@ -84,10 +86,10 @@ class MockExamController extends Notifier<MockExamState> {
   Future<void> startExam() async {
     state = state.copyWith(isLoading: true);
     final repo = ref.read(databaseRepositoryProvider);
-    
+
     // In case there is an in progress session, abandon it or maybe we shouldn't allow starting a new one.
     // For now, let's just create a new one.
-    
+
     // Load eligible questions. We shuffle in Dart.
     // To ensure category balance we could do something complex, but a shuffled slice is fine for development.
     // Get all questions, shuffle, take up to mockExamQuestionCount.
@@ -95,7 +97,7 @@ class MockExamController extends Notifier<MockExamState> {
     // If we only wanted specific categories we would query those.
     final db = ref.read(databaseProvider);
     final allQuestions = await db.select(db.questions).get();
-    
+
     allQuestions.shuffle();
     final examQuestions = allQuestions.take(mockExamQuestionCount).toList();
 
@@ -103,10 +105,11 @@ class MockExamController extends Notifier<MockExamState> {
       profileId: mockExamProfileId,
       state: mockExamState,
       licenseType: mockExamLicenseType,
-      passingRequirement: (examQuestions.length * 0.8).round(), // Dynamic based on actual count
+      passingRequirement: (examQuestions.length * 0.8)
+          .round(), // Dynamic based on actual count
       questions: examQuestions,
     );
-    
+
     final sessionQuestions = await repo.getExamSessionQuestions(session.id);
 
     state = state.copyWith(
@@ -120,37 +123,48 @@ class MockExamController extends Notifier<MockExamState> {
 
   Future<void> selectAnswer(int optionIndex) async {
     if (state.session == null || state.sessionQuestions == null) return;
-    
+
     final currentQ = state.sessionQuestions![state.currentIndex];
-    
+
     final repo = ref.read(databaseRepositoryProvider);
-    await repo.updateExamSessionAnswer(state.session!.id, currentQ.questionId, optionIndex);
-    
+    await repo.updateExamSessionAnswer(
+      state.session!.id,
+      currentQ.questionId,
+      optionIndex,
+    );
+
     // Update local state
     final updatedList = List<ExamSessionQuestion>.from(state.sessionQuestions!);
-    updatedList[state.currentIndex] = currentQ.copyWith(selectedAnswerIndex: optionIndex);
-    
+    updatedList[state.currentIndex] = currentQ.copyWith(
+      selectedAnswerIndex: Value(optionIndex),
+    );
+
     state = state.copyWith(sessionQuestions: updatedList);
   }
 
   Future<void> toggleFlag() async {
     if (state.session == null || state.sessionQuestions == null) return;
-    
+
     final currentQ = state.sessionQuestions![state.currentIndex];
     final newFlag = !currentQ.isFlagged;
-    
+
     final repo = ref.read(databaseRepositoryProvider);
-    await repo.updateExamSessionFlag(state.session!.id, currentQ.questionId, newFlag);
-    
+    await repo.updateExamSessionFlag(
+      state.session!.id,
+      currentQ.questionId,
+      newFlag,
+    );
+
     // Update local state
     final updatedList = List<ExamSessionQuestion>.from(state.sessionQuestions!);
     updatedList[state.currentIndex] = currentQ.copyWith(isFlagged: newFlag);
-    
+
     state = state.copyWith(sessionQuestions: updatedList);
   }
 
   void nextQuestion() {
-    if (state.questions != null && state.currentIndex < state.questions!.length - 1) {
+    if (state.questions != null &&
+        state.currentIndex < state.questions!.length - 1) {
       state = state.copyWith(currentIndex: state.currentIndex + 1);
     }
   }
@@ -162,7 +176,9 @@ class MockExamController extends Notifier<MockExamState> {
   }
 
   void goToQuestion(int index) {
-    if (state.questions != null && index >= 0 && index < state.questions!.length) {
+    if (state.questions != null &&
+        index >= 0 &&
+        index < state.questions!.length) {
       state = state.copyWith(currentIndex: index);
     }
   }
@@ -170,21 +186,24 @@ class MockExamController extends Notifier<MockExamState> {
   Future<void> submitExam() async {
     if (state.session == null || state.sessionQuestions == null) return;
     state = state.copyWith(isSubmitting: true);
-    
+
     // Calculate score
     int correctCount = 0;
     for (final q in state.sessionQuestions!) {
-      if (q.selectedAnswerIndex != null && q.selectedAnswerIndex == q.correctAnswerIndex) {
+      if (q.selectedAnswerIndex != null &&
+          q.selectedAnswerIndex == q.correctAnswerIndex) {
         correctCount++;
       }
     }
-    
+
     final repo = ref.read(databaseRepositoryProvider);
     await repo.finishExamSession(state.session!.id, correctCount);
-    
+
     // We don't reset state here. The result screen will read the state.
     state = state.copyWith(isSubmitting: false);
   }
 }
 
-final mockExamProvider = NotifierProvider<MockExamController, MockExamState>(MockExamController.new);
+final mockExamProvider = NotifierProvider<MockExamController, MockExamState>(
+  MockExamController.new,
+);

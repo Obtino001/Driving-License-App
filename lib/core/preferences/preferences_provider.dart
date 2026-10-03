@@ -2,10 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
-  throw UnimplementedError('sharedPreferencesProvider must be overridden in ProviderScope');
+  throw UnimplementedError(
+    'sharedPreferencesProvider must be overridden in ProviderScope',
+  );
 });
 
-final reducedMotionProvider = NotifierProvider<ReducedMotionNotifier, bool>(ReducedMotionNotifier.new);
+final reducedMotionProvider = NotifierProvider<ReducedMotionNotifier, bool>(
+  ReducedMotionNotifier.new,
+);
 
 class ReducedMotionNotifier extends Notifier<bool> {
   static const _key = 'reduced_motion_enabled';
@@ -21,7 +25,9 @@ class ReducedMotionNotifier extends Notifier<bool> {
   }
 }
 
-final hapticsProvider = NotifierProvider<HapticsNotifier, bool>(HapticsNotifier.new);
+final hapticsProvider = NotifierProvider<HapticsNotifier, bool>(
+  HapticsNotifier.new,
+);
 
 class HapticsNotifier extends Notifier<bool> {
   static const _key = 'haptics_enabled';

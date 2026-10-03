@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../domain/study_sign.dart';
+import '../../../../core/database/app_database.dart';
 
 class SignArtwork extends StatelessWidget {
   const SignArtwork({super.key, required this.sign, this.size = 118});
-  final StudySign sign;
+  final RoadSign sign;
   final double size;
 
   @override

@@ -10,12 +10,20 @@ import 'initial_data.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [Questions, QuestionProgress, RoadSigns, ExamSessions, ExamSessionQuestions])
+@DriftDatabase(
+  tables: [
+    Questions,
+    QuestionProgress,
+    RoadSigns,
+    ExamSessions,
+    ExamSessionQuestions,
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -30,6 +38,15 @@ class AppDatabase extends _$AppDatabase {
         if (from < 2) {
           await m.createTable(examSessions);
           await m.createTable(examSessionQuestions);
+        }
+        if (from < 3) {
+          await m.addColumn(questions, questions.reviewStatus);
+          await m.addColumn(questions, questions.assetType);
+          await m.addColumn(questions, questions.altText);
+          await m.addColumn(questions, questions.semanticDescription);
+          await m.addColumn(questions, questions.motionVariant);
+          await m.addColumn(roadSigns, roadSigns.contentVersion);
+          await m.addColumn(roadSigns, roadSigns.reviewStatus);
         }
       },
     );

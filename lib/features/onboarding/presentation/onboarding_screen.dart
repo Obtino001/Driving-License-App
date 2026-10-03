@@ -101,19 +101,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: 32),
           Text(
             "Your road\nto ready\nstarts here.",
-            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontSize: 48,
-                  height: 1.05,
-                  letterSpacing: -1.5,
-                ),
+            style: Theme.of(context).textTheme.displayLarge
+                ?.copyWith(fontSize: 48, height: 1.05, letterSpacing: -1.5),
           ),
           const SizedBox(height: 24),
           Text(
             "The most efficient, modern way to pass your DMV written exam. No detours.",
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textSecondary,
-                  fontSize: 18,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge
+                ?.copyWith(color: AppColors.textSecondary, fontSize: 18),
           ),
         ],
       ),
@@ -188,26 +183,25 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           const SizedBox(height: 32),
           Text(
             "Your plan\nis ready.",
-            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontSize: 48,
-                  height: 1.05,
-                  letterSpacing: -1.5,
-                ),
+            style: Theme.of(context).textTheme.displayLarge
+                ?.copyWith(fontSize: 48, height: 1.05, letterSpacing: -1.5),
           ),
           const SizedBox(height: 24),
           Text(
             "We've customized your learning path based on your exam date. Stick to the route.",
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textSecondary,
-                  fontSize: 18,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge
+                ?.copyWith(color: AppColors.textSecondary, fontSize: 18),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSelectableCard(String title, bool isSelected, VoidCallback onTap) {
+  Widget _buildSelectableCard(
+    String title,
+    bool isSelected,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: () {
         AppHaptics.selection();
@@ -232,8 +226,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               child: Text(
                 title,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: isSelected ? AppColors.textInverse : AppColors.textPrimary,
-                    ),
+                  color: isSelected
+                      ? AppColors.textInverse
+                      : AppColors.textPrimary,
+                ),
               ),
             ),
             if (isSelected)

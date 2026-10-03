@@ -73,7 +73,9 @@ class MistakesScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+        border: Border.all(
+          color: AppColors.textTertiary.withValues(alpha: 0.1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -91,10 +93,8 @@ class MistakesScreen extends ConsumerWidget {
                 Expanded(
                   child: Text(
                     "$count Questions\nNeed Review",
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: AppColors.textInverse,
-                          fontSize: 24,
-                        ),
+                    style: Theme.of(context).textTheme.displaySmall
+                        ?.copyWith(color: AppColors.textInverse, fontSize: 24),
                   ),
                 ),
               ],
@@ -124,7 +124,9 @@ class MistakesScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               color: AppColors.surface,
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+              border: Border.all(
+                color: AppColors.textTertiary.withValues(alpha: 0.1),
+              ),
             ),
             child: Icon(
               PhosphorIcons.roadHorizon(PhosphorIconsStyle.fill),
@@ -143,9 +145,8 @@ class MistakesScreen extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Text(
               "You have no mistakes to review right now. Keep practicing to build confidence.",
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
+              style: Theme.of(context).textTheme.bodyLarge
+                  ?.copyWith(color: AppColors.textSecondary),
               textAlign: TextAlign.center,
             ),
           ),
@@ -161,7 +162,9 @@ class MistakesScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+        border: Border.all(
+          color: AppColors.textTertiary.withValues(alpha: 0.1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,9 +174,8 @@ class MistakesScreen extends ConsumerWidget {
             children: [
               Text(
                 question.category,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppColors.textTertiary,
-                    ),
+                style: Theme.of(context).textTheme.labelMedium
+                    ?.copyWith(color: AppColors.textTertiary),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -183,10 +185,8 @@ class MistakesScreen extends ConsumerWidget {
                 ),
                 child: Text(
                   "Needs review",
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: AppColors.warning,
-                        fontSize: 11,
-                      ),
+                  style: Theme.of(context).textTheme.labelMedium
+                      ?.copyWith(color: AppColors.warning, fontSize: 11),
                 ),
               ),
             ],

@@ -10,6 +10,8 @@ import '../../../core/widgets/app_button.dart';
 import '../application/mock_exam_controller.dart';
 import 'widgets/mock_exam_navigator_sheet.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
 class MockExamScreen extends ConsumerWidget {
   const MockExamScreen({super.key});
 
@@ -45,10 +47,14 @@ class MockExamScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(mockExamProvider);
 
-    if (state.isLoading || state.questions == null || state.sessionQuestions == null) {
+    if (state.isLoading ||
+        state.questions == null ||
+        state.sessionQuestions == null) {
       return const Scaffold(
         backgroundColor: AppColors.backgroundLight,
-        body: Center(child: CircularProgressIndicator(color: AppColors.primaryDark)),
+        body: Center(
+          child: CircularProgressIndicator(color: AppColors.primaryDark),
+        ),
       );
     }
 
@@ -92,20 +98,28 @@ class MockExamScreen extends ConsumerWidget {
                 Text(
                   'Question ${currentIndex + 1} of $total',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(width: 4),
-                Icon(PhosphorIcons.caretDown(), color: AppColors.textSecondary, size: 16),
+                Icon(
+                  PhosphorIcons.caretDown(),
+                  color: AppColors.textSecondary,
+                  size: 16,
+                ),
               ],
             ),
           ),
           actions: [
             IconButton(
               icon: Icon(
-                currentSQ.isFlagged ? PhosphorIcons.flag(PhosphorIconsStyle.fill) : PhosphorIcons.flag(),
-                color: currentSQ.isFlagged ? AppColors.warning : AppColors.textPrimary,
+                currentSQ.isFlagged
+                    ? PhosphorIcons.flag(PhosphorIconsStyle.fill)
+                    : PhosphorIcons.flag(),
+                color: currentSQ.isFlagged
+                    ? AppColors.warning
+                    : AppColors.textPrimary,
               ),
               onPressed: () {
                 AppHaptics.selection();
@@ -122,7 +136,9 @@ class MockExamScreen extends ConsumerWidget {
               LinearProgressIndicator(
                 value: (currentIndex + 1) / total,
                 backgroundColor: AppColors.surface,
-                valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primaryDark),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppColors.primaryDark,
+                ),
                 minHeight: 2,
               ),
               Expanded(
@@ -136,16 +152,28 @@ class MockExamScreen extends ConsumerWidget {
                     children: [
                       Text(
                         currentQ.category.toUpperCase(),
-                        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        style: Theme.of(context).textTheme.labelMedium
+                            ?.copyWith(
                               color: AppColors.textTertiary,
                               letterSpacing: 1.2,
                               fontWeight: FontWeight.w700,
                             ),
                       ),
                       const SizedBox(height: 16),
+                      if (currentQ.illustrationAsset != null &&
+                          currentQ.illustrationAsset!.isNotEmpty) ...[
+                        Center(
+                          child: SvgPicture.asset(
+                            currentQ.illustrationAsset!,
+                            height: 120,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
                       Text(
                         currentQ.questionText,
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
                               color: AppColors.textPrimary,
                               height: 1.3,
                             ),
@@ -154,19 +182,22 @@ class MockExamScreen extends ConsumerWidget {
                       _AnswerOption(
                         text: currentQ.answerA,
                         isSelected: currentSQ.selectedAnswerIndex == 0,
-                        onTap: () => ref.read(mockExamProvider.notifier).selectAnswer(0),
+                        onTap: () =>
+                            ref.read(mockExamProvider.notifier).selectAnswer(0),
                       ),
                       const SizedBox(height: 16),
                       _AnswerOption(
                         text: currentQ.answerB,
                         isSelected: currentSQ.selectedAnswerIndex == 1,
-                        onTap: () => ref.read(mockExamProvider.notifier).selectAnswer(1),
+                        onTap: () =>
+                            ref.read(mockExamProvider.notifier).selectAnswer(1),
                       ),
                       const SizedBox(height: 16),
                       _AnswerOption(
                         text: currentQ.answerC,
                         isSelected: currentSQ.selectedAnswerIndex == 2,
-                        onTap: () => ref.read(mockExamProvider.notifier).selectAnswer(2),
+                        onTap: () =>
+                            ref.read(mockExamProvider.notifier).selectAnswer(2),
                       ),
                     ],
                   ),
@@ -183,7 +214,9 @@ class MockExamScreen extends ConsumerWidget {
                           type: AppButtonType.secondary,
                           onPressed: () {
                             AppHaptics.buttonPress();
-                            ref.read(mockExamProvider.notifier).previousQuestion();
+                            ref
+                                .read(mockExamProvider.notifier)
+                                .previousQuestion();
                           },
                         ),
                       )
@@ -251,9 +284,11 @@ class _AnswerOption extends StatelessWidget {
               child: Text(
                 text,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: isSelected ? AppColors.primaryAccent : AppColors.textPrimary,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                    ),
+                  color: isSelected
+                      ? AppColors.primaryAccent
+                      : AppColors.textPrimary,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                ),
               ),
             ),
             if (isSelected) ...[
@@ -299,9 +334,8 @@ class _ExitSheet extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'Your progress is saved locally. You can resume later from the Practice screen.',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
+              style: Theme.of(context).textTheme.bodyMedium
+                  ?.copyWith(color: AppColors.textSecondary),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),

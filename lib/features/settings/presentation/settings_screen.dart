@@ -26,18 +26,9 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             _SectionHeader('STUDY'),
-            _SettingsRow(
-              label: 'Daily goal',
-              value: '10 questions',
-            ),
-            _SettingsRow(
-              label: 'Test date',
-              value: 'This week',
-            ),
-            _SettingsRow(
-              label: 'License type',
-              value: 'California Class C',
-            ),
+            _SettingsRow(label: 'Daily goal', value: '10 questions'),
+            _SettingsRow(label: 'Test date', value: 'This week'),
+            _SettingsRow(label: 'License type', value: 'California Class C'),
             const SizedBox(height: 32),
             _SectionHeader('EXPERIENCE'),
             _SettingsToggleRow(
@@ -68,7 +59,8 @@ class SettingsScreen extends ConsumerWidget {
                   builder: (ctx) => AlertDialog(
                     title: const Text('Reset Progress?'),
                     content: const Text(
-                        'This will permanently delete your practice history and mistakes.'),
+                      'This will permanently delete your practice history and mistakes.',
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(ctx, false),
@@ -76,8 +68,10 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       TextButton(
                         onPressed: () => Navigator.pop(ctx, true),
-                        child: const Text('Reset',
-                            style: TextStyle(color: AppColors.danger)),
+                        child: const Text(
+                          'Reset',
+                          style: TextStyle(color: AppColors.danger),
+                        ),
                       ),
                     ],
                   ),
@@ -86,7 +80,9 @@ class SettingsScreen extends ConsumerWidget {
                   await controller.resetProgress();
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Progress reset successfully.')),
+                      const SnackBar(
+                        content: Text('Progress reset successfully.'),
+                      ),
                     );
                   }
                 }
@@ -94,22 +90,13 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             _SectionHeader('ABOUT'),
-            const _SettingsRow(
-              label: 'App version',
-              value: '1.0.0',
-            ),
+            const _SettingsRow(label: 'App version', value: '1.0.0'),
             _SettingsActionRow(
               label: 'Independent study disclaimer',
               onTap: () {},
             ),
-            _SettingsActionRow(
-              label: 'Privacy policy',
-              onTap: () {},
-            ),
-            _SettingsActionRow(
-              label: 'Terms of service',
-              onTap: () {},
-            ),
+            _SettingsActionRow(label: 'Privacy policy', onTap: () {}),
+            _SettingsActionRow(label: 'Terms of service', onTap: () {}),
           ],
         ),
       ),
@@ -128,11 +115,11 @@ class _SectionHeader extends StatelessWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: AppColors.textTertiary,
-              letterSpacing: 1.2,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-            ),
+          color: AppColors.textTertiary,
+          letterSpacing: 1.2,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -151,7 +138,9 @@ class _SettingsRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+        border: Border.all(
+          color: AppColors.textTertiary.withValues(alpha: 0.1),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,9 +148,8 @@ class _SettingsRow extends StatelessWidget {
           Text(label, style: Theme.of(context).textTheme.bodyLarge),
           Text(
             value,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.textSecondary,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge
+                ?.copyWith(color: AppColors.textSecondary),
           ),
         ],
       ),
@@ -190,7 +178,9 @@ class _SettingsActionRow extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+          border: Border.all(
+            color: AppColors.textTertiary.withValues(alpha: 0.1),
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -198,8 +188,8 @@ class _SettingsActionRow extends StatelessWidget {
             Text(
               label,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: isDestructive ? AppColors.danger : AppColors.textPrimary,
-                  ),
+                color: isDestructive ? AppColors.danger : AppColors.textPrimary,
+              ),
             ),
             Icon(
               PhosphorIcons.caretRight(),
@@ -234,7 +224,9 @@ class _SettingsToggleRow extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+          border: Border.all(
+            color: AppColors.textTertiary.withValues(alpha: 0.1),
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -261,7 +253,9 @@ class _CustomSwitch extends StatelessWidget {
       height: 28,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(999),
-        color: value ? AppColors.primaryDark : AppColors.textTertiary.withValues(alpha: 0.2),
+        color: value
+            ? AppColors.primaryDark
+            : AppColors.textTertiary.withValues(alpha: 0.2),
       ),
       child: AnimatedAlign(
         duration: const Duration(milliseconds: 200),

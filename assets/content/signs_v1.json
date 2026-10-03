@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "signs": [
+    {
+      "id": "s_reg_01",
+      "name": "Stop",
+      "category": "Regulatory",
+      "assetPath": "assets/signs/stop.svg",
+      "shortMeaning": "Come to a complete stop.",
+      "detailedMeaning": "You must make a full stop at the solid white limit line or before entering the crosswalk.",
+      "commonMistake": "Slowing down without coming to a complete cessation of movement (a 'rolling stop').",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "verified",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_reg_02",
+      "name": "Yield",
+      "category": "Regulatory",
+      "assetPath": "assets/signs/yield.svg",
+      "shortMeaning": "Slow down and give right-of-way.",
+      "detailedMeaning": "You must slow down and be ready to stop to let any vehicle, bicyclist, or pedestrian pass before you proceed.",
+      "commonMistake": "Failing to stop when other traffic is present.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "verified",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_warn_01",
+      "name": "Pedestrian Crossing",
+      "category": "Warning",
+      "assetPath": "assets/signs/pedestrian.svg",
+      "shortMeaning": "Watch for pedestrians.",
+      "detailedMeaning": "Alerts you to a crosswalk or location where pedestrians often cross. Slow down and prepare to stop.",
+      "commonMistake": "Assuming pedestrians must yield to vehicles.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "verified",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_warn_02",
+      "name": "Slippery When Wet",
+      "category": "Warning",
+      "assetPath": "assets/signs/slippery.svg",
+      "shortMeaning": "Road is slick in wet conditions.",
+      "detailedMeaning": "The road surface ahead reduces traction when wet. Slow down and avoid sudden braking or turning.",
+      "commonMistake": "Maintaining normal speed during rain.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "verified",
+      "contentVersion": 1
+    },
+    {
+      "id": "s_guide_01",
+      "name": "Hospital",
+      "category": "Guide",
+      "assetPath": "assets/signs/hospital.svg",
+      "shortMeaning": "Medical facility nearby.",
+      "detailedMeaning": "Directs drivers to a nearby hospital providing emergency medical services.",
+      "commonMistake": "Confusing it with a general rest stop.",
+      "sourceReference": "DMV_CA_Handbook_2024",
+      "reviewStatus": "verified",
+      "contentVersion": 1
+    }
+  ]
+}

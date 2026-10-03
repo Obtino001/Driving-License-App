@@ -17,6 +17,13 @@ class Questions extends Table {
   TextColumn get illustrationAsset => text().nullable()();
   TextColumn get sourceReference => text().nullable()();
   IntColumn get contentVersion => integer().withDefault(const Constant(1))();
+  TextColumn get reviewStatus => text().withDefault(
+    const Constant('needsReview'),
+  )(); // draft, needsReview, verified, deprecated
+  TextColumn get assetType => text().nullable()();
+  TextColumn get altText => text().nullable()();
+  TextColumn get semanticDescription => text().nullable()();
+  TextColumn get motionVariant => text().nullable()();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
@@ -49,6 +56,9 @@ class RoadSigns extends Table {
   TextColumn get detailedMeaning => text()();
   TextColumn get commonMistake => text().nullable()();
   TextColumn get sourceReference => text().nullable()();
+  IntColumn get contentVersion => integer().withDefault(const Constant(1))();
+  TextColumn get reviewStatus =>
+      text().withDefault(const Constant('needsReview'))();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -62,7 +72,9 @@ class ExamSessions extends Table {
   TextColumn get licenseType => text()();
   DateTimeColumn get startedAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get completedAt => dateTime().nullable()();
-  TextColumn get status => text().withDefault(const Constant('in_progress'))(); // 'in_progress', 'completed'
+  TextColumn get status => text().withDefault(
+    const Constant('in_progress'),
+  )(); // 'in_progress', 'completed'
   IntColumn get score => integer().nullable()();
   IntColumn get passingRequirement => integer()();
   IntColumn get questionCount => integer()();

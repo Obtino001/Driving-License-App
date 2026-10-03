@@ -12,15 +12,17 @@ class MockExamResultScreen extends ConsumerStatefulWidget {
   const MockExamResultScreen({super.key});
 
   @override
-  ConsumerState<MockExamResultScreen> createState() => _MockExamResultScreenState();
+  ConsumerState<MockExamResultScreen> createState() =>
+      _MockExamResultScreenState();
 }
 
-class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> with SingleTickerProviderStateMixin {
+class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animController;
   late Animation<double> _surfaceOpacity;
   late Animation<double> _scoreOpacity;
   late Animation<double> _statsOpacity;
-  
+
   @override
   void initState() {
     super.initState();
@@ -30,13 +32,22 @@ class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> wit
     );
 
     _surfaceOpacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _animController, curve: const Interval(0.0, 0.25, curve: Curves.easeOut)),
+      CurvedAnimation(
+        parent: _animController,
+        curve: const Interval(0.0, 0.25, curve: Curves.easeOut),
+      ),
     );
     _scoreOpacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _animController, curve: const Interval(0.2, 0.7, curve: Curves.easeOut)),
+      CurvedAnimation(
+        parent: _animController,
+        curve: const Interval(0.2, 0.7, curve: Curves.easeOut),
+      ),
     );
     _statsOpacity = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _animController, curve: const Interval(0.5, 1.0, curve: Curves.easeOut)),
+      CurvedAnimation(
+        parent: _animController,
+        curve: const Interval(0.5, 1.0, curve: Curves.easeOut),
+      ),
     );
 
     _animController.forward();
@@ -103,20 +114,29 @@ class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> wit
             animation: _animController,
             builder: (context, child) {
               return ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
                 children: [
                   FadeTransition(
                     opacity: _surfaceOpacity,
                     child: Center(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
-                          color: isPass ? AppColors.primaryAccent.withValues(alpha: 0.2) : AppColors.surface,
+                          color: isPass
+                              ? AppColors.primaryAccent.withValues(alpha: 0.2)
+                              : AppColors.surface,
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(
                           isPass ? 'PASS' : 'KEEP PRACTICING',
-                          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(
                                 color: AppColors.primaryDark,
                                 letterSpacing: 1.5,
                                 fontWeight: FontWeight.w700,
@@ -131,8 +151,11 @@ class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> wit
                     child: Column(
                       children: [
                         Text(
-                          isPass ? 'Strong run.' : 'Let\'s tighten the weak spots.',
-                          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          isPass
+                              ? 'Strong run.'
+                              : 'Let\'s tighten the weak spots.',
+                          style: Theme.of(context).textTheme.displayLarge
+                              ?.copyWith(
                                 fontSize: 40,
                                 height: 1.1,
                                 letterSpacing: -1.0,
@@ -142,18 +165,20 @@ class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> wit
                         const SizedBox(height: 16),
                         Text(
                           '$percentage%',
-                          style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          style: Theme.of(context).textTheme.displayLarge
+                              ?.copyWith(
                                 fontSize: 72,
                                 height: 1.0,
-                                color: isPass ? AppColors.primaryDark : AppColors.textPrimary,
+                                color: isPass
+                                    ? AppColors.primaryDark
+                                    : AppColors.textPrimary,
                               ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           '$score of $total correct • ${session.passingRequirement} required',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: AppColors.textSecondary,
-                              ),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(color: AppColors.textSecondary),
                         ),
                       ],
                     ),
@@ -166,11 +191,19 @@ class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> wit
                         Row(
                           children: [
                             Expanded(
-                              child: _buildStatBox('Correct', correct.toString(), AppColors.primaryDark),
+                              child: _buildStatBox(
+                                'Correct',
+                                correct.toString(),
+                                AppColors.primaryDark,
+                              ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: _buildStatBox('Incorrect', incorrect.toString(), AppColors.warning),
+                              child: _buildStatBox(
+                                'Incorrect',
+                                incorrect.toString(),
+                                AppColors.warning,
+                              ),
                             ),
                           ],
                         ),
@@ -178,11 +211,19 @@ class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> wit
                         Row(
                           children: [
                             Expanded(
-                              child: _buildStatBox('Unanswered', unanswered.toString(), AppColors.textSecondary),
+                              child: _buildStatBox(
+                                'Unanswered',
+                                unanswered.toString(),
+                                AppColors.textSecondary,
+                              ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: _buildStatBox('Time', durationStr, AppColors.textPrimary),
+                              child: _buildStatBox(
+                                'Time',
+                                durationStr,
+                                AppColors.textPrimary,
+                              ),
                             ),
                           ],
                         ),
@@ -225,23 +266,23 @@ class _MockExamResultScreenState extends ConsumerState<MockExamResultScreen> wit
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+        border: Border.all(
+          color: AppColors.textTertiary.withValues(alpha: 0.1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: AppColors.textTertiary,
-                ),
+            style: Theme.of(context).textTheme.labelMedium
+                ?.copyWith(color: AppColors.textTertiary),
           ),
           const SizedBox(height: 8),
           Text(
             value,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: color,
-                ),
+            style: Theme.of(context).textTheme.headlineMedium
+                ?.copyWith(color: color),
           ),
         ],
       ),

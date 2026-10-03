@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -9,17 +10,18 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/haptics.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/road_progress_track.dart';
-import '../domain/study_sign.dart';
+import '../../../core/database/app_database.dart';
+import '../application/signs_controller.dart';
 import 'widgets/sign_artwork.dart';
 
-class FlashcardsScreen extends StatefulWidget {
+class FlashcardsScreen extends ConsumerStatefulWidget {
   const FlashcardsScreen({super.key});
 
   @override
-  State<FlashcardsScreen> createState() => _FlashcardsScreenState();
+  ConsumerState<FlashcardsScreen> createState() => _FlashcardsScreenState();
 }
 
-class _FlashcardsScreenState extends State<FlashcardsScreen>
+class _FlashcardsScreenState extends ConsumerState<FlashcardsScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _flip;
   int _index = 0;
@@ -54,9 +56,9 @@ class _FlashcardsScreenState extends State<FlashcardsScreen>
     }
   }
 
-  void _advance() {
+  void _advance(int totalLength) {
     AppHaptics.buttonPress();
-    if (_index == studySigns.length - 1) {
+    if (_index == totalLength - 1) {
       context.pop();
       return;
     }
@@ -69,6 +71,16 @@ class _FlashcardsScreenState extends State<FlashcardsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final signsAsync = ref.watch(signsProvider);
+    final studySigns = signsAsync.value ?? [];
+
+    if (studySigns.isEmpty) {
+      return const Scaffold(
+        backgroundColor: AppColors.backgroundLight,
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     final sign = studySigns[_index];
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
@@ -139,7 +151,9 @@ class _FlashcardsScreenState extends State<FlashcardsScreen>
                     : _index == studySigns.length - 1
                     ? 'Finish study  →'
                     : 'Next sign  →',
-                onPressed: _revealed ? _advance : _toggleReveal,
+                onPressed: _revealed
+                    ? () => _advance(studySigns.length)
+                    : _toggleReveal,
               ),
             ],
           ),
@@ -151,7 +165,7 @@ class _FlashcardsScreenState extends State<FlashcardsScreen>
 
 class _SignFlashcardFace extends StatelessWidget {
   const _SignFlashcardFace({required this.sign, required this.revealed});
-  final StudySign sign;
+  final RoadSign sign;
   final bool revealed;
 
   @override
@@ -203,7 +217,7 @@ class _SignFlashcardFace extends StatelessWidget {
               ),
               const SizedBox(height: 9),
               Text(
-                sign.meaning,
+                sign.detailedMeaning,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium
                     ?.copyWith(color: const Color(0xFFE1E8DF)),
@@ -220,7 +234,7 @@ class _SignFlashcardFace extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                sign.commonMistake,
+                sign.commonMistake ?? '',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall
                     ?.copyWith(color: const Color(0xFFD0DACF)),

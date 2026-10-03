@@ -51,10 +51,10 @@ class MockExamIntroScreen extends ConsumerWidget {
               Text(
                 'MOCK EXAM',
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: AppColors.textTertiary,
-                      letterSpacing: 1.5,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  color: AppColors.textTertiary,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
@@ -86,9 +86,8 @@ class MockExamIntroScreen extends ConsumerWidget {
               Text(
                 'This is a practice simulation and is not the official California DMV knowledge test.',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.textTertiary,
-                    ),
+                style: Theme.of(context).textTheme.bodySmall
+                    ?.copyWith(color: AppColors.textTertiary),
               ),
               const SizedBox(height: 24),
               AppButton(
@@ -118,7 +117,11 @@ class MockExamIntroScreen extends ConsumerWidget {
   }
 
   Widget _buildFeatureRow(
-      BuildContext context, IconData icon, String title, String subtitle) {
+    BuildContext context,
+    IconData icon,
+    String title,
+    String subtitle,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -140,16 +143,14 @@ class MockExamIntroScreen extends ConsumerWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: AppColors.textPrimary,
-                    ),
+                style: Theme.of(context).textTheme.headlineSmall
+                    ?.copyWith(color: AppColors.textPrimary),
               ),
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.textSecondary,
-                    ),
+                style: Theme.of(context).textTheme.bodyMedium
+                    ?.copyWith(color: AppColors.textSecondary),
               ),
             ],
           ),

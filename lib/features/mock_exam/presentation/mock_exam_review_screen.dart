@@ -20,7 +20,9 @@ class MockExamReviewScreen extends ConsumerWidget {
     }
 
     final total = state.sessionQuestions!.length;
-    final answered = state.sessionQuestions!.where((q) => q.selectedAnswerIndex != null).length;
+    final answered = state.sessionQuestions!
+        .where((q) => q.selectedAnswerIndex != null)
+        .length;
     final unanswered = total - answered;
     final flagged = state.sessionQuestions!.where((q) => q.isFlagged).length;
 
@@ -55,9 +57,8 @@ class MockExamReviewScreen extends ConsumerWidget {
                       const SizedBox(height: 16),
                       Text(
                         'Review your exam status before submitting for a final score.',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
+                        style: Theme.of(context).textTheme.bodyLarge
+                            ?.copyWith(color: AppColors.textSecondary),
                       ),
                       const SizedBox(height: 48),
                       _buildStatRow(
@@ -73,7 +74,9 @@ class MockExamReviewScreen extends ConsumerWidget {
                         'Unanswered',
                         unanswered.toString(),
                         PhosphorIcons.circle(),
-                        unanswered > 0 ? AppColors.warning : AppColors.textSecondary,
+                        unanswered > 0
+                            ? AppColors.warning
+                            : AppColors.textSecondary,
                       ),
                       const SizedBox(height: 16),
                       _buildStatRow(
@@ -81,7 +84,9 @@ class MockExamReviewScreen extends ConsumerWidget {
                         'Flagged',
                         flagged.toString(),
                         PhosphorIcons.flag(PhosphorIconsStyle.fill),
-                        flagged > 0 ? AppColors.warning : AppColors.textSecondary,
+                        flagged > 0
+                            ? AppColors.warning
+                            : AppColors.textSecondary,
                       ),
                     ],
                   ),
@@ -93,7 +98,9 @@ class MockExamReviewScreen extends ConsumerWidget {
                   type: AppButtonType.secondary,
                   onPressed: () {
                     AppHaptics.buttonPress();
-                    final idx = state.sessionQuestions!.indexWhere((q) => q.selectedAnswerIndex == null);
+                    final idx = state.sessionQuestions!.indexWhere(
+                      (q) => q.selectedAnswerIndex == null,
+                    );
                     if (idx != -1) {
                       ref.read(mockExamProvider.notifier).goToQuestion(idx);
                       context.pop(); // pop review screen to show question
@@ -108,7 +115,9 @@ class MockExamReviewScreen extends ConsumerWidget {
                   type: AppButtonType.secondary,
                   onPressed: () {
                     AppHaptics.buttonPress();
-                    final idx = state.sessionQuestions!.indexWhere((q) => q.isFlagged);
+                    final idx = state.sessionQuestions!.indexWhere(
+                      (q) => q.isFlagged,
+                    );
                     if (idx != -1) {
                       ref.read(mockExamProvider.notifier).goToQuestion(idx);
                       context.pop();
@@ -135,13 +144,21 @@ class MockExamReviewScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildStatRow(BuildContext context, String label, String count, IconData icon, Color color) {
+  Widget _buildStatRow(
+    BuildContext context,
+    String label,
+    String count,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+        border: Border.all(
+          color: AppColors.textTertiary.withValues(alpha: 0.1),
+        ),
       ),
       child: Row(
         children: [
@@ -150,16 +167,14 @@ class MockExamReviewScreen extends ConsumerWidget {
           Expanded(
             child: Text(
               label,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    color: AppColors.textPrimary,
-                  ),
+              style: Theme.of(context).textTheme.headlineSmall
+                  ?.copyWith(color: AppColors.textPrimary),
             ),
           ),
           Text(
             count,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: color,
-                ),
+            style: Theme.of(context).textTheme.headlineMedium
+                ?.copyWith(color: color),
           ),
         ],
       ),

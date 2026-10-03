@@ -321,4 +321,3 @@ List<QuestionsCompanion> getInitialQuestions() {
     ),
   ];
 }
-

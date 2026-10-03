@@ -8,10 +8,7 @@ class MistakesState {
   final List<Question> mistakes;
   final bool isLoading;
 
-  MistakesState({
-    this.mistakes = const [],
-    this.isLoading = false,
-  });
+  MistakesState({this.mistakes = const [], this.isLoading = false});
 }
 
 class MistakesController extends AsyncNotifier<MistakesState> {
@@ -34,6 +31,7 @@ class MistakesController extends AsyncNotifier<MistakesState> {
   }
 }
 
-final mistakesProvider = AsyncNotifierProvider<MistakesController, MistakesState>(() {
-  return MistakesController();
-});
+final mistakesProvider =
+    AsyncNotifierProvider<MistakesController, MistakesState>(() {
+      return MistakesController();
+    });

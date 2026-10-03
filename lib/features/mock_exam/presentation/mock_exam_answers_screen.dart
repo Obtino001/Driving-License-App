@@ -70,12 +70,16 @@ class MockExamAnswersScreen extends ConsumerWidget {
               Text(
                 'Review ${currentIndex + 1} of $total',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(width: 4),
-              Icon(PhosphorIcons.caretDown(), color: AppColors.textSecondary, size: 16),
+              Icon(
+                PhosphorIcons.caretDown(),
+                color: AppColors.textSecondary,
+                size: 16,
+              ),
             ],
           ),
         ),
@@ -97,33 +101,51 @@ class MockExamAnswersScreen extends ConsumerWidget {
                       children: [
                         Text(
                           currentQ.category.toUpperCase(),
-                          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(
                                 color: AppColors.textTertiary,
                                 letterSpacing: 1.2,
                                 fontWeight: FontWeight.w700,
                               ),
                         ),
                         if (currentSQ.isFlagged)
-                          Icon(PhosphorIcons.flag(PhosphorIconsStyle.fill), color: AppColors.warning, size: 20),
+                          Icon(
+                            PhosphorIcons.flag(PhosphorIconsStyle.fill),
+                            color: AppColors.warning,
+                            size: 20,
+                          ),
                       ],
                     ),
                     const SizedBox(height: 16),
                     Text(
                       currentQ.questionText,
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            color: AppColors.textPrimary,
-                            height: 1.3,
-                          ),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(color: AppColors.textPrimary, height: 1.3),
                     ),
                     const SizedBox(height: 32),
                     // Show explanation header based on correctness
                     if (isUnanswered)
-                      _buildFeedbackHeader(context, 'Unanswered', AppColors.textSecondary, PhosphorIcons.circle())
+                      _buildFeedbackHeader(
+                        context,
+                        'Unanswered',
+                        AppColors.textSecondary,
+                        PhosphorIcons.circle(),
+                      )
                     else if (isCorrect)
-                      _buildFeedbackHeader(context, 'Correct', AppColors.primaryDark, PhosphorIcons.checkCircle(PhosphorIconsStyle.fill))
+                      _buildFeedbackHeader(
+                        context,
+                        'Correct',
+                        AppColors.primaryDark,
+                        PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
+                      )
                     else
-                      _buildFeedbackHeader(context, 'Incorrect', AppColors.warning, PhosphorIcons.xCircle(PhosphorIconsStyle.fill)),
-                    
+                      _buildFeedbackHeader(
+                        context,
+                        'Incorrect',
+                        AppColors.warning,
+                        PhosphorIcons.xCircle(PhosphorIconsStyle.fill),
+                      ),
+
                     const SizedBox(height: 24),
                     _ReviewOption(
                       text: currentQ.answerA,
@@ -154,20 +176,24 @@ class MockExamAnswersScreen extends ConsumerWidget {
                         children: [
                           Row(
                             children: [
-                              Icon(PhosphorIcons.info(PhosphorIconsStyle.fill), color: AppColors.primaryDark, size: 24),
+                              Icon(
+                                PhosphorIcons.info(PhosphorIconsStyle.fill),
+                                color: AppColors.primaryDark,
+                                size: 24,
+                              ),
                               const SizedBox(width: 12),
                               Text(
                                 'Explanation',
-                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                      color: AppColors.primaryDark,
-                                    ),
+                                style: Theme.of(context).textTheme.headlineSmall
+                                    ?.copyWith(color: AppColors.primaryDark),
                               ),
                             ],
                           ),
                           const SizedBox(height: 12),
                           Text(
                             currentQ.explanationShort,
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(
                                   color: AppColors.textPrimary,
                                   height: 1.5,
                                 ),
@@ -190,7 +216,9 @@ class MockExamAnswersScreen extends ConsumerWidget {
                         type: AppButtonType.secondary,
                         onPressed: () {
                           AppHaptics.buttonPress();
-                          ref.read(mockExamProvider.notifier).previousQuestion();
+                          ref
+                              .read(mockExamProvider.notifier)
+                              .previousQuestion();
                         },
                       ),
                     )
@@ -226,17 +254,20 @@ class MockExamAnswersScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildFeedbackHeader(BuildContext context, String text, Color color, IconData icon) {
+  Widget _buildFeedbackHeader(
+    BuildContext context,
+    String text,
+    Color color,
+    IconData icon,
+  ) {
     return Row(
       children: [
         Icon(icon, color: color, size: 28),
         const SizedBox(width: 12),
         Text(
           text,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: color,
-                fontWeight: FontWeight.w700,
-              ),
+          style: Theme.of(context).textTheme.headlineSmall
+              ?.copyWith(color: color, fontWeight: FontWeight.w700),
         ),
       ],
     );
@@ -266,12 +297,20 @@ class _ReviewOption extends StatelessWidget {
       borderColor = AppColors.primaryDark;
       bgColor = AppColors.primaryAccent.withValues(alpha: 0.1);
       textColor = AppColors.primaryDark;
-      trailing = Icon(PhosphorIcons.checkCircle(PhosphorIconsStyle.fill), color: AppColors.primaryDark, size: 24);
+      trailing = Icon(
+        PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
+        color: AppColors.primaryDark,
+        size: 24,
+      );
     } else if (isUserAnswer && !isCorrectAnswer) {
       borderColor = AppColors.warning;
       bgColor = AppColors.warning.withValues(alpha: 0.1);
       textColor = AppColors.textPrimary;
-      trailing = Icon(PhosphorIcons.xCircle(PhosphorIconsStyle.fill), color: AppColors.warning, size: 24);
+      trailing = Icon(
+        PhosphorIcons.xCircle(PhosphorIconsStyle.fill),
+        color: AppColors.warning,
+        size: 24,
+      );
     }
 
     return Container(
@@ -279,7 +318,10 @@ class _ReviewOption extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: borderColor, width: isCorrectAnswer || isUserAnswer ? 2 : 1),
+        border: Border.all(
+          color: borderColor,
+          width: isCorrectAnswer || isUserAnswer ? 2 : 1,
+        ),
       ),
       child: Row(
         children: [
@@ -287,15 +329,14 @@ class _ReviewOption extends StatelessWidget {
             child: Text(
               text,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: textColor,
-                    fontWeight: isCorrectAnswer || isUserAnswer ? FontWeight.w600 : FontWeight.w400,
-                  ),
+                color: textColor,
+                fontWeight: isCorrectAnswer || isUserAnswer
+                    ? FontWeight.w600
+                    : FontWeight.w400,
+              ),
             ),
           ),
-          if (trailing != null) ...[
-            const SizedBox(width: 16),
-            trailing,
-          ],
+          if (trailing != null) ...[const SizedBox(width: 16), trailing],
         ],
       ),
     );

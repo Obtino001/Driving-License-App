@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -6,16 +7,17 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/haptics.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/editorial_header.dart';
-import '../domain/study_sign.dart';
+import '../../../core/database/app_database.dart';
+import '../application/signs_controller.dart';
 import 'widgets/sign_artwork.dart';
 
-class SignsScreen extends StatefulWidget {
+class SignsScreen extends ConsumerStatefulWidget {
   const SignsScreen({super.key});
   @override
-  State<SignsScreen> createState() => _SignsScreenState();
+  ConsumerState<SignsScreen> createState() => _SignsScreenState();
 }
 
-class _SignsScreenState extends State<SignsScreen> {
+class _SignsScreenState extends ConsumerState<SignsScreen> {
   String _category = 'All';
   static const categories = [
     'All',
@@ -28,9 +30,13 @@ class _SignsScreenState extends State<SignsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final signsAsync = ref.watch(signsProvider);
+    final studySigns = signsAsync.value ?? [];
+
     final visible = _category == 'All'
         ? studySigns
         : studySigns.where((sign) => sign.category == _category).toList();
+
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
@@ -54,6 +60,7 @@ class _SignsScreenState extends State<SignsScreen> {
             ),
             const SizedBox(height: 26),
             _FeaturedStudy(
+              firstSign: studySigns.isNotEmpty ? studySigns.first : null,
               onTap: () {
                 AppHaptics.selection();
                 context.push('/signs/flashcards');
@@ -172,7 +179,7 @@ class _SignsScreenState extends State<SignsScreen> {
     );
   }
 
-  void _showSignDetail(BuildContext context, StudySign sign) {
+  void _showSignDetail(BuildContext context, RoadSign sign) {
     showModalBottomSheet<void>(
       context: context,
       useSafeArea: true,
@@ -231,7 +238,10 @@ class _SignsScreenState extends State<SignsScreen> {
                     ?.copyWith(fontSize: 38, letterSpacing: -1.2),
               ),
               const SizedBox(height: 12),
-              Text(sign.meaning, style: Theme.of(sheet).textTheme.bodyLarge),
+              Text(
+                sign.detailedMeaning,
+                style: Theme.of(sheet).textTheme.bodyLarge,
+              ),
               const SizedBox(height: 20),
               Container(
                 width: double.infinity,
@@ -253,7 +263,7 @@ class _SignsScreenState extends State<SignsScreen> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      sign.commonMistake,
+                      sign.commonMistake ?? 'No common mistake listed.',
                       style: Theme.of(sheet).textTheme.bodyMedium
                           ?.copyWith(color: AppColors.primaryDark),
                     ),
@@ -274,8 +284,9 @@ class _SignsScreenState extends State<SignsScreen> {
 }
 
 class _FeaturedStudy extends StatelessWidget {
-  const _FeaturedStudy({required this.onTap});
+  const _FeaturedStudy({required this.onTap, required this.firstSign});
   final VoidCallback onTap;
+  final RoadSign? firstSign;
   @override
   Widget build(BuildContext context) => Material(
     color: AppColors.primaryDark,
@@ -327,10 +338,11 @@ class _FeaturedStudy extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Transform.rotate(
-              angle: -.08,
-              child: SignArtwork(sign: studySigns.first, size: 112),
-            ),
+            if (firstSign != null)
+              Transform.rotate(
+                angle: -.08,
+                child: SignArtwork(sign: firstSign!, size: 112),
+              ),
           ],
         ),
       ),
@@ -340,7 +352,7 @@ class _FeaturedStudy extends StatelessWidget {
 
 class SignStudyCard extends StatelessWidget {
   const SignStudyCard({super.key, required this.sign, required this.onTap});
-  final StudySign sign;
+  final RoadSign sign;
   final VoidCallback onTap;
 
   @override
@@ -387,7 +399,7 @@ class SignStudyCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    sign.meaning,
+                    sign.shortMeaning,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall,

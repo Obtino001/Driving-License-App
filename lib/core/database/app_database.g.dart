@@ -171,6 +171,62 @@ class $QuestionsTable extends Questions
     requiredDuringInsert: false,
     defaultValue: const Constant(1),
   );
+  static const VerificationMeta _reviewStatusMeta = const VerificationMeta(
+    'reviewStatus',
+  );
+  @override
+  late final GeneratedColumn<String> reviewStatus = GeneratedColumn<String>(
+    'review_status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('needsReview'),
+  );
+  static const VerificationMeta _assetTypeMeta = const VerificationMeta(
+    'assetType',
+  );
+  @override
+  late final GeneratedColumn<String> assetType = GeneratedColumn<String>(
+    'asset_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _altTextMeta = const VerificationMeta(
+    'altText',
+  );
+  @override
+  late final GeneratedColumn<String> altText = GeneratedColumn<String>(
+    'alt_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _semanticDescriptionMeta =
+      const VerificationMeta('semanticDescription');
+  @override
+  late final GeneratedColumn<String> semanticDescription =
+      GeneratedColumn<String>(
+        'semantic_description',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _motionVariantMeta = const VerificationMeta(
+    'motionVariant',
+  );
+  @override
+  late final GeneratedColumn<String> motionVariant = GeneratedColumn<String>(
+    'motion_variant',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _isActiveMeta = const VerificationMeta(
     'isActive',
   );
@@ -227,6 +283,11 @@ class $QuestionsTable extends Questions
     illustrationAsset,
     sourceReference,
     contentVersion,
+    reviewStatus,
+    assetType,
+    altText,
+    semanticDescription,
+    motionVariant,
     isActive,
     createdAt,
     updatedAt,
@@ -376,6 +437,45 @@ class $QuestionsTable extends Questions
         ),
       );
     }
+    if (data.containsKey('review_status')) {
+      context.handle(
+        _reviewStatusMeta,
+        reviewStatus.isAcceptableOrUnknown(
+          data['review_status']!,
+          _reviewStatusMeta,
+        ),
+      );
+    }
+    if (data.containsKey('asset_type')) {
+      context.handle(
+        _assetTypeMeta,
+        assetType.isAcceptableOrUnknown(data['asset_type']!, _assetTypeMeta),
+      );
+    }
+    if (data.containsKey('alt_text')) {
+      context.handle(
+        _altTextMeta,
+        altText.isAcceptableOrUnknown(data['alt_text']!, _altTextMeta),
+      );
+    }
+    if (data.containsKey('semantic_description')) {
+      context.handle(
+        _semanticDescriptionMeta,
+        semanticDescription.isAcceptableOrUnknown(
+          data['semantic_description']!,
+          _semanticDescriptionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('motion_variant')) {
+      context.handle(
+        _motionVariantMeta,
+        motionVariant.isAcceptableOrUnknown(
+          data['motion_variant']!,
+          _motionVariantMeta,
+        ),
+      );
+    }
     if (data.containsKey('is_active')) {
       context.handle(
         _isActiveMeta,
@@ -463,6 +563,26 @@ class $QuestionsTable extends Questions
         DriftSqlType.int,
         data['${effectivePrefix}content_version'],
       )!,
+      reviewStatus: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}review_status'],
+      )!,
+      assetType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}asset_type'],
+      ),
+      altText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}alt_text'],
+      ),
+      semanticDescription: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}semantic_description'],
+      ),
+      motionVariant: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}motion_variant'],
+      ),
       isActive: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}is_active'],
@@ -500,6 +620,11 @@ class Question extends DataClass implements Insertable<Question> {
   final String? illustrationAsset;
   final String? sourceReference;
   final int contentVersion;
+  final String reviewStatus;
+  final String? assetType;
+  final String? altText;
+  final String? semanticDescription;
+  final String? motionVariant;
   final bool isActive;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -519,6 +644,11 @@ class Question extends DataClass implements Insertable<Question> {
     this.illustrationAsset,
     this.sourceReference,
     required this.contentVersion,
+    required this.reviewStatus,
+    this.assetType,
+    this.altText,
+    this.semanticDescription,
+    this.motionVariant,
     required this.isActive,
     required this.createdAt,
     required this.updatedAt,
@@ -547,6 +677,19 @@ class Question extends DataClass implements Insertable<Question> {
       map['source_reference'] = Variable<String>(sourceReference);
     }
     map['content_version'] = Variable<int>(contentVersion);
+    map['review_status'] = Variable<String>(reviewStatus);
+    if (!nullToAbsent || assetType != null) {
+      map['asset_type'] = Variable<String>(assetType);
+    }
+    if (!nullToAbsent || altText != null) {
+      map['alt_text'] = Variable<String>(altText);
+    }
+    if (!nullToAbsent || semanticDescription != null) {
+      map['semantic_description'] = Variable<String>(semanticDescription);
+    }
+    if (!nullToAbsent || motionVariant != null) {
+      map['motion_variant'] = Variable<String>(motionVariant);
+    }
     map['is_active'] = Variable<bool>(isActive);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -576,6 +719,19 @@ class Question extends DataClass implements Insertable<Question> {
           ? const Value.absent()
           : Value(sourceReference),
       contentVersion: Value(contentVersion),
+      reviewStatus: Value(reviewStatus),
+      assetType: assetType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(assetType),
+      altText: altText == null && nullToAbsent
+          ? const Value.absent()
+          : Value(altText),
+      semanticDescription: semanticDescription == null && nullToAbsent
+          ? const Value.absent()
+          : Value(semanticDescription),
+      motionVariant: motionVariant == null && nullToAbsent
+          ? const Value.absent()
+          : Value(motionVariant),
       isActive: Value(isActive),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
@@ -607,6 +763,13 @@ class Question extends DataClass implements Insertable<Question> {
       ),
       sourceReference: serializer.fromJson<String?>(json['sourceReference']),
       contentVersion: serializer.fromJson<int>(json['contentVersion']),
+      reviewStatus: serializer.fromJson<String>(json['reviewStatus']),
+      assetType: serializer.fromJson<String?>(json['assetType']),
+      altText: serializer.fromJson<String?>(json['altText']),
+      semanticDescription: serializer.fromJson<String?>(
+        json['semanticDescription'],
+      ),
+      motionVariant: serializer.fromJson<String?>(json['motionVariant']),
       isActive: serializer.fromJson<bool>(json['isActive']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
@@ -631,6 +794,11 @@ class Question extends DataClass implements Insertable<Question> {
       'illustrationAsset': serializer.toJson<String?>(illustrationAsset),
       'sourceReference': serializer.toJson<String?>(sourceReference),
       'contentVersion': serializer.toJson<int>(contentVersion),
+      'reviewStatus': serializer.toJson<String>(reviewStatus),
+      'assetType': serializer.toJson<String?>(assetType),
+      'altText': serializer.toJson<String?>(altText),
+      'semanticDescription': serializer.toJson<String?>(semanticDescription),
+      'motionVariant': serializer.toJson<String?>(motionVariant),
       'isActive': serializer.toJson<bool>(isActive),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
@@ -653,6 +821,11 @@ class Question extends DataClass implements Insertable<Question> {
     Value<String?> illustrationAsset = const Value.absent(),
     Value<String?> sourceReference = const Value.absent(),
     int? contentVersion,
+    String? reviewStatus,
+    Value<String?> assetType = const Value.absent(),
+    Value<String?> altText = const Value.absent(),
+    Value<String?> semanticDescription = const Value.absent(),
+    Value<String?> motionVariant = const Value.absent(),
     bool? isActive,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -678,6 +851,15 @@ class Question extends DataClass implements Insertable<Question> {
         ? sourceReference.value
         : this.sourceReference,
     contentVersion: contentVersion ?? this.contentVersion,
+    reviewStatus: reviewStatus ?? this.reviewStatus,
+    assetType: assetType.present ? assetType.value : this.assetType,
+    altText: altText.present ? altText.value : this.altText,
+    semanticDescription: semanticDescription.present
+        ? semanticDescription.value
+        : this.semanticDescription,
+    motionVariant: motionVariant.present
+        ? motionVariant.value
+        : this.motionVariant,
     isActive: isActive ?? this.isActive,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -717,6 +899,17 @@ class Question extends DataClass implements Insertable<Question> {
       contentVersion: data.contentVersion.present
           ? data.contentVersion.value
           : this.contentVersion,
+      reviewStatus: data.reviewStatus.present
+          ? data.reviewStatus.value
+          : this.reviewStatus,
+      assetType: data.assetType.present ? data.assetType.value : this.assetType,
+      altText: data.altText.present ? data.altText.value : this.altText,
+      semanticDescription: data.semanticDescription.present
+          ? data.semanticDescription.value
+          : this.semanticDescription,
+      motionVariant: data.motionVariant.present
+          ? data.motionVariant.value
+          : this.motionVariant,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
@@ -741,6 +934,11 @@ class Question extends DataClass implements Insertable<Question> {
           ..write('illustrationAsset: $illustrationAsset, ')
           ..write('sourceReference: $sourceReference, ')
           ..write('contentVersion: $contentVersion, ')
+          ..write('reviewStatus: $reviewStatus, ')
+          ..write('assetType: $assetType, ')
+          ..write('altText: $altText, ')
+          ..write('semanticDescription: $semanticDescription, ')
+          ..write('motionVariant: $motionVariant, ')
           ..write('isActive: $isActive, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
@@ -749,7 +947,7 @@ class Question extends DataClass implements Insertable<Question> {
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     id,
     state,
     licenseType,
@@ -765,10 +963,15 @@ class Question extends DataClass implements Insertable<Question> {
     illustrationAsset,
     sourceReference,
     contentVersion,
+    reviewStatus,
+    assetType,
+    altText,
+    semanticDescription,
+    motionVariant,
     isActive,
     createdAt,
     updatedAt,
-  );
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -788,6 +991,11 @@ class Question extends DataClass implements Insertable<Question> {
           other.illustrationAsset == this.illustrationAsset &&
           other.sourceReference == this.sourceReference &&
           other.contentVersion == this.contentVersion &&
+          other.reviewStatus == this.reviewStatus &&
+          other.assetType == this.assetType &&
+          other.altText == this.altText &&
+          other.semanticDescription == this.semanticDescription &&
+          other.motionVariant == this.motionVariant &&
           other.isActive == this.isActive &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
@@ -809,6 +1017,11 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
   final Value<String?> illustrationAsset;
   final Value<String?> sourceReference;
   final Value<int> contentVersion;
+  final Value<String> reviewStatus;
+  final Value<String?> assetType;
+  final Value<String?> altText;
+  final Value<String?> semanticDescription;
+  final Value<String?> motionVariant;
   final Value<bool> isActive;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
@@ -829,6 +1042,11 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     this.illustrationAsset = const Value.absent(),
     this.sourceReference = const Value.absent(),
     this.contentVersion = const Value.absent(),
+    this.reviewStatus = const Value.absent(),
+    this.assetType = const Value.absent(),
+    this.altText = const Value.absent(),
+    this.semanticDescription = const Value.absent(),
+    this.motionVariant = const Value.absent(),
     this.isActive = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -850,6 +1068,11 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     this.illustrationAsset = const Value.absent(),
     this.sourceReference = const Value.absent(),
     this.contentVersion = const Value.absent(),
+    this.reviewStatus = const Value.absent(),
+    this.assetType = const Value.absent(),
+    this.altText = const Value.absent(),
+    this.semanticDescription = const Value.absent(),
+    this.motionVariant = const Value.absent(),
     this.isActive = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -881,6 +1104,11 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     Expression<String>? illustrationAsset,
     Expression<String>? sourceReference,
     Expression<int>? contentVersion,
+    Expression<String>? reviewStatus,
+    Expression<String>? assetType,
+    Expression<String>? altText,
+    Expression<String>? semanticDescription,
+    Expression<String>? motionVariant,
     Expression<bool>? isActive,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
@@ -904,6 +1132,12 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
       if (illustrationAsset != null) 'illustration_asset': illustrationAsset,
       if (sourceReference != null) 'source_reference': sourceReference,
       if (contentVersion != null) 'content_version': contentVersion,
+      if (reviewStatus != null) 'review_status': reviewStatus,
+      if (assetType != null) 'asset_type': assetType,
+      if (altText != null) 'alt_text': altText,
+      if (semanticDescription != null)
+        'semantic_description': semanticDescription,
+      if (motionVariant != null) 'motion_variant': motionVariant,
       if (isActive != null) 'is_active': isActive,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
@@ -927,6 +1161,11 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     Value<String?>? illustrationAsset,
     Value<String?>? sourceReference,
     Value<int>? contentVersion,
+    Value<String>? reviewStatus,
+    Value<String?>? assetType,
+    Value<String?>? altText,
+    Value<String?>? semanticDescription,
+    Value<String?>? motionVariant,
     Value<bool>? isActive,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
@@ -948,6 +1187,11 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
       illustrationAsset: illustrationAsset ?? this.illustrationAsset,
       sourceReference: sourceReference ?? this.sourceReference,
       contentVersion: contentVersion ?? this.contentVersion,
+      reviewStatus: reviewStatus ?? this.reviewStatus,
+      assetType: assetType ?? this.assetType,
+      altText: altText ?? this.altText,
+      semanticDescription: semanticDescription ?? this.semanticDescription,
+      motionVariant: motionVariant ?? this.motionVariant,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -1003,6 +1247,21 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
     if (contentVersion.present) {
       map['content_version'] = Variable<int>(contentVersion.value);
     }
+    if (reviewStatus.present) {
+      map['review_status'] = Variable<String>(reviewStatus.value);
+    }
+    if (assetType.present) {
+      map['asset_type'] = Variable<String>(assetType.value);
+    }
+    if (altText.present) {
+      map['alt_text'] = Variable<String>(altText.value);
+    }
+    if (semanticDescription.present) {
+      map['semantic_description'] = Variable<String>(semanticDescription.value);
+    }
+    if (motionVariant.present) {
+      map['motion_variant'] = Variable<String>(motionVariant.value);
+    }
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
     }
@@ -1036,6 +1295,11 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
           ..write('illustrationAsset: $illustrationAsset, ')
           ..write('sourceReference: $sourceReference, ')
           ..write('contentVersion: $contentVersion, ')
+          ..write('reviewStatus: $reviewStatus, ')
+          ..write('assetType: $assetType, ')
+          ..write('altText: $altText, ')
+          ..write('semanticDescription: $semanticDescription, ')
+          ..write('motionVariant: $motionVariant, ')
           ..write('isActive: $isActive, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
@@ -1637,6 +1901,30 @@ class $RoadSignsTable extends RoadSigns
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _contentVersionMeta = const VerificationMeta(
+    'contentVersion',
+  );
+  @override
+  late final GeneratedColumn<int> contentVersion = GeneratedColumn<int>(
+    'content_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _reviewStatusMeta = const VerificationMeta(
+    'reviewStatus',
+  );
+  @override
+  late final GeneratedColumn<String> reviewStatus = GeneratedColumn<String>(
+    'review_status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('needsReview'),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -1647,6 +1935,8 @@ class $RoadSignsTable extends RoadSigns
     detailedMeaning,
     commonMistake,
     sourceReference,
+    contentVersion,
+    reviewStatus,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1729,6 +2019,24 @@ class $RoadSignsTable extends RoadSigns
         ),
       );
     }
+    if (data.containsKey('content_version')) {
+      context.handle(
+        _contentVersionMeta,
+        contentVersion.isAcceptableOrUnknown(
+          data['content_version']!,
+          _contentVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('review_status')) {
+      context.handle(
+        _reviewStatusMeta,
+        reviewStatus.isAcceptableOrUnknown(
+          data['review_status']!,
+          _reviewStatusMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -1770,6 +2078,14 @@ class $RoadSignsTable extends RoadSigns
         DriftSqlType.string,
         data['${effectivePrefix}source_reference'],
       ),
+      contentVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}content_version'],
+      )!,
+      reviewStatus: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}review_status'],
+      )!,
     );
   }
 
@@ -1788,6 +2104,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
   final String detailedMeaning;
   final String? commonMistake;
   final String? sourceReference;
+  final int contentVersion;
+  final String reviewStatus;
   const RoadSign({
     required this.id,
     required this.name,
@@ -1797,6 +2115,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
     required this.detailedMeaning,
     this.commonMistake,
     this.sourceReference,
+    required this.contentVersion,
+    required this.reviewStatus,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1813,6 +2133,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
     if (!nullToAbsent || sourceReference != null) {
       map['source_reference'] = Variable<String>(sourceReference);
     }
+    map['content_version'] = Variable<int>(contentVersion);
+    map['review_status'] = Variable<String>(reviewStatus);
     return map;
   }
 
@@ -1830,6 +2152,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
       sourceReference: sourceReference == null && nullToAbsent
           ? const Value.absent()
           : Value(sourceReference),
+      contentVersion: Value(contentVersion),
+      reviewStatus: Value(reviewStatus),
     );
   }
 
@@ -1847,6 +2171,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
       detailedMeaning: serializer.fromJson<String>(json['detailedMeaning']),
       commonMistake: serializer.fromJson<String?>(json['commonMistake']),
       sourceReference: serializer.fromJson<String?>(json['sourceReference']),
+      contentVersion: serializer.fromJson<int>(json['contentVersion']),
+      reviewStatus: serializer.fromJson<String>(json['reviewStatus']),
     );
   }
   @override
@@ -1861,6 +2187,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
       'detailedMeaning': serializer.toJson<String>(detailedMeaning),
       'commonMistake': serializer.toJson<String?>(commonMistake),
       'sourceReference': serializer.toJson<String?>(sourceReference),
+      'contentVersion': serializer.toJson<int>(contentVersion),
+      'reviewStatus': serializer.toJson<String>(reviewStatus),
     };
   }
 
@@ -1873,6 +2201,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
     String? detailedMeaning,
     Value<String?> commonMistake = const Value.absent(),
     Value<String?> sourceReference = const Value.absent(),
+    int? contentVersion,
+    String? reviewStatus,
   }) => RoadSign(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -1886,6 +2216,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
     sourceReference: sourceReference.present
         ? sourceReference.value
         : this.sourceReference,
+    contentVersion: contentVersion ?? this.contentVersion,
+    reviewStatus: reviewStatus ?? this.reviewStatus,
   );
   RoadSign copyWithCompanion(RoadSignsCompanion data) {
     return RoadSign(
@@ -1905,6 +2237,12 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
       sourceReference: data.sourceReference.present
           ? data.sourceReference.value
           : this.sourceReference,
+      contentVersion: data.contentVersion.present
+          ? data.contentVersion.value
+          : this.contentVersion,
+      reviewStatus: data.reviewStatus.present
+          ? data.reviewStatus.value
+          : this.reviewStatus,
     );
   }
 
@@ -1918,7 +2256,9 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
           ..write('shortMeaning: $shortMeaning, ')
           ..write('detailedMeaning: $detailedMeaning, ')
           ..write('commonMistake: $commonMistake, ')
-          ..write('sourceReference: $sourceReference')
+          ..write('sourceReference: $sourceReference, ')
+          ..write('contentVersion: $contentVersion, ')
+          ..write('reviewStatus: $reviewStatus')
           ..write(')'))
         .toString();
   }
@@ -1933,6 +2273,8 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
     detailedMeaning,
     commonMistake,
     sourceReference,
+    contentVersion,
+    reviewStatus,
   );
   @override
   bool operator ==(Object other) =>
@@ -1945,7 +2287,9 @@ class RoadSign extends DataClass implements Insertable<RoadSign> {
           other.shortMeaning == this.shortMeaning &&
           other.detailedMeaning == this.detailedMeaning &&
           other.commonMistake == this.commonMistake &&
-          other.sourceReference == this.sourceReference);
+          other.sourceReference == this.sourceReference &&
+          other.contentVersion == this.contentVersion &&
+          other.reviewStatus == this.reviewStatus);
 }
 
 class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
@@ -1957,6 +2301,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
   final Value<String> detailedMeaning;
   final Value<String?> commonMistake;
   final Value<String?> sourceReference;
+  final Value<int> contentVersion;
+  final Value<String> reviewStatus;
   final Value<int> rowid;
   const RoadSignsCompanion({
     this.id = const Value.absent(),
@@ -1967,6 +2313,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
     this.detailedMeaning = const Value.absent(),
     this.commonMistake = const Value.absent(),
     this.sourceReference = const Value.absent(),
+    this.contentVersion = const Value.absent(),
+    this.reviewStatus = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   RoadSignsCompanion.insert({
@@ -1978,6 +2326,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
     required String detailedMeaning,
     this.commonMistake = const Value.absent(),
     this.sourceReference = const Value.absent(),
+    this.contentVersion = const Value.absent(),
+    this.reviewStatus = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        name = Value(name),
@@ -1994,6 +2344,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
     Expression<String>? detailedMeaning,
     Expression<String>? commonMistake,
     Expression<String>? sourceReference,
+    Expression<int>? contentVersion,
+    Expression<String>? reviewStatus,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -2005,6 +2357,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
       if (detailedMeaning != null) 'detailed_meaning': detailedMeaning,
       if (commonMistake != null) 'common_mistake': commonMistake,
       if (sourceReference != null) 'source_reference': sourceReference,
+      if (contentVersion != null) 'content_version': contentVersion,
+      if (reviewStatus != null) 'review_status': reviewStatus,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -2018,6 +2372,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
     Value<String>? detailedMeaning,
     Value<String?>? commonMistake,
     Value<String?>? sourceReference,
+    Value<int>? contentVersion,
+    Value<String>? reviewStatus,
     Value<int>? rowid,
   }) {
     return RoadSignsCompanion(
@@ -2029,6 +2385,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
       detailedMeaning: detailedMeaning ?? this.detailedMeaning,
       commonMistake: commonMistake ?? this.commonMistake,
       sourceReference: sourceReference ?? this.sourceReference,
+      contentVersion: contentVersion ?? this.contentVersion,
+      reviewStatus: reviewStatus ?? this.reviewStatus,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -2060,6 +2418,12 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
     if (sourceReference.present) {
       map['source_reference'] = Variable<String>(sourceReference.value);
     }
+    if (contentVersion.present) {
+      map['content_version'] = Variable<int>(contentVersion.value);
+    }
+    if (reviewStatus.present) {
+      map['review_status'] = Variable<String>(reviewStatus.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -2077,6 +2441,8 @@ class RoadSignsCompanion extends UpdateCompanion<RoadSign> {
           ..write('detailedMeaning: $detailedMeaning, ')
           ..write('commonMistake: $commonMistake, ')
           ..write('sourceReference: $sourceReference, ')
+          ..write('contentVersion: $contentVersion, ')
+          ..write('reviewStatus: $reviewStatus, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3246,6 +3612,11 @@ typedef $$QuestionsTableCreateCompanionBuilder = QuestionsCompanion Function({
   Value<String?> illustrationAsset,
   Value<String?> sourceReference,
   Value<int> contentVersion,
+  Value<String> reviewStatus,
+  Value<String?> assetType,
+  Value<String?> altText,
+  Value<String?> semanticDescription,
+  Value<String?> motionVariant,
   Value<bool> isActive,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -3267,6 +3638,11 @@ typedef $$QuestionsTableUpdateCompanionBuilder = QuestionsCompanion Function({
   Value<String?> illustrationAsset,
   Value<String?> sourceReference,
   Value<int> contentVersion,
+  Value<String> reviewStatus,
+  Value<String?> assetType,
+  Value<String?> altText,
+  Value<String?> semanticDescription,
+  Value<String?> motionVariant,
   Value<bool> isActive,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -3404,6 +3780,31 @@ class $$QuestionsTableFilterComposer
 
   ColumnFilters<int> get contentVersion => $composableBuilder(
     column: $table.contentVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reviewStatus => $composableBuilder(
+    column: $table.reviewStatus,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get assetType => $composableBuilder(
+    column: $table.assetType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get altText => $composableBuilder(
+    column: $table.altText,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get semanticDescription => $composableBuilder(
+    column: $table.semanticDescription,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get motionVariant => $composableBuilder(
+    column: $table.motionVariant,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3557,6 +3958,31 @@ class $$QuestionsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get reviewStatus => $composableBuilder(
+    column: $table.reviewStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get assetType => $composableBuilder(
+    column: $table.assetType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get altText => $composableBuilder(
+    column: $table.altText,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get semanticDescription => $composableBuilder(
+    column: $table.semanticDescription,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get motionVariant => $composableBuilder(
+    column: $table.motionVariant,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get isActive => $composableBuilder(
     column: $table.isActive,
     builder: (column) => ColumnOrderings(column),
@@ -3642,6 +4068,27 @@ class $$QuestionsTableAnnotationComposer
 
   GeneratedColumn<int> get contentVersion => $composableBuilder(
     column: $table.contentVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reviewStatus => $composableBuilder(
+    column: $table.reviewStatus,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get assetType =>
+      $composableBuilder(column: $table.assetType, builder: (column) => column);
+
+  GeneratedColumn<String> get altText =>
+      $composableBuilder(column: $table.altText, builder: (column) => column);
+
+  GeneratedColumn<String> get semanticDescription => $composableBuilder(
+    column: $table.semanticDescription,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get motionVariant => $composableBuilder(
+    column: $table.motionVariant,
     builder: (column) => column,
   );
 
@@ -3752,6 +4199,11 @@ class $$QuestionsTableTableManager
                 Value<String?> illustrationAsset = const Value.absent(),
                 Value<String?> sourceReference = const Value.absent(),
                 Value<int> contentVersion = const Value.absent(),
+                Value<String> reviewStatus = const Value.absent(),
+                Value<String?> assetType = const Value.absent(),
+                Value<String?> altText = const Value.absent(),
+                Value<String?> semanticDescription = const Value.absent(),
+                Value<String?> motionVariant = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -3772,6 +4224,11 @@ class $$QuestionsTableTableManager
                 illustrationAsset: illustrationAsset,
                 sourceReference: sourceReference,
                 contentVersion: contentVersion,
+                reviewStatus: reviewStatus,
+                assetType: assetType,
+                altText: altText,
+                semanticDescription: semanticDescription,
+                motionVariant: motionVariant,
                 isActive: isActive,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
@@ -3794,6 +4251,11 @@ class $$QuestionsTableTableManager
                 Value<String?> illustrationAsset = const Value.absent(),
                 Value<String?> sourceReference = const Value.absent(),
                 Value<int> contentVersion = const Value.absent(),
+                Value<String> reviewStatus = const Value.absent(),
+                Value<String?> assetType = const Value.absent(),
+                Value<String?> altText = const Value.absent(),
+                Value<String?> semanticDescription = const Value.absent(),
+                Value<String?> motionVariant = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -3814,6 +4276,11 @@ class $$QuestionsTableTableManager
                 illustrationAsset: illustrationAsset,
                 sourceReference: sourceReference,
                 contentVersion: contentVersion,
+                reviewStatus: reviewStatus,
+                assetType: assetType,
+                altText: altText,
+                semanticDescription: semanticDescription,
+                motionVariant: motionVariant,
                 isActive: isActive,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
@@ -4295,6 +4762,8 @@ typedef $$RoadSignsTableCreateCompanionBuilder = RoadSignsCompanion Function({
   required String detailedMeaning,
   Value<String?> commonMistake,
   Value<String?> sourceReference,
+  Value<int> contentVersion,
+  Value<String> reviewStatus,
   Value<int> rowid,
 });
 typedef $$RoadSignsTableUpdateCompanionBuilder = RoadSignsCompanion Function({
@@ -4306,6 +4775,8 @@ typedef $$RoadSignsTableUpdateCompanionBuilder = RoadSignsCompanion Function({
   Value<String> detailedMeaning,
   Value<String?> commonMistake,
   Value<String?> sourceReference,
+  Value<int> contentVersion,
+  Value<String> reviewStatus,
   Value<int> rowid,
 });
 
@@ -4355,6 +4826,16 @@ class $$RoadSignsTableFilterComposer
 
   ColumnFilters<String> get sourceReference => $composableBuilder(
     column: $table.sourceReference,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get contentVersion => $composableBuilder(
+    column: $table.contentVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reviewStatus => $composableBuilder(
+    column: $table.reviewStatus,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -4407,6 +4888,16 @@ class $$RoadSignsTableOrderingComposer
     column: $table.sourceReference,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<int> get contentVersion => $composableBuilder(
+    column: $table.contentVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reviewStatus => $composableBuilder(
+    column: $table.reviewStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$RoadSignsTableAnnotationComposer
@@ -4449,6 +4940,16 @@ class $$RoadSignsTableAnnotationComposer
     column: $table.sourceReference,
     builder: (column) => column,
   );
+
+  GeneratedColumn<int> get contentVersion => $composableBuilder(
+    column: $table.contentVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reviewStatus => $composableBuilder(
+    column: $table.reviewStatus,
+    builder: (column) => column,
+  );
 }
 
 class $$RoadSignsTableTableManager
@@ -4487,6 +4988,8 @@ class $$RoadSignsTableTableManager
                 Value<String> detailedMeaning = const Value.absent(),
                 Value<String?> commonMistake = const Value.absent(),
                 Value<String?> sourceReference = const Value.absent(),
+                Value<int> contentVersion = const Value.absent(),
+                Value<String> reviewStatus = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RoadSignsCompanion(
                 id: id,
@@ -4497,6 +5000,8 @@ class $$RoadSignsTableTableManager
                 detailedMeaning: detailedMeaning,
                 commonMistake: commonMistake,
                 sourceReference: sourceReference,
+                contentVersion: contentVersion,
+                reviewStatus: reviewStatus,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -4509,6 +5014,8 @@ class $$RoadSignsTableTableManager
                 required String detailedMeaning,
                 Value<String?> commonMistake = const Value.absent(),
                 Value<String?> sourceReference = const Value.absent(),
+                Value<int> contentVersion = const Value.absent(),
+                Value<String> reviewStatus = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RoadSignsCompanion.insert(
                 id: id,
@@ -4519,6 +5026,8 @@ class $$RoadSignsTableTableManager
                 detailedMeaning: detailedMeaning,
                 commonMistake: commonMistake,
                 sourceReference: sourceReference,
+                contentVersion: contentVersion,
+                reviewStatus: reviewStatus,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

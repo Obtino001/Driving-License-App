@@ -6,10 +6,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../application/mock_exam_controller.dart';
 
 class MockExamNavigatorSheet extends ConsumerWidget {
-  const MockExamNavigatorSheet({
-    super.key,
-    required this.onSelectIndex,
-  });
+  const MockExamNavigatorSheet({super.key, required this.onSelectIndex});
 
   final ValueChanged<int> onSelectIndex;
 
@@ -50,9 +47,16 @@ class MockExamNavigatorSheet extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _LegendItem(icon: PhosphorIcons.check(PhosphorIconsStyle.bold), label: 'Answered'),
+              _LegendItem(
+                icon: PhosphorIcons.check(PhosphorIconsStyle.bold),
+                label: 'Answered',
+              ),
               _LegendItem(icon: PhosphorIcons.circle(), label: 'Unanswered'),
-              _LegendItem(icon: PhosphorIcons.flag(PhosphorIconsStyle.fill), color: AppColors.warning, label: 'Flagged'),
+              _LegendItem(
+                icon: PhosphorIcons.flag(PhosphorIconsStyle.fill),
+                color: AppColors.warning,
+                label: 'Flagged',
+              ),
             ],
           ),
           const SizedBox(height: 32),
@@ -77,15 +81,15 @@ class MockExamNavigatorSheet extends ConsumerWidget {
                         color: isCurrent
                             ? AppColors.primaryDark
                             : isAnswered
-                                ? AppColors.primaryAccent.withValues(alpha: 0.15)
-                                : AppColors.surface,
+                            ? AppColors.primaryAccent.withValues(alpha: 0.15)
+                            : AppColors.surface,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: isCurrent
                               ? AppColors.primaryDark
                               : isFlagged
-                                  ? AppColors.warning
-                                  : AppColors.textTertiary.withValues(alpha: 0.2),
+                              ? AppColors.warning
+                              : AppColors.textTertiary.withValues(alpha: 0.2),
                           width: isCurrent || isFlagged ? 2 : 1,
                         ),
                       ),
@@ -94,11 +98,14 @@ class MockExamNavigatorSheet extends ConsumerWidget {
                           Center(
                             child: Text(
                               '${index + 1}',
-                              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              style: Theme.of(context).textTheme.labelLarge
+                                  ?.copyWith(
                                     color: isCurrent
                                         ? AppColors.primaryAccent
                                         : AppColors.textPrimary,
-                                    fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
+                                    fontWeight: isCurrent
+                                        ? FontWeight.w700
+                                        : FontWeight.w500,
                                   ),
                             ),
                           ),
@@ -163,9 +170,8 @@ class _LegendItem extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           label,
-          style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: AppColors.textSecondary,
-              ),
+          style: Theme.of(context).textTheme.labelSmall
+              ?.copyWith(color: AppColors.textSecondary),
         ),
       ],
     );

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:drift/drift.dart';
 
 import 'app_database.dart';
@@ -6,6 +9,83 @@ class DatabaseRepository {
   final AppDatabase _db;
 
   DatabaseRepository(this._db);
+
+  Future<void> seedInitialData() async {
+    // Check if empty
+    final countExp = _db.questions.id.count();
+    final query = _db.selectOnly(_db.questions)..addColumns([countExp]);
+    final count = (await query.getSingle()).read(countExp) ?? 0;
+
+    if (count > 0) return; // Already seeded
+
+    // Read JSON files
+    final questionsJsonStr = await rootBundle.loadString(
+      'assets/content/questions_v1.json',
+    );
+    final signsJsonStr = await rootBundle.loadString(
+      'assets/content/signs_v1.json',
+    );
+
+    final questionsData = jsonDecode(questionsJsonStr) as Map<String, dynamic>;
+    final signsData = jsonDecode(signsJsonStr) as Map<String, dynamic>;
+
+    final qList = questionsData['questions'] as List;
+    final sList = signsData['signs'] as List;
+
+    await _db.transaction(() async {
+      for (final q in qList) {
+        final options = q['options'] as List;
+        await _db
+            .into(_db.questions)
+            .insert(
+              QuestionsCompanion.insert(
+                id: q['id'],
+                state: q['state'],
+                licenseType: q['licenseType'],
+                category: q['category'],
+                difficulty: q['difficulty'],
+                questionText: q['questionText'],
+                answerA: options[0],
+                answerB: options[1],
+                answerC: options[2],
+                correctAnswerIndex: q['correctIndex'],
+                explanationShort: q['explanationShort'],
+                explanationDetailed: Value(q['explanationDetailed']),
+                sourceReference: Value(q['sourceReference']),
+                reviewStatus: Value(q['reviewStatus'] ?? 'needsReview'),
+                assetType: Value(q['assetType']),
+                illustrationAsset: Value(q['assetPath']),
+                motionVariant: Value(q['motionVariant']),
+              ),
+              mode: InsertMode.replace,
+            );
+      }
+
+      for (final s in sList) {
+        await _db
+            .into(_db.roadSigns)
+            .insert(
+              RoadSignsCompanion.insert(
+                id: s['id'],
+                name: s['name'],
+                category: s['category'],
+                assetPath: s['assetPath'],
+                shortMeaning: s['shortMeaning'],
+                detailedMeaning: s['detailedMeaning'],
+                commonMistake: Value(s['commonMistake']),
+                sourceReference: Value(s['sourceReference']),
+                reviewStatus: Value(s['reviewStatus'] ?? 'needsReview'),
+                contentVersion: Value(s['contentVersion'] ?? 1),
+              ),
+              mode: InsertMode.replace,
+            );
+      }
+    });
+  }
+
+  Future<List<RoadSign>> getRoadSigns() async {
+    return _db.select(_db.roadSigns).get();
+  }
 
   Future<List<Question>> getQuestionsByCategory(String category) {
     return (_db.select(
@@ -182,17 +262,19 @@ class DatabaseRepository {
 
       var index = 0;
       for (final q in questions) {
-        await _db.into(_db.examSessionQuestions).insert(
-          ExamSessionQuestion(
-            sessionId: sessionId,
-            questionId: q.id,
-            questionIndex: index,
-            selectedAnswerIndex: null,
-            correctAnswerIndex: q.correctAnswerIndex,
-            isFlagged: false,
-            isCorrect: null,
-          ),
-        );
+        await _db
+            .into(_db.examSessionQuestions)
+            .insert(
+              ExamSessionQuestion(
+                sessionId: sessionId,
+                questionId: q.id,
+                questionIndex: index,
+                selectedAnswerIndex: null,
+                correctAnswerIndex: q.correctAnswerIndex,
+                isFlagged: false,
+                isCorrect: null,
+              ),
+            );
         index++;
       }
       return session;
@@ -200,45 +282,60 @@ class DatabaseRepository {
   }
 
   Future<void> updateExamSessionAnswer(
-      String sessionId, String questionId, int? selectedAnswerIndex) async {
-    await (_db.update(_db.examSessionQuestions)
-          ..where((q) =>
-              q.sessionId.equals(sessionId) & q.questionId.equals(questionId)))
+    String sessionId,
+    String questionId,
+    int? selectedAnswerIndex,
+  ) async {
+    await (_db.update(_db.examSessionQuestions)..where(
+          (q) =>
+              q.sessionId.equals(sessionId) & q.questionId.equals(questionId),
+        ))
         .write(
-      ExamSessionQuestionsCompanion(
-        selectedAnswerIndex: Value(selectedAnswerIndex),
-      ),
-    );
+          ExamSessionQuestionsCompanion(
+            selectedAnswerIndex: Value(selectedAnswerIndex),
+          ),
+        );
   }
 
   Future<void> updateExamSessionFlag(
-      String sessionId, String questionId, bool isFlagged) async {
-    await (_db.update(_db.examSessionQuestions)
-          ..where((q) =>
-              q.sessionId.equals(sessionId) & q.questionId.equals(questionId)))
-        .write(
-      ExamSessionQuestionsCompanion(
-        isFlagged: Value(isFlagged),
-      ),
-    );
+    String sessionId,
+    String questionId,
+    bool isFlagged,
+  ) async {
+    await (_db.update(_db.examSessionQuestions)..where(
+          (q) =>
+              q.sessionId.equals(sessionId) & q.questionId.equals(questionId),
+        ))
+        .write(ExamSessionQuestionsCompanion(isFlagged: Value(isFlagged)));
   }
 
-  Future<List<ExamSessionQuestion>> getExamSessionQuestions(String sessionId) async {
+  Future<List<ExamSessionQuestion>> getExamSessionQuestions(
+    String sessionId,
+  ) async {
     final query = _db.select(_db.examSessionQuestions)
       ..where((q) => q.sessionId.equals(sessionId))
-      ..orderBy([(q) => OrderingTerm(expression: q.questionIndex, mode: OrderingMode.asc)]);
+      ..orderBy([
+        (q) =>
+            OrderingTerm(expression: q.questionIndex, mode: OrderingMode.asc),
+      ]);
     return query.get();
   }
 
   Future<List<Question>> getQuestionsForSession(String sessionId) async {
-    final query = _db.select(_db.questions).join([
-      innerJoin(
-        _db.examSessionQuestions,
-        _db.examSessionQuestions.questionId.equalsExp(_db.questions.id),
-      ),
-    ])
-      ..where(_db.examSessionQuestions.sessionId.equals(sessionId))
-      ..orderBy([OrderingTerm(expression: _db.examSessionQuestions.questionIndex, mode: OrderingMode.asc)]);
+    final query =
+        _db.select(_db.questions).join([
+            innerJoin(
+              _db.examSessionQuestions,
+              _db.examSessionQuestions.questionId.equalsExp(_db.questions.id),
+            ),
+          ])
+          ..where(_db.examSessionQuestions.sessionId.equals(sessionId))
+          ..orderBy([
+            OrderingTerm(
+              expression: _db.examSessionQuestions.questionIndex,
+              mode: OrderingMode.asc,
+            ),
+          ]);
 
     final rows = await query.get();
     return rows.map((row) => row.readTable(_db.questions)).toList();
@@ -248,7 +345,8 @@ class DatabaseRepository {
     return (_db.select(_db.examSessions)
           ..where((s) => s.status.equals('in_progress'))
           ..orderBy([
-            (s) => OrderingTerm(expression: s.startedAt, mode: OrderingMode.desc)
+            (s) =>
+                OrderingTerm(expression: s.startedAt, mode: OrderingMode.desc),
           ])
           ..limit(1))
         .getSingleOrNull();
@@ -257,8 +355,9 @@ class DatabaseRepository {
   Future<void> finishExamSession(String sessionId, int score) async {
     await _db.transaction(() async {
       // 1. Update session status and score
-      await (_db.update(_db.examSessions)..where((s) => s.id.equals(sessionId)))
-          .write(
+      await (_db.update(
+        _db.examSessions,
+      )..where((s) => s.id.equals(sessionId))).write(
         ExamSessionsCompanion(
           status: const Value('completed'),
           completedAt: Value(DateTime.now()),
@@ -271,14 +370,12 @@ class DatabaseRepository {
       for (final q in questions) {
         final isCorrect = q.selectedAnswerIndex == q.correctAnswerIndex;
         // Update snapshot
-        await (_db.update(_db.examSessionQuestions)
-              ..where((esq) =>
-                  esq.sessionId.equals(sessionId) & esq.questionId.equals(q.questionId)))
-            .write(
-          ExamSessionQuestionsCompanion(
-            isCorrect: Value(isCorrect),
-          ),
-        );
+        await (_db.update(_db.examSessionQuestions)..where(
+              (esq) =>
+                  esq.sessionId.equals(sessionId) &
+                  esq.questionId.equals(q.questionId),
+            ))
+            .write(ExamSessionQuestionsCompanion(isCorrect: Value(isCorrect)));
         // Only record if answered
         if (q.selectedAnswerIndex != null) {
           await recordAnswer(q.questionId, isCorrect);
@@ -296,20 +393,30 @@ class DatabaseRepository {
   }
 
   Future<int?> getLatestMockScore() async {
-    final row = await (_db.select(_db.examSessions)
-          ..where((s) => s.status.equals('completed'))
-          ..orderBy([(s) => OrderingTerm(expression: s.completedAt, mode: OrderingMode.desc)])
-          ..limit(1))
-        .getSingleOrNull();
+    final row =
+        await (_db.select(_db.examSessions)
+              ..where((s) => s.status.equals('completed'))
+              ..orderBy([
+                (s) => OrderingTerm(
+                  expression: s.completedAt,
+                  mode: OrderingMode.desc,
+                ),
+              ])
+              ..limit(1))
+            .getSingleOrNull();
     return row?.score;
   }
 
   Future<int?> getBestMockScore() async {
-    final row = await (_db.select(_db.examSessions)
-          ..where((s) => s.status.equals('completed'))
-          ..orderBy([(s) => OrderingTerm(expression: s.score, mode: OrderingMode.desc)])
-          ..limit(1))
-        .getSingleOrNull();
+    final row =
+        await (_db.select(_db.examSessions)
+              ..where((s) => s.status.equals('completed'))
+              ..orderBy([
+                (s) =>
+                    OrderingTerm(expression: s.score, mode: OrderingMode.desc),
+              ])
+              ..limit(1))
+            .getSingleOrNull();
     return row?.score;
   }
 }

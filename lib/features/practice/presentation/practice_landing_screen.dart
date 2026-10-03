@@ -13,7 +13,8 @@ class PracticeLandingScreen extends ConsumerStatefulWidget {
   const PracticeLandingScreen({super.key});
 
   @override
-  ConsumerState<PracticeLandingScreen> createState() => _PracticeLandingScreenState();
+  ConsumerState<PracticeLandingScreen> createState() =>
+      _PracticeLandingScreenState();
 }
 
 class _PracticeLandingScreenState extends ConsumerState<PracticeLandingScreen> {
@@ -28,7 +29,9 @@ class _PracticeLandingScreenState extends ConsumerState<PracticeLandingScreen> {
   @override
   Widget build(BuildContext context) {
     final mockExamState = ref.watch(mockExamProvider);
-    final hasInProgressExam = mockExamState.session != null && mockExamState.session!.status == 'in_progress';
+    final hasInProgressExam =
+        mockExamState.session != null &&
+        mockExamState.session!.status == 'in_progress';
 
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
@@ -44,10 +47,10 @@ class _PracticeLandingScreenState extends ConsumerState<PracticeLandingScreen> {
             Text(
               'FEATURED',
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: AppColors.textTertiary,
-                    letterSpacing: 1.2,
-                    fontWeight: FontWeight.w700,
-                  ),
+                color: AppColors.textTertiary,
+                letterSpacing: 1.2,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 16),
             if (hasInProgressExam)
@@ -78,10 +81,10 @@ class _PracticeLandingScreenState extends ConsumerState<PracticeLandingScreen> {
             Text(
               'TRAINING',
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: AppColors.textTertiary,
-                    letterSpacing: 1.2,
-                    fontWeight: FontWeight.w700,
-                  ),
+                color: AppColors.textTertiary,
+                letterSpacing: 1.2,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 16),
             _PracticeOptionCard(
@@ -159,9 +162,15 @@ class _PracticeOptionCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: featured ? AppColors.primaryAccent.withValues(alpha: 0.15) : AppColors.surface,
+          color: featured
+              ? AppColors.primaryAccent.withValues(alpha: 0.15)
+              : AppColors.surface,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: featured ? AppColors.primaryAccent : AppColors.textTertiary.withValues(alpha: 0.1)),
+          border: Border.all(
+            color: featured
+                ? AppColors.primaryAccent
+                : AppColors.textTertiary.withValues(alpha: 0.1),
+          ),
         ),
         child: Row(
           children: [
@@ -180,16 +189,14 @@ class _PracticeOptionCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: AppColors.textPrimary,
-                        ),
+                    style: Theme.of(context).textTheme.headlineSmall
+                        ?.copyWith(color: AppColors.textPrimary),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                    style: Theme.of(context).textTheme.bodyMedium
+                        ?.copyWith(color: AppColors.textSecondary),
                   ),
                 ],
               ),

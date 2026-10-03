@@ -176,7 +176,9 @@ class HomeHeader extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.surface,
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.textTertiary.withValues(alpha: 0.1)),
+              border: Border.all(
+                color: AppColors.textTertiary.withValues(alpha: 0.1),
+              ),
             ),
             child: Icon(
               PhosphorIcons.user(PhosphorIconsStyle.fill),
@@ -198,7 +200,8 @@ class _MockScoreCTA extends StatelessWidget {
   Widget build(BuildContext context) {
     // Determine pass/fail roughly based on 80% passing
     final isPass = score >= 16; // Assuming 20 questions for now, so 80%
-    final percentage = ((score / 20) * 100).round(); // Again assuming 20 questions
+    final percentage = ((score / 20) * 100)
+        .round(); // Again assuming 20 questions
 
     return GestureDetector(
       onTap: () {
@@ -211,7 +214,9 @@ class _MockScoreCTA extends StatelessWidget {
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isPass ? AppColors.primaryDark.withValues(alpha: 0.3) : AppColors.textTertiary.withValues(alpha: 0.1),
+            color: isPass
+                ? AppColors.primaryDark.withValues(alpha: 0.3)
+                : AppColors.textTertiary.withValues(alpha: 0.1),
           ),
         ),
         child: Row(
@@ -219,7 +224,9 @@ class _MockScoreCTA extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isPass ? AppColors.primaryAccent.withValues(alpha: 0.2) : AppColors.textTertiary.withValues(alpha: 0.1),
+                color: isPass
+                    ? AppColors.primaryAccent.withValues(alpha: 0.2)
+                    : AppColors.textTertiary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -234,16 +241,14 @@ class _MockScoreCTA extends StatelessWidget {
                 children: [
                   Text(
                     'Latest mock',
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: AppColors.textTertiary,
-                        ),
+                    style: Theme.of(context).textTheme.labelMedium
+                        ?.copyWith(color: AppColors.textTertiary),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     '$percentage%',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: AppColors.textPrimary,
-                        ),
+                    style: Theme.of(context).textTheme.headlineSmall
+                        ?.copyWith(color: AppColors.textPrimary),
                   ),
                 ],
               ),
@@ -251,12 +256,16 @@ class _MockScoreCTA extends StatelessWidget {
             Text(
               'Try another',
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: AppColors.primaryDark,
-                    fontWeight: FontWeight.w700,
-                  ),
+                color: AppColors.primaryDark,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(width: 4),
-            Icon(PhosphorIcons.caretRight(), color: AppColors.primaryDark, size: 16),
+            Icon(
+              PhosphorIcons.caretRight(),
+              color: AppColors.primaryDark,
+              size: 16,
+            ),
           ],
         ),
       ),

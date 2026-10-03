@@ -4,7 +4,7 @@ import 'package:dmv_practice/features/learn/application/learn_controller.dart';
 import 'package:dmv_practice/features/learn/presentation/learn_screen.dart';
 import 'package:dmv_practice/features/practice/application/practice_quiz_controller.dart';
 import 'package:dmv_practice/features/practice/presentation/practice_quiz_screen.dart';
-import 'package:dmv_practice/features/signs/domain/study_sign.dart';
+
 import 'package:dmv_practice/features/signs/presentation/flashcards_screen.dart';
 import 'package:dmv_practice/features/signs/presentation/signs_screen.dart';
 import 'package:flutter/material.dart';
@@ -52,13 +52,16 @@ void main() {
           onTap: _noop,
         ),
         SignStudyCard(
-          sign: const StudySign(
+          sign: const RoadSign(
             id: 'long',
             name: 'A very long sign name that needs room to wrap',
             category: 'Regulatory',
-            meaning: 'A detailed meaning that continues onto another line on a narrow device.',
+            shortMeaning: 'A detailed meaning that continues onto another line on a narrow device.',
+            detailedMeaning: 'A detailed meaning that continues onto another line on a narrow device.',
             commonMistake: 'Missing it.',
             assetPath: 'assets/signs/stop.svg',
+            reviewStatus: 'verified',
+            contentVersion: 1,
           ),
           onTap: _noop,
         ),
@@ -89,10 +92,12 @@ void main() {
       }
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: MediaQuery(
-            data: const MediaQueryData(textScaler: TextScaler.linear(1.3)),
-            child: const SignsScreen(),
+        ProviderScope(
+          child: MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(textScaler: TextScaler.linear(1.3)),
+              child: const SignsScreen(),
+            ),
           ),
         ),
       );
@@ -126,10 +131,12 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: MediaQuery(
-            data: const MediaQueryData(textScaler: TextScaler.linear(1.3)),
-            child: const FlashcardsScreen(),
+        ProviderScope(
+          child: MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(textScaler: TextScaler.linear(1.3)),
+              child: const FlashcardsScreen(),
+            ),
           ),
         ),
       );
@@ -258,6 +265,7 @@ class _TestQuizController extends PracticeQuizController {
             'Check for people and approaching traffic before you proceed.',
         explanationDetailed: 'A careful driver makes space for people in the crossing and yields to traffic with the right of way.',
         contentVersion: 1,
+        reviewStatus: 'verified',
         isActive: true,
         createdAt: DateTime(2026),
         updatedAt: DateTime(2026),

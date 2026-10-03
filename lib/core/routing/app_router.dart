@@ -21,6 +21,7 @@ import '../../features/mock_exam/presentation/mock_exam_screen.dart';
 import '../../features/mock_exam/presentation/mock_exam_review_screen.dart';
 import '../../features/mock_exam/presentation/mock_exam_result_screen.dart';
 import '../../features/mock_exam/presentation/mock_exam_answers_screen.dart';
+import '../../features/dev/presentation/content_inspector_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
@@ -127,6 +128,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) =>
             _editorialPage(state, const MockExamAnswersScreen()),
       ),
+      GoRoute(
+        path: '/dev/inspector',
+        pageBuilder: (context, state) =>
+            _editorialPage(state, const ContentInspectorScreen()),
+      ),
     ],
   );
 });
@@ -138,7 +144,8 @@ CustomTransitionPage<void> _editorialPage(GoRouterState state, Widget child) =>
       transitionDuration: AppMotion.standard,
       reverseTransitionDuration: AppMotion.standard,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final reducedMotion = ProviderScope.containerOf(context).read(reducedMotionProvider);
+        final reducedMotion = ProviderScope.containerOf(context)
+            .read(reducedMotionProvider);
 
         final curved = CurvedAnimation(
           parent: animation,
