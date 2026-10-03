@@ -19,15 +19,24 @@ final appRouter = GoRouter(
       builder: (context, state) => const OnboardingScreen(),
     ),
     GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-    GoRoute(path: '/learn', builder: (context, state) => const LearnScreen()),
+    GoRoute(
+      path: '/learn',
+      pageBuilder: (context, state) =>
+          _editorialPage(state, const LearnScreen()),
+    ),
     GoRoute(
       path: '/mistakes',
       builder: (context, state) => const MistakesScreen(),
     ),
-    GoRoute(path: '/signs', builder: (context, state) => const SignsScreen()),
+    GoRoute(
+      path: '/signs',
+      pageBuilder: (context, state) =>
+          _editorialPage(state, const SignsScreen()),
+    ),
     GoRoute(
       path: '/signs/flashcards',
-      builder: (context, state) => const FlashcardsScreen(),
+      pageBuilder: (context, state) =>
+          _editorialPage(state, const FlashcardsScreen()),
     ),
     GoRoute(
       path: '/practice',
@@ -59,3 +68,27 @@ final appRouter = GoRouter(
     ),
   ],
 );
+
+CustomTransitionPage<void> _editorialPage(GoRouterState state, Widget child) =>
+    CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: child,
+      transitionDuration: AppMotion.standard,
+      reverseTransitionDuration: AppMotion.standard,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final curved = CurvedAnimation(
+          parent: animation,
+          curve: AppMotion.standardEasing,
+        );
+        return FadeTransition(
+          opacity: curved,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, .025),
+              end: Offset.zero,
+            ).animate(curved),
+            child: child,
+          ),
+        );
+      },
+    );

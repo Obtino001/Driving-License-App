@@ -35,8 +35,12 @@ class PracticeQuizState {
     );
   }
 
-  Question? get currentQuestion => questions.isEmpty || currentIndex >= questions.length ? null : questions[currentIndex];
-  bool get isFinished => questions.isNotEmpty && currentIndex >= questions.length;
+  Question? get currentQuestion =>
+      questions.isEmpty || currentIndex >= questions.length
+      ? null
+      : questions[currentIndex];
+  bool get isFinished =>
+      questions.isNotEmpty && currentIndex >= questions.length;
 }
 
 class PracticeQuizController extends AsyncNotifier<PracticeQuizState> {
@@ -49,10 +53,10 @@ class PracticeQuizController extends AsyncNotifier<PracticeQuizState> {
   }
 
   Future<PracticeQuizState> _fetchData(String? category) async {
-    final questions = category != null 
-      ? await _repository.getQuestionsByCategory(category)
-      : await _repository.getQuestionsByCategory('Road Rules');
-    
+    final questions = category != null
+        ? await _repository.getQuestionsByCategory(category)
+        : await _repository.getQuestionsByCategory('Road Rules');
+
     questions.shuffle();
 
     return PracticeQuizState(questions: questions);
@@ -71,30 +75,35 @@ class PracticeQuizController extends AsyncNotifier<PracticeQuizState> {
     if (question == null) return;
 
     final isCorrect = index == question.correctAnswerIndex;
-    
+
     await _repository.recordAnswer(question.id, isCorrect);
 
-    state = AsyncData(currentState.copyWith(
-      selectedIndex: index,
-      isRevealed: true,
-      correctCount: currentState.correctCount + (isCorrect ? 1 : 0),
-    ));
+    state = AsyncData(
+      currentState.copyWith(
+        selectedIndex: index,
+        isRevealed: true,
+        correctCount: currentState.correctCount + (isCorrect ? 1 : 0),
+      ),
+    );
   }
 
   void nextQuestion() {
     final currentState = state.value;
     if (currentState == null || !currentState.isRevealed) return;
 
-    state = AsyncData(PracticeQuizState(
-      questions: currentState.questions,
-      currentIndex: currentState.currentIndex + 1,
-      selectedIndex: null,
-      isRevealed: false,
-      correctCount: currentState.correctCount,
-    ));
+    state = AsyncData(
+      PracticeQuizState(
+        questions: currentState.questions,
+        currentIndex: currentState.currentIndex + 1,
+        selectedIndex: null,
+        isRevealed: false,
+        correctCount: currentState.correctCount,
+      ),
+    );
   }
 }
 
-final practiceQuizProvider = AsyncNotifierProvider<PracticeQuizController, PracticeQuizState>(() {
-  return PracticeQuizController();
-});
+final practiceQuizProvider =
+    AsyncNotifierProvider<PracticeQuizController, PracticeQuizState>(() {
+      return PracticeQuizController();
+    });

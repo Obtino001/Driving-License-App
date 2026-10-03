@@ -130,4 +130,21 @@ class DatabaseRepository {
 
     return {'total': allCount, 'completed': completedCount};
   }
+
+  Future<double?> getCategoryAccuracy(String category) async {
+    final rows = await (_db.select(_db.questionProgress).join([
+      innerJoin(
+        _db.questions,
+        _db.questions.id.equalsExp(_db.questionProgress.questionId),
+      ),
+    ])..where(_db.questions.category.equals(category))).get();
+    var correct = 0;
+    var answered = 0;
+    for (final row in rows) {
+      final progress = row.readTable(_db.questionProgress);
+      correct += progress.correctCount;
+      answered += progress.timesAnswered;
+    }
+    return answered == 0 ? null : correct / answered;
+  }
 }

@@ -1,12 +1,16 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../core/theme/app_colors.dart';
 import '../../../core/motion/app_motion.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/haptics.dart';
+import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/road_progress_track.dart';
+import '../domain/study_sign.dart';
+import 'widgets/sign_artwork.dart';
 
 class FlashcardsScreen extends StatefulWidget {
   const FlashcardsScreen({super.key});
@@ -15,133 +19,127 @@ class FlashcardsScreen extends StatefulWidget {
   State<FlashcardsScreen> createState() => _FlashcardsScreenState();
 }
 
-class _FlashcardsScreenState extends State<FlashcardsScreen> {
-  int _currentIndex = 0;
-  bool _isFlipped = false;
+class _FlashcardsScreenState extends State<FlashcardsScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _flip;
+  int _index = 0;
+  bool _revealed = false;
 
-  final List<Map<String, String>> _dummySigns = [
-    {
-      'name': 'Stop',
-      'meaning':
-          'Come to a complete stop before the crosswalk or intersection.',
-      'type': 'Regulatory',
-    },
-    {
-      'name': 'Yield',
-      'meaning': 'Slow down and be ready to stop to let any vehicle, bicyclist, or pedestrian pass.',
-      'type': 'Regulatory',
-    },
-    {
-      'name': 'No U-Turn',
-      'meaning': 'You cannot make a U-turn in this location.',
-      'type': 'Regulatory',
-    },
-  ];
-
-  void _flipCard() {
-    AppHaptics.selection();
-    setState(() {
-      _isFlipped = !_isFlipped;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _flip = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 260),
+      reverseDuration: const Duration(milliseconds: 260),
+    );
   }
 
-  void _nextCard() {
+  @override
+  void dispose() {
+    _flip.dispose();
+    super.dispose();
+  }
+
+  void _toggleReveal() {
+    AppHaptics.selection();
+    final next = !_revealed;
+    setState(() => _revealed = next);
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _flip.value = next ? 1 : 0;
+    } else if (next) {
+      _flip.forward();
+    } else {
+      _flip.reverse();
+    }
+  }
+
+  void _advance() {
     AppHaptics.buttonPress();
+    if (_index == studySigns.length - 1) {
+      context.pop();
+      return;
+    }
+    _flip.value = 0;
     setState(() {
-      _isFlipped = false;
-      if (_currentIndex < _dummySigns.length - 1) {
-        _currentIndex++;
-      } else {
-        context.pop();
-      }
+      _index++;
+      _revealed = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final sign = studySigns[_index];
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        title: const Text("Flashcards"),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Center(
-              child: Text(
-                "\${_currentIndex + 1}/\${_dummySigns.length}",
-                style: Theme.of(context).textTheme.labelMedium
-                    ?.copyWith(color: AppColors.textTertiary),
-              ),
-            ),
-          ),
-        ],
-      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
           child: Column(
             children: [
+              Row(
+                children: [
+                  IconButton(
+                    tooltip: 'Close flashcards',
+                    onPressed: () => context.pop(),
+                    icon: Icon(PhosphorIcons.x()),
+                  ),
+                  const SizedBox(width: 7),
+                  Expanded(
+                    child: Text(
+                      'SIGN STUDY',
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        fontSize: 11,
+                        letterSpacing: 1.4,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '${_index + 1} / ${studySigns.length}',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              RoadProgressTrack(progress: (_index + 1) / studySigns.length),
+              const SizedBox(height: 20),
               Expanded(
-                child: GestureDetector(
-                  onTap: _flipCard,
-                  child: AnimatedSwitcher(
-                    duration: AppMotion.standard,
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                          final rotateAnim = Tween(
-                            begin: pi,
-                            end: 0.0,
-                          ).animate(animation);
-                          return AnimatedBuilder(
-                            animation: rotateAnim,
-                            child: child,
-                            builder: (context, widget) {
-                              final isUnder =
-                                  (ValueKey(_isFlipped) != widget?.key);
-                              var tilt =
-                                  ((animation.value - 0.5).abs() - 0.5) * 0.003;
-                              tilt *= isUnder ? -1.0 : 1.0;
-                              final value = isUnder
-                                  ? min(rotateAnim.value, pi / 2)
-                                  : rotateAnim.value;
-                              return Transform(
-                                transform: Matrix4.rotationY(value)
-                                  ..setEntry(3, 0, tilt),
-                                alignment: Alignment.center,
-                                child: widget,
-                              );
-                            },
-                          );
-                        },
-                    child: _isFlipped
-                        ? _buildBack(_dummySigns[_currentIndex])
-                        : _buildFront(_dummySigns[_currentIndex]),
+                child: Semantics(
+                  button: true,
+                  label: _revealed
+                      ? 'Hide sign meaning'
+                      : 'Reveal sign meaning',
+                  child: GestureDetector(
+                    onTap: _toggleReveal,
+                    child: AnimatedBuilder(
+                      animation: _flip,
+                      builder: (context, _) {
+                        final t = AppMotion.standardEasing.transform(
+                          _flip.value,
+                        );
+                        final back = t >= .5;
+                        final angle = back ? (t - 1) * math.pi : t * math.pi;
+                        return Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.identity()
+                            ..setEntry(3, 2, .0007)
+                            ..rotateY(angle),
+                          child: _SignFlashcardFace(sign: sign, revealed: back),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryAccent,
-                    foregroundColor: AppColors.primaryDark,
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(999),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: _isFlipped ? _nextCard : _flipCard,
-                  child: Text(
-                    _isFlipped
-                        ? (_currentIndex == _dummySigns.length - 1
-                              ? "Finish"
-                              : "Next Sign")
-                        : "Reveal Answer",
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                ),
+              const SizedBox(height: 16),
+              AppButton(
+                text: !_revealed
+                    ? 'Reveal meaning'
+                    : _index == studySigns.length - 1
+                    ? 'Finish study  →'
+                    : 'Next sign  →',
+                onPressed: _revealed ? _advance : _toggleReveal,
               ),
             ],
           ),
@@ -149,100 +147,88 @@ class _FlashcardsScreenState extends State<FlashcardsScreen> {
       ),
     );
   }
+}
 
-  Widget _buildFront(Map<String, String> sign) {
-    return Container(
-      key: const ValueKey(false),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFE0E0E0)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryDark.withValues(alpha: 0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Center(
+class _SignFlashcardFace extends StatelessWidget {
+  const _SignFlashcardFace({required this.sign, required this.revealed});
+  final StudySign sign;
+  final bool revealed;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: revealed ? AppColors.primaryDark : AppColors.surface,
+      borderRadius: BorderRadius.circular(21),
+      border: revealed ? null : Border.all(color: const Color(0xFFDDE2DA)),
+    ),
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(22),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 340),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: AppColors.surfaceElevated,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                PhosphorIcons.trafficSign(PhosphorIconsStyle.fill),
-                size: 48,
-                color: AppColors.primaryDark,
-              ),
-            ),
-            const SizedBox(height: 32),
             Text(
-              "What does this sign mean?",
-              style: Theme.of(context).textTheme.bodyLarge,
+              sign.category.toUpperCase(),
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: revealed
+                    ? AppColors.primaryAccent
+                    : AppColors.textSecondary,
+                fontSize: 11,
+                letterSpacing: 1.4,
+                fontWeight: FontWeight.w700,
+              ),
             ),
+            const SizedBox(height: 28),
+            SignArtwork(sign: sign, size: revealed ? 128 : 170),
+            const SizedBox(height: 28),
+            if (!revealed) ...[
+              Text(
+                'What does this sign mean?',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Tap to reveal',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ] else ...[
+              Text(
+                sign.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineLarge
+                    ?.copyWith(color: AppColors.surface, fontSize: 27),
+              ),
+              const SizedBox(height: 9),
+              Text(
+                sign.meaning,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium
+                    ?.copyWith(color: const Color(0xFFE1E8DF)),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'WATCH FOR THIS',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: AppColors.primaryAccent,
+                  fontSize: 10,
+                  letterSpacing: 1.3,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                sign.commonMistake,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall
+                    ?.copyWith(color: const Color(0xFFD0DACF)),
+              ),
+            ],
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildBack(Map<String, String> sign) {
-    return Container(
-      key: const ValueKey(true),
-      width: double.infinity,
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: AppColors.primaryDark,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryDark.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: AppColors.surface.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(999),
-              ),
-              child: Text(
-                sign['type']!,
-                style: Theme.of(context).textTheme.labelMedium
-                    ?.copyWith(color: AppColors.textInverse),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              sign['name']!,
-              style: Theme.of(context).textTheme.displaySmall
-                  ?.copyWith(color: AppColors.primaryAccent),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              sign['meaning']!,
-              style: Theme.of(context).textTheme.bodyLarge
-                  ?.copyWith(color: AppColors.textInverse),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+    ),
+  );
 }

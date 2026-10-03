@@ -8,16 +8,20 @@ class LearnModule {
   final String category;
   final int totalQuestions;
   final int completedQuestions;
+  final double? accuracy;
 
   LearnModule({
     required this.title,
     required this.category,
     required this.totalQuestions,
     required this.completedQuestions,
+    this.accuracy,
   });
 
-  double get progress => totalQuestions == 0 ? 0 : completedQuestions / totalQuestions;
-  bool get isCompleted => totalQuestions > 0 && completedQuestions == totalQuestions;
+  double get progress =>
+      totalQuestions == 0 ? 0 : completedQuestions / totalQuestions;
+  bool get isCompleted =>
+      totalQuestions > 0 && completedQuestions == totalQuestions;
   bool get isLocked => false; // As requested, don't lock aggressively
 }
 
@@ -48,25 +52,27 @@ class LearnController extends AsyncNotifier<LearnState> {
       "Parking",
       "Sharing the Road",
       "Safe Driving",
-      "Emergencies"
+      "Emergencies",
     ];
 
     List<LearnModule> modules = [];
     for (var cat in categories) {
       final progress = await _repository.getCategoryProgress(cat);
-      modules.add(LearnModule(
-        title: cat,
-        category: cat,
-        totalQuestions: progress['total'] ?? 0,
-        completedQuestions: progress['completed'] ?? 0,
-      ));
+      modules.add(
+        LearnModule(
+          title: cat,
+          category: cat,
+          totalQuestions: progress['total'] ?? 0,
+          completedQuestions: progress['completed'] ?? 0,
+          accuracy: await _repository.getCategoryAccuracy(cat),
+        ),
+      );
     }
 
     return LearnState(modules: modules);
   }
 
   Future<void> loadModules() async {
-    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => _fetchData());
   }
 }

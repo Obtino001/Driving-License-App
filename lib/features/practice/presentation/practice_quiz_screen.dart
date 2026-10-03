@@ -1,404 +1,549 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/app_button.dart';
-import '../../../core/motion/app_motion.dart';
-import '../../../core/utils/haptics.dart';
 import '../../../core/database/app_database.dart';
+import '../../../core/motion/app_motion.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/haptics.dart';
+import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/road_progress_track.dart';
+import '../../../core/widgets/visual_scenario.dart';
 import '../application/practice_quiz_controller.dart';
 
 class PracticeQuizScreen extends ConsumerStatefulWidget {
-  final String? category;
-
   const PracticeQuizScreen({super.key, this.category});
+  final String? category;
 
   @override
   ConsumerState<PracticeQuizScreen> createState() => _PracticeQuizScreenState();
 }
 
 class _PracticeQuizScreenState extends ConsumerState<PracticeQuizScreen> {
-  bool _isExplainingMore = false;
+  bool _showDetail = false;
+  bool _submitting = false;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(practiceQuizProvider.notifier).loadQuestions(widget.category);
+      if (mounted) {
+        ref.read(practiceQuizProvider.notifier).loadQuestions(widget.category);
+      }
     });
+  }
+
+  Future<void> _submit(int index, int correctIndex) async {
+    if (_submitting) return;
+    _submitting = true;
+    try {
+      await ref.read(practiceQuizProvider.notifier).submitAnswer(index);
+      if (mounted) {
+        if (index == correctIndex) {
+          await AppHaptics.success();
+        } else {
+          await AppHaptics.selection();
+        }
+      }
+    } finally {
+      _submitting = false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final stateAsync = ref.watch(practiceQuizProvider);
-
+    final async = ref.watch(practiceQuizProvider);
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: _buildAppBar(),
       body: SafeArea(
-        child: stateAsync.when(
+        child: async.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, _) => _EmptyQuiz(
+            title: 'Could not load practice',
+            detail: '$error',
+            onClose: () => context.pop(),
+          ),
           data: (state) {
-            if (state.isFinished) {
-              return _buildFinishedState(state);
+            if (state.questions.isEmpty) {
+              return _EmptyQuiz(
+                title: 'No questions here yet',
+                detail: 'Choose another topic to keep moving.',
+                onClose: () => context.pop(),
+              );
             }
-
+            if (state.isFinished) {
+              return _QuizFinished(
+                correct: state.correctCount,
+                total: state.questions.length,
+                onDone: () => context.pop(),
+              );
+            }
             final question = state.currentQuestion!;
-            final answers = [
-              question.answerA,
-              question.answerB,
-              question.answerC,
-            ];
-
-            return Stack(
+            return Column(
               children: [
-                // Use AnimatedSwitcher for smooth transition between questions
-                AnimatedSwitcher(
-                  duration: AppMotion.standard,
-                  switchInCurve: AppMotion.standardEasing,
-                  switchOutCurve: AppMotion.standardAccelerate,
-                  child: SingleChildScrollView(
-                    key: ValueKey(question.id),
-                    padding: const EdgeInsets.only(
-                      left: 24,
-                      right: 24,
-                      top: 32,
-                      bottom: 200,
+                QuizProgressHeader(
+                  index: state.currentIndex,
+                  total: state.questions.length,
+                  category: question.category,
+                  onClose: () => context.pop(),
+                ),
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: AppMotion.standard,
+                    switchInCurve: AppMotion.standardEasing,
+                    switchOutCurve: AppMotion.standardAccelerate,
+                    transitionBuilder: (child, animation) => FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(.035, 0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Category and difficulty header
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.surfaceElevated,
-                                borderRadius: BorderRadius.circular(999),
-                              ),
-                              child: Text(
-                                question.category,
-                                style: Theme.of(context).textTheme.labelMedium
-                                    ?.copyWith(color: AppColors.textSecondary),
-                              ),
+                    child: SingleChildScrollView(
+                      key: ValueKey(question.id),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 26),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'CHOOSE ONE ANSWER',
+                            style: Theme.of(context).textTheme.labelMedium
+                                ?.copyWith(
+                                  fontSize: 11,
+                                  letterSpacing: 1.5,
+                                  color: AppColors.textSecondary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            question.questionText,
+                            style: Theme.of(context).textTheme.displaySmall
+                                ?.copyWith(
+                                  fontSize: 29,
+                                  height: 1.14,
+                                  letterSpacing: -.7,
+                                ),
+                          ),
+                          if (question.illustrationAsset?.trim().isNotEmpty ==
+                              true) ...[
+                            const SizedBox(height: 20),
+                            VisualScenario(
+                              assetPath: question.illustrationAsset,
                             ),
                           ],
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          question.questionText,
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
-                        const SizedBox(height: 48),
-                        ...List.generate(answers.length, (index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: _buildAnswerCard(
-                              index: index,
-                              text: answers[index],
-                              isRevealed: state.isRevealed,
-                              selectedIndex: state.selectedIndex,
-                              correctIndex: question.correctAnswerIndex,
-                            ),
-                          );
-                        }),
-                      ],
+                          const SizedBox(height: 28),
+                          ...List.generate(3, (index) {
+                            final answers = [
+                              question.answerA,
+                              question.answerB,
+                              question.answerC,
+                            ];
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: PremiumAnswerCard(
+                                index: index,
+                                text: answers[index],
+                                revealed: state.isRevealed,
+                                selected: state.selectedIndex == index,
+                                correct: question.correctAnswerIndex == index,
+                                onTap: () =>
+                                    _submit(index, question.correctAnswerIndex),
+                              ),
+                            );
+                          }),
+                          AnimatedSize(
+                            duration: AppMotion.standard,
+                            curve: AppMotion.standardEasing,
+                            alignment: Alignment.topCenter,
+                            child: state.isRevealed
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: ExplanationPanel(
+                                      question: question,
+                                      correct:
+                                          state.selectedIndex ==
+                                          question.correctAnswerIndex,
+                                      expanded: _showDetail,
+                                      onToggle: () => setState(
+                                        () => _showDetail = !_showDetail,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-
-                // Explanation Panel
-                AnimatedPositioned(
-                  duration: AppMotion.standard,
-                  curve: AppMotion.standardEasing,
-                  bottom: state.isRevealed ? 0 : -400,
-                  left: 0,
-                  right: 0,
-                  child: _buildExplanationPanel(
-                    question,
-                    state.selectedIndex == question.correctAnswerIndex,
+                if (state.isRevealed)
+                  Container(
+                    padding: EdgeInsets.fromLTRB(
+                      20,
+                      11,
+                      20,
+                      12 + MediaQuery.paddingOf(context).bottom,
+                    ),
+                    color: AppColors.backgroundLight,
+                    child: AppButton(
+                      text: state.currentIndex + 1 == state.questions.length
+                          ? 'See results  →'
+                          : 'Next question  →',
+                      onPressed: () {
+                        AppHaptics.buttonPress();
+                        setState(() => _showDetail = false);
+                        ref.read(practiceQuizProvider.notifier).nextQuestion();
+                      },
+                    ),
                   ),
-                ),
               ],
             );
           },
-          loading: () => const Center(
-            child: CircularProgressIndicator(color: AppColors.primaryAccent),
-          ),
-          error: (e, _) => Center(child: Text("Error: \$e")),
         ),
       ),
     );
   }
+}
 
-  PreferredSizeWidget _buildAppBar() {
-    final stateAsync = ref.watch(practiceQuizProvider);
+class QuizProgressHeader extends StatelessWidget {
+  const QuizProgressHeader({
+    super.key,
+    required this.index,
+    required this.total,
+    required this.category,
+    required this.onClose,
+  });
+  final int index;
+  final int total;
+  final String category;
+  final VoidCallback onClose;
 
-    return AppBar(
-      leading: IconButton(
-        icon: const Icon(PhosphorIconsRegular.x),
-        onPressed: () => context.pop(),
-      ),
-      title: const Text("Practice"),
-      actions: [
-        if (stateAsync.hasValue &&
-            !stateAsync.requireValue.isFinished &&
-            stateAsync.requireValue.questions.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Center(
-              child: Text(
-                "\${stateAsync.requireValue.currentIndex + 1}/\${stateAsync.requireValue.questions.length}",
-                style: Theme.of(context).textTheme.labelMedium
-                    ?.copyWith(color: AppColors.textTertiary),
-              ),
-            ),
-          ),
-      ],
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(4),
-        child:
-            stateAsync.hasValue && stateAsync.requireValue.questions.isNotEmpty
-            ? LinearProgressIndicator(
-                value:
-                    (stateAsync.requireValue.currentIndex) /
-                    stateAsync.requireValue.questions.length,
-                backgroundColor: AppColors.textTertiary.withValues(alpha: 0.2),
-                valueColor: const AlwaysStoppedAnimation<Color>(
-                  AppColors.primaryAccent,
-                ),
-                minHeight: 4,
-              )
-            : const SizedBox(height: 4),
-      ),
-    );
-  }
-
-  Widget _buildAnswerCard({
-    required int index,
-    required String text,
-    required bool isRevealed,
-    required int? selectedIndex,
-    required int correctIndex,
-  }) {
-    bool isSelected = selectedIndex == index;
-    bool isCorrect = index == correctIndex;
-
-    Color backgroundColor = AppColors.surface;
-    Color borderColor = const Color(0xFFE0E0E0);
-    Widget? trailingIcon;
-
-    if (isRevealed) {
-      if (isCorrect) {
-        backgroundColor = AppColors.success.withValues(alpha: 0.1);
-        borderColor = AppColors.success;
-        trailingIcon = Icon(
-          PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
-          color: AppColors.success,
-        );
-      } else if (isSelected && !isCorrect) {
-        backgroundColor = AppColors.danger.withValues(alpha: 0.1);
-        borderColor = AppColors.danger;
-        trailingIcon = Icon(
-          PhosphorIcons.xCircle(PhosphorIconsStyle.fill),
-          color: AppColors.danger,
-        );
-      } else {
-        backgroundColor = AppColors.surface.withValues(alpha: 0.5);
-      }
-    } else if (isSelected) {
-      backgroundColor = AppColors.surfaceElevated;
-      borderColor = AppColors.primaryDark;
-    }
-
-    return GestureDetector(
-      onTap: () async {
-        if (!isRevealed) {
-          await AppHaptics.selection();
-          ref
-              .read(practiceQuizProvider.notifier)
-              .submitAnswer(index);
-
-          if (index == correctIndex) {
-            await AppHaptics.success();
-          } else {
-            await AppHaptics.error();
-          }
-
-          setState(() {
-            _isExplainingMore =
-                false; // Reset explanation state for next question
-          });
-        }
-      },
-      child: AnimatedContainer(
-        duration: AppMotion.quick,
-        curve: AppMotion.springSubtle,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: borderColor,
-            width: isSelected || (isRevealed && (isCorrect || isSelected))
-                ? 2
-                : 1,
-          ),
-        ),
-        child: Row(
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.fromLTRB(12, 11, 20, 12),
+    child: Column(
+      children: [
+        Row(
           children: [
+            IconButton(
+              onPressed: onClose,
+              tooltip: 'Close practice',
+              icon: Icon(PhosphorIcons.x(), size: 23),
+            ),
+            const SizedBox(width: 3),
             Expanded(
               child: Text(
-                text,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: isRevealed && !isCorrect && !isSelected
-                      ? AppColors.textTertiary
-                      : AppColors.textPrimary,
-                  fontWeight: (isSelected || (isRevealed && isCorrect))
-                      ? FontWeight.w500
-                      : FontWeight.w400,
+                'QUESTION ${index + 1} OF $total',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  fontSize: 11,
+                  letterSpacing: 1.2,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
-            if (trailingIcon != null) ...[
-              const SizedBox(width: 16),
-              trailingIcon,
-            ],
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                category,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.right,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
           ],
         ),
-      ),
-    );
-  }
+        const SizedBox(height: 7),
+        Padding(
+          padding: const EdgeInsets.only(left: 9),
+          child: RoadProgressTrack(
+            progress: total == 0 ? 0 : (index + 1) / total,
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
-  Widget _buildExplanationPanel(Question question, bool isUserCorrect) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryDark.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: const Offset(0, -5),
+class PremiumAnswerCard extends StatefulWidget {
+  const PremiumAnswerCard({
+    super.key,
+    required this.index,
+    required this.text,
+    required this.revealed,
+    required this.selected,
+    required this.correct,
+    required this.onTap,
+  });
+  final int index;
+  final String text;
+  final bool revealed;
+  final bool selected;
+  final bool correct;
+  final VoidCallback onTap;
+
+  @override
+  State<PremiumAnswerCard> createState() => _PremiumAnswerCardState();
+}
+
+class _PremiumAnswerCardState extends State<PremiumAnswerCard> {
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final right = widget.revealed && widget.correct;
+    final wrong = widget.revealed && widget.selected && !widget.correct;
+    final color = right
+        ? const Color(0xFFE6F2D2)
+        : wrong
+        ? const Color(0xFFF9E7E3)
+        : AppColors.surface;
+    final border = right
+        ? const Color(0xFF6D9137)
+        : wrong
+        ? const Color(0xFFB86D62)
+        : const Color(0xFFDCE1DA);
+    return Semantics(
+      button: !widget.revealed,
+      selected: widget.selected,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown: widget.revealed
+            ? null
+            : (_) => setState(() => _pressed = true),
+        onTapCancel: () => setState(() => _pressed = false),
+        onTapUp: (_) => setState(() => _pressed = false),
+        onTap: widget.revealed ? null : widget.onTap,
+        child: TweenAnimationBuilder<double>(
+          tween: Tween<double>(end: wrong ? 1 : 0),
+          duration: MediaQuery.disableAnimationsOf(context)
+              ? Duration.zero
+              : AppMotion.standard,
+          builder: (context, value, child) => Transform.translate(
+            offset: Offset(wrong ? math.sin(value * math.pi) * 4 : 0, 0),
+            child: child,
           ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                isUserCorrect
-                    ? PhosphorIcons.checkCircle(PhosphorIconsStyle.fill)
-                    : PhosphorIcons.xCircle(PhosphorIconsStyle.fill),
-                color: isUserCorrect ? AppColors.success : AppColors.danger,
-                size: 28,
+          child: AnimatedScale(
+            scale: _pressed ? .985 : 1,
+            duration: AppMotion.quick,
+            child: AnimatedContainer(
+              duration: AppMotion.quick,
+              padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 18),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: border,
+                  width: right || wrong ? 1.5 : 1,
+                ),
               ),
-              const SizedBox(width: 12),
-              Text(
-                isUserCorrect ? "Great job!" : "Not quite.",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            question.explanationShort,
-            style: Theme.of(context).textTheme.bodyMedium
-                ?.copyWith(color: AppColors.textPrimary),
-          ),
-          if (question.explanationDetailed != null) ...[
-            const SizedBox(height: 12),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _isExplainingMore = !_isExplainingMore;
-                });
-              },
               child: Row(
                 children: [
-                  Text(
-                    _isExplainingMore ? "Show less" : "Learn why",
-                    style: Theme.of(context).textTheme.labelMedium
-                        ?.copyWith(color: AppColors.info),
+                  Container(
+                    width: 34,
+                    height: 34,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: right
+                          ? AppColors.primaryDark
+                          : wrong
+                          ? const Color(0xFFAF5B51)
+                          : const Color(0xFFF1F3EE),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      String.fromCharCode(65 + widget.index),
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: right || wrong
+                            ? AppColors.surface
+                            : AppColors.primaryDark,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
-                  Icon(
-                    _isExplainingMore
-                        ? PhosphorIcons.caretUp()
-                        : PhosphorIcons.caretDown(),
-                    color: AppColors.info,
-                    size: 16,
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Text(
+                      widget.text,
+                      style: Theme.of(context).textTheme.bodyLarge
+                          ?.copyWith(height: 1.3, fontWeight: FontWeight.w500),
+                    ),
                   ),
+                  if (right || wrong) ...[
+                    const SizedBox(width: 8),
+                    Icon(
+                      right
+                          ? PhosphorIcons.checkCircle(PhosphorIconsStyle.fill)
+                          : PhosphorIcons.xCircle(PhosphorIconsStyle.fill),
+                      color: right
+                          ? AppColors.primaryDark
+                          : const Color(0xFFAF5B51),
+                      size: 22,
+                    ),
+                  ],
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ExplanationPanel extends StatelessWidget {
+  const ExplanationPanel({
+    super.key,
+    required this.question,
+    required this.correct,
+    required this.expanded,
+    required this.onToggle,
+  });
+  final Question question;
+  final bool correct;
+  final bool expanded;
+  final VoidCallback onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    final detail = question.explanationDetailed?.trim() ?? '';
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.primaryDark,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            correct
+                ? 'CORRECT  /  KEEP MOVING'
+                : 'NOT QUITE  /  LEARN THE RULE',
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: AppColors.primaryAccent,
+              fontSize: 11,
+              letterSpacing: 1.2,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 9),
+          Text(
+            question.explanationShort,
+            style: Theme.of(context).textTheme.bodyLarge
+                ?.copyWith(color: AppColors.surface, height: 1.4),
+          ),
+          if (detail.isNotEmpty) ...[
+            const SizedBox(height: 13),
+            TextButton(
+              onPressed: onToggle,
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                foregroundColor: AppColors.primaryAccent,
+              ),
+              child: Text(expanded ? 'Show less ↑' : 'Learn why ↓'),
+            ),
             AnimatedSize(
               duration: AppMotion.standard,
-              curve: AppMotion.standardEasing,
-              child: _isExplainingMore
+              child: expanded
                   ? Padding(
-                      padding: const EdgeInsets.only(top: 12.0),
+                      padding: const EdgeInsets.only(top: 12),
                       child: Text(
-                        question.explanationDetailed!,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        detail,
+                        style: Theme.of(context).textTheme.bodyMedium
+                            ?.copyWith(color: const Color(0xFFD5DED4)),
                       ),
                     )
                   : const SizedBox.shrink(),
             ),
           ],
-          const SizedBox(height: 32),
-          AppButton(
-            text: "Next Question",
-            onPressed: () {
-              AppHaptics.buttonPress();
-              ref
-                  .read(practiceQuizProvider.notifier)
-                  .nextQuestion();
-              setState(() {
-                _isExplainingMore = false;
-              });
-            },
-          ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildFinishedState(PracticeQuizState state) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              PhosphorIcons.trophy(PhosphorIconsStyle.fill),
-              size: 80,
-              color: AppColors.primaryAccent,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              "Session Complete!",
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              "You got \${state.correctCount} out of \${state.questions.length} correct.",
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: 48),
-            AppButton(text: "Done", onPressed: () => context.pop()),
-          ],
+class _QuizFinished extends StatelessWidget {
+  const _QuizFinished({
+    required this.correct,
+    required this.total,
+    required this.onDone,
+  });
+  final int correct;
+  final int total;
+  final VoidCallback onDone;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.all(24),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Spacer(),
+        Text(
+          'SESSION COMPLETE',
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+            letterSpacing: 1.5,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+          ),
         ),
+        const SizedBox(height: 12),
+        Text(
+          '$correct / $total',
+          style: Theme.of(context).textTheme.displayLarge
+              ?.copyWith(fontSize: 70, letterSpacing: -3),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Every answer moves you forward.',
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+        const SizedBox(height: 24),
+        RoadProgressTrack(progress: total == 0 ? 0 : correct / total),
+        const Spacer(),
+        AppButton(text: 'Back to journey  →', onPressed: onDone),
+      ],
+    ),
+  );
+}
+
+class _EmptyQuiz extends StatelessWidget {
+  const _EmptyQuiz({
+    required this.title,
+    required this.detail,
+    required this.onClose,
+  });
+  final String title;
+  final String detail;
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context) => Center(
+    child: Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.headlineLarge),
+          const SizedBox(height: 8),
+          Text(detail, textAlign: TextAlign.center),
+          const SizedBox(height: 24),
+          AppButton(text: 'Go back', onPressed: onClose),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }

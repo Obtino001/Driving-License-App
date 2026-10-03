@@ -4,272 +4,478 @@ import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/theme/app_colors.dart';
-
-import '../application/learn_controller.dart';
 import '../../../core/utils/haptics.dart';
+import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/editorial_header.dart';
+import '../../../core/widgets/road_progress_track.dart';
+import '../application/learn_controller.dart';
+import 'module_motif.dart';
 
 class LearnScreen extends ConsumerWidget {
   const LearnScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final stateAsync = ref.watch(learnProvider);
-
+    final async = ref.watch(learnProvider);
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(title: const Text("Learning Roadmap")),
       body: SafeArea(
-        child: stateAsync.when(
+        child: async.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, _) =>
+              Center(child: Text('Could not load journey: $error')),
           data: (state) {
             final modules = state.modules;
-            return Stack(
-              children: [
-                // Dashed line background
-                Positioned(
-                  left: 48,
-                  top: 0,
-                  bottom: 0,
-                  child: Container(
-                    width: 2,
-                    decoration: const BoxDecoration(
-                      color: Color(
-                        0xFFE0E0E0,
-                      ), // Placeholder dashed effect later
-                    ),
-                  ),
-                ),
-                ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 32),
-                  itemCount: modules.length,
-                  itemBuilder: (context, index) {
-                    final module = modules[index];
-                    return _buildModuleNode(context, module);
-                  },
-                ),
-              ],
+            final currentIndex = modules.indexWhere(
+              (m) => !m.isCompleted && m.totalQuestions > 0,
             );
-          },
-          loading: () => const Center(
-            child: CircularProgressIndicator(color: AppColors.primaryAccent),
-          ),
-          error: (e, _) => Center(child: Text("Error: \$e")),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildModuleNode(BuildContext context, LearnModule module) {
-    bool isStarted = module.progress > 0;
-
-    return GestureDetector(
-      onTap: () {
-        AppHaptics.selection();
-        _showModuleDetails(context, module);
-      },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 48),
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Node
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: module.isCompleted
-                    ? AppColors.success
-                    : (isStarted
-                          ? AppColors.primaryAccent
-                          : AppColors.surfaceElevated),
-                shape: BoxShape.circle,
-                border: !isStarted && !module.isCompleted
-                    ? Border.all(color: const Color(0xFFE0E0E0), width: 2)
-                    : null,
-              ),
-              child: Center(
-                child: Icon(
-                  module.isCompleted
-                      ? PhosphorIcons.check(PhosphorIconsStyle.bold)
-                      : (isStarted
-                            ? PhosphorIcons.carProfile(PhosphorIconsStyle.fill)
-                            : PhosphorIcons.bookOpen(PhosphorIconsStyle.fill)),
-                  color: module.isCompleted || isStarted
-                      ? AppColors.primaryDark
-                      : AppColors.textTertiary,
-                  size: 24,
-                ),
-              ),
-            ),
-            const SizedBox(width: 24),
-            // Content
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: isStarted
-                        ? AppColors.primaryDark
-                        : const Color(0xFFE0E0E0),
-                  ),
-                  boxShadow: isStarted
-                      ? [
-                          BoxShadow(
-                            color: AppColors.primaryDark.withValues(
-                              alpha: 0.05,
-                            ),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ]
-                      : null,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      module.title,
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(
-                            color: module.isCompleted
-                                ? AppColors.success
-                                : AppColors.textPrimary,
-                          ),
+            final activeIndex = currentIndex < 0 ? 0 : currentIndex;
+            final explored = modules
+                .where((m) => m.completedQuestions > 0)
+                .length;
+            return RefreshIndicator(
+              onRefresh: () => ref.read(learnProvider.notifier).loadModules(),
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(20, 13, 20, 40),
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      onPressed: () => context.pop(),
+                      tooltip: 'Back',
+                      icon: Icon(PhosphorIcons.arrowLeft()),
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "\${module.completedQuestions} / \${module.totalQuestions}",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        if (module.totalQuestions > 0)
-                          SizedBox(
-                            width: 100,
-                            child: LinearProgressIndicator(
-                              value: module.progress,
-                              backgroundColor: AppColors.textTertiary
-                                  .withValues(alpha: 0.2),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                module.isCompleted
-                                    ? AppColors.success
-                                    : AppColors.primaryAccent,
-                              ),
-                              minHeight: 4,
-                            ),
-                          ),
-                      ],
+                  ),
+                  const SizedBox(height: 18),
+                  EditorialHeader(
+                    eyebrow: 'LEARNING JOURNEY',
+                    title: 'Road ready,\none skill at a time.',
+                    subtitle:
+                        '${modules.length} topics to build your confidence. Explore them in any order.',
+                  ),
+                  const SizedBox(height: 26),
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryDark,
+                      borderRadius: BorderRadius.circular(18),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showModuleDetails(BuildContext context, LearnModule module) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (ctx) {
-        return SafeArea(
-          child: Container(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.surfaceElevated,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    "Module",
-                    style: Theme.of(context).textTheme.labelMedium
-                        ?.copyWith(color: AppColors.textSecondary),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  module.title,
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "Practice questions specifically for \${module.title} to improve your mastery of this topic.",
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                const SizedBox(height: 32),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Progress",
-                          style: Theme.of(context).textTheme.bodySmall,
+                          'YOUR ROUTE SO FAR',
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(
+                                fontSize: 11,
+                                letterSpacing: 1.4,
+                                color: const Color(0xFFBEC9BE),
+                                fontWeight: FontWeight.w700,
+                              ),
                         ),
+                        const SizedBox(height: 10),
                         Text(
-                          "\${(module.progress * 100).toInt()}%",
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          '$explored / ${modules.length} topics explored',
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(color: AppColors.surface),
+                        ),
+                        const SizedBox(height: 14),
+                        RoadProgressTrack(
+                          progress: modules.isEmpty
+                              ? 0
+                              : explored / modules.length,
                         ),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Questions",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        Text(
-                          "\${module.totalQuestions}",
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
+                  const SizedBox(height: 22),
+                  ...List.generate(modules.length, (index) {
+                    final module = modules[index];
+                    return ModuleJourneyNode(
+                      module: module,
+                      index: index,
+                      isLast: index == modules.length - 1,
+                      isCurrent: index == activeIndex,
+                      onTap: () {
+                        AppHaptics.selection();
+                        _showModule(context, ref, module);
+                      },
+                    );
+                  }),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showModule(
+    BuildContext context,
+    WidgetRef ref,
+    LearnModule module,
+  ) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: AppColors.backgroundLight,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+      ),
+      builder: (sheetContext) => SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            24,
+            12,
+            24,
+            24 + MediaQuery.paddingOf(sheetContext).bottom,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFC5CEC3),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
-                const SizedBox(height: 48),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryAccent,
-                      foregroundColor: AppColors.primaryDark,
-                      padding: const EdgeInsets.symmetric(vertical: 18),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                      elevation: 0,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(ctx);
-                      context.push('/practice', extra: module.category);
-                    },
+              ),
+              const SizedBox(height: 25),
+              Text(
+                'TOPIC  /  ${module.category.toUpperCase()}',
+                style: Theme.of(sheetContext).textTheme.labelMedium?.copyWith(
+                  fontSize: 11,
+                  letterSpacing: 1.2,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
                     child: Text(
-                      module.isCompleted ? "Practice Again" : "Start Practice",
-                      style: Theme.of(context).textTheme.labelLarge,
+                      module.title,
+                      style: Theme.of(sheetContext).textTheme.displayLarge
+                          ?.copyWith(
+                            fontSize: 38,
+                            height: 1.05,
+                            letterSpacing: -1.2,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  ModuleMotif(category: module.category, size: 52),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(
+                _description(module.category),
+                style: Theme.of(sheetContext).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 20),
+              RoadProgressTrack(progress: module.progress),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: _SheetMetric(
+                      label: 'PRACTICED',
+                      value:
+                          '${module.completedQuestions} / ${module.totalQuestions}',
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _SheetMetric(
+                      label: 'ACCURACY',
+                      value: module.accuracy == null
+                          ? '—'
+                          : '${(module.accuracy! * 100).round()}%',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25),
+              AppButton(
+                text: module.completedQuestions > 0
+                    ? 'Continue practice  →'
+                    : 'Start practice  →',
+                onPressed: () {
+                  Navigator.pop(sheetContext);
+                  context.push('/practice', extra: module.category).then((_) {
+                    if (context.mounted) {
+                      ref.read(learnProvider.notifier).loadModules();
+                    }
+                  });
+                },
+              ),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () => Navigator.pop(sheetContext),
+                child: const Text('Back to journey'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+String _description(String category) => switch (category) {
+  'Road Rules' => 'Build the everyday decisions that make every drive safer.',
+  'Traffic Signs' => 'Read sign shapes and instructions at a glance.',
+  'Right of Way' => 'Know when to proceed and when to yield.',
+  'Speed & Distance' =>
+    'Choose a pace and following distance that leave room to react.',
+  'Intersections' =>
+    'Navigate crossings, turns, and roundabouts with confidence.',
+  'Lane Control' => 'Find the right position before your next move.',
+  'Parking' => 'Learn curb rules and position your vehicle safely.',
+  'Sharing the Road' =>
+    'Make space for people, bicycles, trucks, and emergency vehicles.',
+  'Safe Driving' => 'Turn sound judgment into a steady driving habit.',
+  _ => 'Prepare for unexpected situations with a clear plan.',
+};
+
+class _SheetMetric extends StatelessWidget {
+  const _SheetMetric({required this.label, required this.value});
+  final String label;
+  final String value;
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: AppColors.surface,
+      borderRadius: BorderRadius.circular(14),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+            fontSize: 10,
+            letterSpacing: 1.3,
+            color: AppColors.textSecondary,
+          ),
+        ),
+        const SizedBox(height: 7),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Text(value, style: Theme.of(context).textTheme.headlineLarge),
+        ),
+      ],
+    ),
+  );
+}
+
+class ModuleJourneyNode extends StatelessWidget {
+  const ModuleJourneyNode({
+    super.key,
+    required this.module,
+    required this.index,
+    required this.isLast,
+    required this.isCurrent,
+    required this.onTap,
+  });
+  final LearnModule module;
+  final int index;
+  final bool isLast;
+  final bool isCurrent;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final complete = module.isCompleted;
+    final surface = isCurrent
+        ? const Color(0xFFE5EBE4)
+        : complete
+        ? AppColors.surface
+        : const Color(0xFFECEEE9);
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: 58,
+            child: RepaintBoundary(
+              child: CustomPaint(
+                painter: LearningRoutePainter(
+                  completed: complete,
+                  current: isCurrent,
+                  first: index == 0,
+                  last: isLast,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(index.isOdd ? 8 : 0, 8, 0, 8),
+              child: Material(
+                color: surface,
+                borderRadius: BorderRadius.circular(17),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(17),
+                  onTap: onTap,
+                  child: Padding(
+                    padding: const EdgeInsets.all(17),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                complete
+                                    ? 'EXPLORED'
+                                    : isCurrent
+                                    ? 'CURRENT STRETCH'
+                                    : 'UP AHEAD',
+                                style: Theme.of(context).textTheme.labelMedium
+                                    ?.copyWith(
+                                      fontSize: 10,
+                                      letterSpacing: 1.2,
+                                      color: AppColors.textSecondary,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
+                            ),
+                            Text(
+                              '${(module.progress * 100).round()}%',
+                              style: Theme.of(context).textTheme.labelMedium
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                module.title,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.headlineSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      height: 1.16,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            ModuleMotif(category: module.category, size: 38),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          '${module.completedQuestions} of ${module.totalQuestions} questions explored',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        if (isCurrent) ...[
+                          const SizedBox(height: 13),
+                          RoadProgressTrack(
+                            progress: module.progress,
+                            height: 14,
+                          ),
+                        ],
+                      ],
                     ),
                   ),
                 ),
-              ],
+              ),
             ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
+}
+
+class LearningRoutePainter extends CustomPainter {
+  const LearningRoutePainter({
+    required this.completed,
+    required this.current,
+    required this.first,
+    required this.last,
+  });
+  final bool completed;
+  final bool current;
+  final bool first;
+  final bool last;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final path = Path()
+      ..moveTo(center.dx, first ? center.dy : 0)
+      ..lineTo(center.dx, last ? center.dy : size.height);
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = completed ? AppColors.primaryDark : const Color(0xFFC9D1C7)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3,
+    );
+    if (current) {
+      canvas.drawLine(
+        Offset(center.dx, 0),
+        center,
+        Paint()
+          ..color = AppColors.primaryAccent
+          ..strokeWidth = 4,
+      );
+    }
+    canvas.drawCircle(
+      center,
+      15,
+      Paint()
+        ..color = current
+            ? AppColors.primaryAccent
+            : completed
+            ? AppColors.primaryDark
+            : AppColors.surface,
+    );
+    canvas.drawCircle(
+      center,
+      10,
+      Paint()
+        ..color = current
+            ? AppColors.primaryDark
+            : completed
+            ? AppColors.primaryAccent
+            : const Color(0xFFC9D1C7),
+    );
+    if (completed) {
+      final check = Path()
+        ..moveTo(center.dx - 4, center.dy)
+        ..lineTo(center.dx - 1, center.dy + 3)
+        ..lineTo(center.dx + 5, center.dy - 4);
+      canvas.drawPath(
+        check,
+        Paint()
+          ..color = AppColors.primaryDark
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant LearningRoutePainter old) =>
+      old.completed != completed ||
+      old.current != current ||
+      old.first != first ||
+      old.last != last;
 }

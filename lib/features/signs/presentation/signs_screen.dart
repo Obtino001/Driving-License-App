@@ -4,110 +4,167 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/haptics.dart';
+import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/editorial_header.dart';
+import '../domain/study_sign.dart';
+import 'widgets/sign_artwork.dart';
 
-class SignsScreen extends StatelessWidget {
+class SignsScreen extends StatefulWidget {
   const SignsScreen({super.key});
+  @override
+  State<SignsScreen> createState() => _SignsScreenState();
+}
+
+class _SignsScreenState extends State<SignsScreen> {
+  String _category = 'All';
+  static const categories = [
+    'All',
+    'Regulatory',
+    'Warning',
+    'Guide',
+    'Construction',
+    'Railroad',
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final visible = _category == 'All'
+        ? studySigns
+        : studySigns.where((sign) => sign.category == _category).toList();
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(title: const Text("Road Signs")),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(context),
-              const SizedBox(height: 32),
-              _buildModes(context),
-              const SizedBox(height: 32),
-              _buildCategories(context),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Master the Signs",
-          style: Theme.of(context).textTheme.displaySmall,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          "Learn to instantly recognize every traffic sign.",
-          style: Theme.of(context).textTheme.bodyLarge
-              ?.copyWith(color: AppColors.textSecondary),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildModes(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildModeCard(
-            context,
-            "Flashcards",
-            PhosphorIcons.cards(),
-            AppColors.primaryAccent,
-            AppColors.primaryDark,
-            () {
-              AppHaptics.selection();
-              context.push('/signs/flashcards');
-            },
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildModeCard(
-            context,
-            "Sign Quiz",
-            PhosphorIcons.question(),
-            AppColors.surfaceDark,
-            AppColors.textInverse,
-            () {
-              AppHaptics.selection();
-              context.push('/practice', extra: 'Traffic Signs');
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildModeCard(
-    BuildContext context,
-    String title,
-    IconData icon,
-    Color bgColor,
-    Color fgColor,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
           children: [
-            Icon(icon, color: fgColor, size: 28),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.labelLarge
-                  ?.copyWith(color: fgColor),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                tooltip: 'Back',
+                onPressed: () => context.pop(),
+                icon: Icon(PhosphorIcons.arrowLeft()),
+              ),
+            ),
+            const SizedBox(height: 15),
+            const EditorialHeader(
+              eyebrow: 'ROAD SIGNS',
+              title: 'Read the road\nbefore it speaks.',
+              subtitle:
+                  'Learn each shape, then test what it means on the move.',
+            ),
+            const SizedBox(height: 26),
+            _FeaturedStudy(
+              onTap: () {
+                AppHaptics.selection();
+                context.push('/signs/flashcards');
+              },
+            ),
+            const SizedBox(height: 10),
+            Material(
+              color: const Color(0xFFE5EBE4),
+              borderRadius: BorderRadius.circular(16),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () {
+                  AppHaptics.selection();
+                  context.push('/practice', extra: 'Traffic Signs');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 17,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(PhosphorIcons.arrowsLeftRight(), size: 25),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Text(
+                          'Test your sign knowledge',
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Icon(PhosphorIcons.arrowUpRight(), size: 20),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 28),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'The sign library',
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                ),
+                Text(
+                  '${visible.length} signs',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
+            const SizedBox(height: 13),
+            SizedBox(
+              height: 39,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 7),
+                itemBuilder: (context, index) {
+                  final category = categories[index];
+                  final selected = category == _category;
+                  return Semantics(
+                    button: true,
+                    selected: selected,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(22),
+                      onTap: () {
+                        AppHaptics.selection();
+                        setState(() => _category = category);
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 160),
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: selected
+                              ? AppColors.primaryDark
+                              : AppColors.surface,
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                        child: Text(
+                          category,
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(
+                                color: selected
+                                    ? AppColors.primaryAccent
+                                    : AppColors.textPrimary,
+                                fontWeight: selected
+                                    ? FontWeight.w700
+                                    : FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 15),
+            ...visible.map(
+              (sign) => Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: SignStudyCard(
+                  sign: sign,
+                  onTap: () {
+                    AppHaptics.selection();
+                    _showSignDetail(context, sign);
+                  },
+                ),
+              ),
             ),
           ],
         ),
@@ -115,78 +172,234 @@ class SignsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCategories(BuildContext context) {
-    final categories = [
-      {
-        'name': 'Regulatory',
-        'icon': PhosphorIcons.prohibit(),
-        'color': AppColors.danger,
-      },
-      {
-        'name': 'Warning',
-        'icon': PhosphorIcons.warning(),
-        'color': AppColors.warning,
-      },
-      {
-        'name': 'Guide',
-        'icon': PhosphorIcons.info(),
-        'color': AppColors.success,
-      },
-      {
-        'name': 'Construction',
-        'icon': PhosphorIcons.trafficCone(),
-        'color': AppColors.warning,
-      },
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Browse by Category",
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        const SizedBox(height: 16),
-        ...categories.map((cat) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFE0E0E0)),
+  void _showSignDetail(BuildContext context, StudySign sign) {
+    showModalBottomSheet<void>(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: AppColors.backgroundLight,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+      ),
+      builder: (sheet) => SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            22,
+            12,
+            22,
+            22 + MediaQuery.paddingOf(sheet).bottom,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFC5CEC3),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
               ),
-              child: Row(
+              const SizedBox(height: 20),
+              Center(
+                child: Container(
+                  width: 210,
+                  height: 210,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE5EBE4),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(child: SignArtwork(sign: sign, size: 165)),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                sign.category.toUpperCase(),
+                style: Theme.of(sheet).textTheme.labelMedium?.copyWith(
+                  fontSize: 11,
+                  letterSpacing: 1.5,
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                sign.name,
+                style: Theme.of(sheet).textTheme.displayLarge
+                    ?.copyWith(fontSize: 38, letterSpacing: -1.2),
+              ),
+              const SizedBox(height: 12),
+              Text(sign.meaning, style: Theme.of(sheet).textTheme.bodyLarge),
+              const SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFE9D0),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'EASY TO MISS',
+                      style: Theme.of(sheet).textTheme.labelMedium?.copyWith(
+                        fontSize: 11,
+                        letterSpacing: 1.3,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      sign.commonMistake,
+                      style: Theme.of(sheet).textTheme.bodyMedium
+                          ?.copyWith(color: AppColors.primaryDark),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 21),
+              AppButton(
+                text: 'Back to signs',
+                onPressed: () => Navigator.pop(sheet),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FeaturedStudy extends StatelessWidget {
+  const _FeaturedStudy({required this.onTap});
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) => Material(
+    color: AppColors.primaryDark,
+    borderRadius: BorderRadius.circular(20),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: (cat['color'] as Color).withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(
-                      cat['icon'] as IconData,
-                      color: cat['color'] as Color,
+                  Text(
+                    'STUDY MODE',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: AppColors.primaryAccent,
+                      fontSize: 11,
+                      letterSpacing: 1.4,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Text(
-                      cat['name'] as String,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                  const SizedBox(height: 11),
+                  Text(
+                    'Sign\nflashcards',
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      color: AppColors.surface,
+                      fontSize: 29,
+                      height: 1.04,
                     ),
                   ),
-                  Icon(
-                    PhosphorIcons.caretRight(),
-                    color: AppColors.textTertiary,
+                  const SizedBox(height: 12),
+                  Text(
+                    'Look. Recall. Reveal. Repeat.',
+                    style: Theme.of(context).textTheme.bodySmall
+                        ?.copyWith(color: const Color(0xFFD3DDD2)),
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    'Start studying  →',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: AppColors.primaryAccent,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ],
               ),
             ),
-          );
-        }),
-      ],
-    );
-  }
+            const SizedBox(width: 8),
+            Transform.rotate(
+              angle: -.08,
+              child: SignArtwork(sign: studySigns.first, size: 112),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+class SignStudyCard extends StatelessWidget {
+  const SignStudyCard({super.key, required this.sign, required this.onTap});
+  final StudySign sign;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => Material(
+    color: AppColors.surface,
+    borderRadius: BorderRadius.circular(17),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(17),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(14),
+        child: Row(
+          children: [
+            Container(
+              width: 91,
+              height: 91,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF0F2ED),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(child: SignArtwork(sign: sign, size: 76)),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    sign.category.toUpperCase(),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: AppColors.textSecondary,
+                      fontSize: 10,
+                      letterSpacing: 1.2,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    sign.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    sign.meaning,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 5),
+            Icon(PhosphorIcons.arrowUpRight(), size: 18),
+          ],
+        ),
+      ),
+    ),
+  );
 }
